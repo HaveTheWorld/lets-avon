@@ -1,0 +1,7 @@
+{
+	"extends": "react-static/.babelrc",
+	"plugins": [
+		"react-hot-loader/babel",
+		"transform-decorators-legacy"
+	]
+}
