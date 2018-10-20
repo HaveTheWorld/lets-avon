@@ -1,0 +1,21 @@
+@import './chunks/nprogress';
+
+body {
+	color: $black;
+	font-size: 14px;
+}
+
+.title, .subtitle {
+	color: $black
+}
+
+#root {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+#page-content {
+	flex-grow: 1;
+	min-height: 1000px;
+}

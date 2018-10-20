@@ -4,16 +4,22 @@ import { Router, Link } from 'react-static'
 import Routes from 'react-static-routes'
 import '@/assets/scss/main.scss'
 import NProgress from '@/components/elements/NProgress'
+import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
 
+import GridHelper from '@/components/elements/GridHelper'
 
 const App = () => {
 	return (
 		<Router>
 			<Fragment>
+				<GridHelper />
 				<NProgress />
-				<div id="content">
+				<Header />
+				<main id="page-content">
 					<Routes />
-				</div>
+				</main>
+				<Footer />
 			</Fragment>
 		</Router>
 	)

@@ -6,7 +6,7 @@ import nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 import 'nprogress/nprogress.js'
 
-nprogress.configure({ parent: '#content', showSpinner: false })
+nprogress.configure({ parent: '#navbar', showSpinner: false })
 
 @withLoading
 class NProgress extends React.Component {

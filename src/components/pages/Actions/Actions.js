@@ -1,16 +1,17 @@
 import React, { Fragment } from 'react'
 import PageHelmet from '@/components/elements/PageHelmet'
 import Section from '@/components/elements/Section'
+import PageTitle from '@/components/elements/PageTitle'
 
-const Error404 = () => {
+const Actions = () => {
 	return (
 		<Fragment>
-			<PageHelmet page="404" />
+			<PageHelmet page="actions" />
 			<Section>
-				<h1 className="title">Page Not Found</h1>
+				<h1 className="title">Акции</h1>
 			</Section>
 		</Fragment>
 	)
 }
 
-export default Error404
+export default Actions

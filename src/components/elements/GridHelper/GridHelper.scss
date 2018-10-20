@@ -1,0 +1,16 @@
+.sizer {
+	position: fixed;
+	z-index: 9999;
+	bottom: 0;
+	right: 0;
+	min-width: 55px;
+	padding: 0 5px;
+	background: #fff;
+	color: #000;
+	font-family: Calibri;
+	font-size: 13px;
+	font-weight: 600;
+	text-align: right;
+	border: 1px solid rgba(#000, 0.5);
+	box-shadow: 0 0 5px rgba(#000, 0.35);
+}

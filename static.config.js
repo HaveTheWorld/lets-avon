@@ -17,7 +17,28 @@ export default {
 		return [
 			{
 				path: '/',
-				component: `${pagesPath}/Home`
+				component: `${pagesPath}/Home`,
+				getData() {
+					return {
+						isHome: true
+					}
+				}
+			},
+			{
+				path: '/catalogs',
+				component: `${pagesPath}/Catalogs`
+			},
+			{
+				path: '/actions',
+				component: `${pagesPath}/Actions`
+			},
+			{
+				path: '/info',
+				component: `${pagesPath}/Info`
+			},
+			{
+				path: '/register',
+				component: `${pagesPath}/Register`
 			},
 			{
 				is404: true,
