@@ -14,5 +14,8 @@ export default {
 	},
 	'/register': {
 		title: 'Анкета представителя'
+	},
+	'/login': {
+		title: 'Авторизация'
 	}
 }

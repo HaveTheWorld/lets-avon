@@ -3,7 +3,7 @@ import Section from '@/components/elements/Section'
 
 const Actions = () => {
 	return (
-		<Section title="Акции и спецпредложения">
+		<Section title="Акции и спец. предложения">
 			
 		</Section>
 	)

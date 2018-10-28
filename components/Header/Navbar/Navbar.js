@@ -59,6 +59,7 @@ class Navbar extends React.Component {
 	render() {
 		const { isMenuActive } = this.state
 		const { isShown, isHome } = this.props
+		const isProd = process.env.NODE_ENV === 'production'
 
 		const navbarCls = cls(
 			'navbar',
@@ -79,6 +80,15 @@ class Navbar extends React.Component {
 						<Burger isActive={isMenuActive} onClick={this.toggleMenu} />
 					</div>
 					<div className={cls('navbar-menu', css.menu, { 'is-active': isMenuActive })} onClick={this.closeMenu}>
+						{!isProd &&
+						<div className="navbar-start">
+							<Link prefetch route="/login">
+								<a className="navbar-item">
+									<Icon icon={['fas', 'unlock']} />
+									<span>Вход</span>
+								</a>
+							</Link>
+						</div>}
 						<div className="navbar-end">
 							{this.renderMenu()}
 						</div>

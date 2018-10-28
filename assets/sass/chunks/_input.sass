@@ -1,0 +1,29 @@
+.input.is-active,
+.input.is-focused,
+.input:active:not(.is-static),
+.input:focus:not(.is-static),
+.textarea.is-active,
+.textarea.is-focused,
+.textarea:active,
+.textarea:focus
+	border-color: $primary
+	box-shadow: 0 0 0 0.125em rgba($primary, 0.25)
+	&.is-danger
+		border-color: $danger
+		box-shadow: 0 0 0 0.125em rgba($danger, 0.25)
+
+.input
+	&::-webkit-input-placeholder
+		color: grey
+	&:-moz-placeholder
+		color: grey
+		opacity: 1
+	&::-moz-placeholder
+		color: grey
+		opacity: 1
+	&:-ms-input-placeholder
+		color: grey
+	&::-ms-input-placeholder
+		color: grey
+	&::placeholder
+		color: grey
