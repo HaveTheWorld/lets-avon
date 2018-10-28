@@ -1,7 +1,8 @@
 {
-	"extends": "react-static/.babelrc",
+	"presets": [
+		"next/babel"
+	],
 	"plugins": [
-		"react-hot-loader/babel",
-		"transform-decorators-legacy"
+		["@babel/plugin-proposal-decorators", { "legacy": true }]
 	]
 }

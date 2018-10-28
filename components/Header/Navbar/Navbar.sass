@@ -1,0 +1,80 @@
+.navbar
+	position: fixed
+	top: 0
+	left: 0
+	width: 100%
+	background: transparent	
+	transition: background 0.25s ease
+	&:not(.is-home):not(.is-shown)
+		border-bottom: 1px solid rgba($black, 0.15)
+		& :global(.navbar-burger)
+			&:hover
+				background-color: rgba($black, 0.085)
+			
+	& .menu
+		& a:global(.is-active)
+			cursor: default		
+	
+	a
+		transition: color 0.25s ease
+		color: lighten($black, 15%)
+		&:hover, &:global(.is-active)
+			color: $primary
+			background-color: transparent
+			& :global(.icon)
+				color: rgba($primary, 0.75)
+		& :global(.icon)
+			margin-right: 5px
+			color: rgba($black, 0.75)
+			transition: color 0.25s ease	
+
+	.brand
+		color: $primary
+		transition: color 0.25s ease	
+
+	& :global(.navbar-burger)		
+		span
+			height: 2px
+			color: lighten($black, 15%)	
+
+	&.is-shown
+		background: rgba($primary, 0.9)
+		box-shadow: 0 2px 10px rgba($primary, 0.25), 0 0 5px rgba($primary, 0.25)
+		a
+			color: $white
+			&:hover, &:global(.is-active)
+				color: $salad
+				& :global(.icon)
+					color: rgba($salad, 0.75)			
+			& :global(.icon)
+				color: rgba($white, 0.85)		
+
+		.brand
+			color: $white		
+
+		& :global(.navbar-burger)			
+			span
+				color: rgba($white, 0.85)
+
+@media screen and (max-width: 1087px)
+	.menu
+		position: fixed
+		display: block
+		top: 0
+		right: -320px
+		width: 320px
+		height: 100vh
+		padding: 0 10px
+		background-color: rgba($black, 0.85)
+		transition: right 0.35s ease
+		&:global(.is-active)
+			right: 0
+		a
+			color: $white
+			border-bottom: 1px solid rgba($white, 0.25)
+			&:hover, &:global(.is-active)
+				color: $salad
+				& :global(.icon)
+					color: rgba($salad, 0.75)	
+			& :global(.icon)
+				color: rgba($white, 0.85)
