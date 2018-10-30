@@ -5,6 +5,7 @@ import css from './Layout.sass'
 import Helmet from './Helmet'
 import Header from './Header'
 import Footer from './Footer'
+import Sidebar from './Sidebar'
 
 let GridHelper
 const isProd = process.env.NODE_ENV === 'production'
@@ -16,10 +17,9 @@ const Layout = ({ children }) => {
 			{!isProd && <GridHelper />}
 			<Helmet />
 			<Header />
-			<main className={css.main}>
-				<div className="container">
-					{children}
-				</div>
+			<main className={`${css.main} container`}>
+				<Sidebar />
+				{children}
 			</main>
 			<Footer />
 		</React.Fragment>

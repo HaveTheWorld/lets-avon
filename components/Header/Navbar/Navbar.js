@@ -3,11 +3,16 @@ import PropTypes from 'prop-types'
 import cls from 'classnames'
 import onClickOutside from 'react-onclickoutside'
 import { Link } from '@/libs/routes'
-import navMap from '@/maps/header-nav'
+import menuMap from '@/maps/menu'
 import css from './Navbar.sass'
 import Burger from './Burger'
 import Icon from '@/components/elements/Icon'
+import NavLink from './NavLink'
 
+import { graphql } from 'react-apollo'
+import { GET_CURRENT_USER } from '@/graphql/auth.gql'
+
+@graphql(GET_CURRENT_USER)
 @onClickOutside
 class Navbar extends React.Component {
 	state = {
@@ -34,32 +39,48 @@ class Navbar extends React.Component {
 		this.setState({ isMenuActive: false })
 	}
 
-	renderMenu() {
+	onLinkClick = isActive => e => {
+		this.closeMenu()
+		isActive && e.preventDefault()
+	}
+
+	renderMenuStart() {
+		const { asPath, data: { user } } = this.props
+		const isProd = process.env.NODE_ENV === 'production'
+
+		if (!user && isProd) { return null }
+
+		const isActive = /^\/admin/.test(asPath)
+
+		return (
+			<div className="navbar-start">
+				<NavLink
+					to="/admin"
+					icon={['fas', 'wrench']}
+					text="Админ"
+					isActive={isActive}
+					onClick={this.onLinkClick}
+				/>
+			</div>
+		)
+	}
+
+	renderMenuEnd() {
 		const { asPath } = this.props
 
-		return Object.entries(navMap).map(([to, { icon, text }]) => {
-			const isActive = to === asPath
-			return (
-				<Link key={to} prefetch route={to}>
-					<a
-						className={cls('navbar-item', { 'is-active': isActive })}
-						onClick={e => {
-							this.closeMenu()
-							isActive && e.preventDefault()
-						}}
-					>
-						<Icon icon={icon} />
-						<span>{text}</span>
-					</a>
-				</Link>
-			)
-		})
+		return (
+			<div className="navbar-end">
+				{Object.entries(menuMap).map(([to, props]) => {
+					const isActive = to === asPath
+					return <NavLink key={to} to={to} { ...props} isActive={isActive} onClick={this.onLinkClick} />
+				})}
+			</div>
+		)
 	}
 
 	render() {
 		const { isMenuActive } = this.state
-		const { isShown, isHome } = this.props
-		const isProd = process.env.NODE_ENV === 'production'
+		const { isShown, isHome } = this.props		
 
 		const navbarCls = cls(
 			'navbar',
@@ -80,18 +101,8 @@ class Navbar extends React.Component {
 						<Burger isActive={isMenuActive} onClick={this.toggleMenu} />
 					</div>
 					<div className={cls('navbar-menu', css.menu, { 'is-active': isMenuActive })} onClick={this.closeMenu}>
-						{!isProd &&
-						<div className="navbar-start">
-							<Link prefetch route="/login">
-								<a className="navbar-item">
-									<Icon icon={['fas', 'unlock']} />
-									<span>Вход</span>
-								</a>
-							</Link>
-						</div>}
-						<div className="navbar-end">
-							{this.renderMenu()}
-						</div>
+						{this.renderMenuStart()}
+						{this.renderMenuEnd()}
 					</div>
 				</div>
 			</nav>

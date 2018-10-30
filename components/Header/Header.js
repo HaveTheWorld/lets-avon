@@ -27,9 +27,10 @@ class Header extends React.Component {
 		const navbar = findDOMNode(this.navbar)
 		const { height } = navbar.getBoundingClientRect()
 
-		this.setState({ paddingTop: height, isMounted: true })
-
-		window.addEventListener('scroll', this.onWindowScroll)
+		this.setState({ paddingTop: height, isMounted: true }, () => {
+			document.getElementById('__next').classList.add('is-ready')
+			window.addEventListener('scroll', this.onWindowScroll)
+		})
 	}
 
 	componentWillUnmount() {

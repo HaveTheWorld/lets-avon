@@ -1,6 +1,5 @@
 export default {
 	'/': {
-		exact: true,
 		text: 'Главная',
 		icon: ['fas', 'home']
 	},

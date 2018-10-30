@@ -17,7 +17,7 @@
 	
 	a
 		transition: color 0.25s ease
-		color: lighten($black, 15%)
+		color: $menuLinkColor
 		&:hover, &:global(.is-active)
 			color: $primary
 			background-color: transparent
@@ -35,7 +35,7 @@
 	& :global(.navbar-burger)		
 		span
 			height: 2px
-			color: lighten($black, 15%)	
+			color: $menuLinkColor
 
 	&.is-shown
 		background: rgba($primary, 0.9)

@@ -10,12 +10,15 @@ export default {
 		title: 'Акции'
 	},
 	'/info': {
-		title: 'Как заказать'
+		title: 'Информация'
 	},
 	'/register': {
-		title: 'Анкета представителя'
+		title: 'Регистрация'
+	},
+	'/admin': {
+		title: 'Админ'
 	},
 	'/login': {
-		title: 'Авторизация'
+		title: 'Вход'
 	}
 }
