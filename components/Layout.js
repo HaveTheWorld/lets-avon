@@ -17,10 +17,14 @@ const Layout = ({ children }) => {
 			{!isProd && <GridHelper />}
 			<Helmet />
 			<Header />
-			<main className={`${css.main} container`}>
-				<Sidebar />
-				{children}
-			</main>
+			<div className={css.body}>
+				<div className="container">
+					<Sidebar />
+					<main className={css.main}>
+						{children}
+					</main>
+				</div>
+			</div>
 			<Footer />
 		</React.Fragment>
 	)

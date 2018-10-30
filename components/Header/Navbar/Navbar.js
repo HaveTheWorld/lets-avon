@@ -40,7 +40,6 @@ class Navbar extends React.Component {
 	}
 
 	onLinkClick = isActive => e => {
-		this.closeMenu()
 		isActive && e.preventDefault()
 	}
 
@@ -90,7 +89,7 @@ class Navbar extends React.Component {
 		)
 
 		return (
-			<nav id="navbar" className={navbarCls}>
+			<nav id="navbar" className={navbarCls} onClick={this.closeMenu}>
 				<div className="container">
 					<div className="navbar-brand">
 						<Link prefetch route="/">
@@ -100,7 +99,7 @@ class Navbar extends React.Component {
 						</Link>
 						<Burger isActive={isMenuActive} onClick={this.toggleMenu} />
 					</div>
-					<div className={cls('navbar-menu', css.menu, { 'is-active': isMenuActive })} onClick={this.closeMenu}>
+					<div className={cls('navbar-menu', css.menu, { 'is-active': isMenuActive })}>
 						{this.renderMenuStart()}
 						{this.renderMenuEnd()}
 					</div>

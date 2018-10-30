@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import cls from 'classnames'
 import Section from '@/components/elements/Section'
 import Input from '@/components/elements/Input'
 import Icon from '@/components/elements/Icon'
@@ -9,20 +10,41 @@ import { LOGIN, GET_CURRENT_USER } from '@/graphql/auth.gql'
 import jwt from 'jsonwebtoken'
 import { Router } from '@/libs/routes'
 
+const fields = ['username', 'password']
+
 @graphql(LOGIN)
 class Login extends React.Component {
-	state = {
-		username: '',
-		password: ''
+	constructor(props) {
+		super(props)
+		this.state = {
+			fields: {},
+			isLoading: false,
+			isFormValid: false
+		}
+		fields.forEach(field => this.state.fields[field] = { value: '', isValid: false })
+	}
+
+	checkFormValid(fields) {
+		return Object.values(fields).every(({ isValid }) => isValid)
 	}
 
 	onSubmit = async e => {
 		e.preventDefault()
-		const { username, password } = this.state
+		const { isFormValid, fields } = this.state
 		const { mutate } = this.props
+
+		if (!isFormValid) { return }
+
+		const variables = Object.entries(fields).reduce((acc, [name, field]) => {
+			acc[name] = field.value
+			return acc
+		}, {})
+
+		this.setState({ isLoading: true })
+
 		try {
-			const { data } = await mutate({
-				variables: { username, password },
+			await mutate({
+				variables,
 				update: (store, { data: { login: token } }) => {
 					const { exp, iat, ...user } = jwt.decode(token)
 					document.cookie = `token=${token}; expires=${new Date(exp * 1000)}`
@@ -31,19 +53,33 @@ class Login extends React.Component {
 					store.writeQuery({ query: GET_CURRENT_USER, data: { ...data, user } })
 				}
 			})
+
+			this.setState({ isLoading: false })
 			Router.pushRoute('/admin')
 		} catch (error) {
 			// Handle error
+			this.setState({ isLoading: false })
 			alert(error.message)
 		}
 	}
 
-	onInputChange = name => e => {
-		this.setState({ [name]: e.target.value })
+	onInputChange = name => ({ value, isValid }) => {
+		const { fields } = this.state
+
+		const newFields = {
+			...fields,
+			[name]: { value, isValid }
+		}
+		const newState = { fields: newFields }
+
+		if (newFields[name].isValid !== fields[name].isValid) {
+			newState.isFormValid = this.checkFormValid(newFields)
+		}
+		this.setState(newState)
 	}
 
 	render() {
-		const { username, password } = this.state
+		const { fields, isLoading, isFormValid } = this.state
 
 		return (
 			<Section title="Авторизация">
@@ -52,17 +88,27 @@ class Login extends React.Component {
 						<Input
 							name="username"
 							label="Имя пользователя"
-							value={username}
+							icon={['fas', 'user-alt']}
+							value={fields.username.value}
 							onChange={this.onInputChange('username')}
+							pattern={/.+/}
+							errorText="Поле обязательно для заполнения"
 						/>
 						<Input
 							type="password"
 							name="password"
 							label="Пароль"
-							value={password}
+							icon={['fas', 'key']}
+							value={fields.password.value}
 							onChange={this.onInputChange('password')}
+							pattern={/.+/}
+							errorText="Поле обязательно для заполнения"
 						/>
-						<button className="button is-primary is-outlined">
+						<button
+							className={cls('button', 'is-primary', 'is-outlined', { 'is-loading': isLoading })}
+							disabled={!isFormValid}
+							onClick={e => e.target.blur()}
+						>
 							<Icon icon={['fas', 'sign-in-alt']} />
 							<span>Войти</span>
 						</button>
