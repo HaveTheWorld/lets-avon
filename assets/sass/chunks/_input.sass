@@ -1,3 +1,16 @@
+$placeholderColor: lighten($black, 25%)
+
+.control.has-icons-left,
+.control.has-icons-right
+	.icon
+		color: $placeholderColor
+	.input.is-danger
+		border-color: rgba($danger, 0.75)
+		& + .icon
+			color: lighten($danger, 25%)
+	.has-text-danger
+		font-size: 13px
+
 .input.is-active,
 .input.is-focused,
 .input:active:not(.is-static),
@@ -8,22 +21,31 @@
 .textarea:focus
 	border-color: $primary
 	box-shadow: 0 0 0 0.125em rgba($primary, 0.25)
+	& + .icon
+		color: $black !important
 	&.is-danger
-		border-color: $danger
-		box-shadow: 0 0 0 0.125em rgba($danger, 0.25)
+		// border-color: $danger
+		// border-color: #dbdbdb
+		border-color: rgba($danger, 0.75)
+		box-shadow: 0 0 0 0.125em rgba($danger, 0.35)
+		& + .icon
+			color: $danger !important
 
 .input
 	&::-webkit-input-placeholder
-		color: grey
+		color: $placeholderColor
 	&:-moz-placeholder
-		color: grey
+		color: $placeholderColor
 		opacity: 1
 	&::-moz-placeholder
-		color: grey
+		color: $placeholderColor
 		opacity: 1
 	&:-ms-input-placeholder
-		color: grey
+		color: $placeholderColor
 	&::-ms-input-placeholder
-		color: grey
+		color: $placeholderColor
 	&::placeholder
-		color: grey
+		color: $placeholderColor
+
+.label
+	color: $black

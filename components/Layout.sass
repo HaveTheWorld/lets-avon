@@ -6,7 +6,11 @@ div:global(#__next)
 	&:global(.is-ready)
 		visibility: visible
 
+.body
+	flex-grow: 1
+	// min-height: 1000px
+	& > :global(.container)
+		display: flex
+
 .main
 	flex-grow: 1
-	display: flex
-	// min-height: 1000px

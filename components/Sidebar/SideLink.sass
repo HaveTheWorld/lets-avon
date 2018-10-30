@@ -1,9 +1,14 @@
 .link
 	display: block
 	margin: 10px 0
-	color: $menuLinkColor
+	color: $black
 	white-space: nowrap
-	&:hover
+	transition: color 0.25s ease
+	&:hover, &:global(.is-active)
 		color: $primary
 		& :global(.icon)
-			color: rgba($primary, 0.75)
+			color: rgba($primary, 0.85)
+	& :global(.icon)
+		margin-right: 5px
+		color: rgba($black, 0.85)
+		transition: color 0.25s ease
