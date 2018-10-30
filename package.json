@@ -7,16 +7,25 @@
 	"scripts": {
 		"dev": "nodemon server.js",
 		"build": "next build",
-		"start": "cross-env NODE_ENV=production nodemon server.js",
+		"start": "cross-env NODE_ENV=production node server.js",
 		"prod": "yarn build && yarn start"
 	},
 	"dependencies": {
+		"apollo-boost": "^0.1.18",
+		"axios": "^0.18.0",
 		"bulma": "^0.7.2",
 		"classnames": "^2.2.6",
+		"cookie-parser": "^1.4.3",
 		"express": "^4.16.4",
+		"express-http-proxy": "^1.4.0",
+		"graphql": "^14.0.2",
+		"graphql-tag": "^2.10.0",
+		"isomorphic-unfetch": "^3.0.0",
+		"jsonwebtoken": "^8.3.0",
 		"next": "^7.0.2",
 		"next-routes": "^1.4.2",
 		"react": "^16.5.2",
+		"react-apollo": "^2.2.4",
 		"react-dom": "^16.5.2",
 		"react-onclickoutside": "^6.7.1"
 	},

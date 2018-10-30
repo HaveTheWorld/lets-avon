@@ -17,15 +17,15 @@
 	
 	a
 		transition: color 0.25s ease
-		color: lighten($black, 15%)
+		color: $black
 		&:hover, &:global(.is-active)
 			color: $primary
 			background-color: transparent
 			& :global(.icon)
-				color: rgba($primary, 0.75)
+				color: rgba($primary, 0.85)
 		& :global(.icon)
 			margin-right: 5px
-			color: rgba($black, 0.75)
+			color: rgba($black, 0.85)
 			transition: color 0.25s ease	
 
 	.brand
@@ -35,7 +35,7 @@
 	& :global(.navbar-burger)		
 		span
 			height: 2px
-			color: lighten($black, 15%)	
+			color: $black
 
 	&.is-shown
 		background: rgba($primary, 0.9)
@@ -78,3 +78,6 @@
 					color: rgba($salad, 0.75)	
 			& :global(.icon)
 				color: rgba($white, 0.85)
+		& :global(.navbar-start)
+			a:last-child
+				border-color: rgba($white, 1)

@@ -1,0 +1,17 @@
+.button:focus:not(:active)
+	border-color: #4a4a4a
+	box-shadow: none
+	&.is-outlined
+		background-color: transparent !important
+		&.is-primary
+			color: $primary
+			&:focus
+				border-color: $primary
+				color: $primary
+				box-shadow: none
+			&:hover
+				color: #fff !important
+				background-color: $primary !important
+			&:active
+	&.is-primary
+		border-color: transparent

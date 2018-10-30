@@ -2,7 +2,15 @@ div:global(#__next)
 	min-height: 100vh
 	display: flex
 	flex-direction: column
+	visibility: hidden
+	&:global(.is-ready)
+		visibility: visible
+
+.body
+	flex-grow: 1
+	// min-height: 1000px
+	& > :global(.container)
+		display: flex
 
 .main
 	flex-grow: 1
-	min-height: 1000px
