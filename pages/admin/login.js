@@ -45,6 +45,9 @@ class Login extends React.Component {
 		try {
 			await mutate({
 				variables,
+					username: username.value,
+					password: password.value
+				},
 				update: (store, { data: { login: token } }) => {
 					const { exp, iat, ...user } = jwt.decode(token)
 					document.cookie = `token=${token}; expires=${new Date(exp * 1000)}`
@@ -59,7 +62,7 @@ class Login extends React.Component {
 		} catch (error) {
 			// Handle error
 			this.setState({ isLoading: false })
-			alert(error.message)
+			console.log(error.message)
 		}
 	}
 
