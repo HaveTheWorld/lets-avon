@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'next/router'
-import Section from '@/components/elements/Section'
+import Section from '@/components/Elements/Section'
 import SideLink from './SideLink'
 import LogoutButton from './LogoutButton'
 import css from './Sidebar.sass'

@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql } from 'react-apollo'
-import { GET_CURRENT_USER } from '@/graphql/auth.gql'
+import { GET_CURRENT_USER } from '@/apollo/gql/auth.gql'
 import { Router } from '@/libs/routes'
 
 export default WrappedComponent => {

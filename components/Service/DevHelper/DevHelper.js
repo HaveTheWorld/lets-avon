@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cls from 'classnames'
-import css from './GridHelper.sass'
+import css from './DevHelper.sass'
 
 function getBreakpoint(width) {
 	if (width <= 768) return 'mobile'
@@ -11,7 +11,7 @@ function getBreakpoint(width) {
 	return 'full-hd'
 }
 
-class GridHelper extends React.Component {
+class DevHelper extends React.Component {
 	state = {
 		width: 0
 	}
@@ -46,8 +46,8 @@ class GridHelper extends React.Component {
 	}
 }
 
-GridHelper.propTypes = {
+DevHelper.propTypes = {
 	
 }
 
-export default GridHelper
+export default DevHelper

@@ -6,15 +6,15 @@ import Helmet from './Helmet'
 import Header from './Header'
 import Footer from './Footer'
 import Sidebar from './Sidebar'
+import ToastsContainer from '@/components/Service/ToastsContainer'
 
-let GridHelper
+let DevHelper
 const isProd = process.env.NODE_ENV === 'production'
-if (!isProd) { GridHelper = require('@/components/elements/GridHelper').default }
+if (!isProd) { DevHelper = require('@/components/Service/DevHelper').default }
 
 const Layout = ({ children }) => {
 	return (
 		<React.Fragment>
-			{!isProd && <GridHelper />}
 			<Helmet />
 			<Header />
 			<div className={css.body}>
@@ -26,6 +26,8 @@ const Layout = ({ children }) => {
 				</div>
 			</div>
 			<Footer />
+			{!isProd && <DevHelper />}
+			<ToastsContainer />
 		</React.Fragment>
 	)
 }

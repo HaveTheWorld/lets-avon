@@ -1,17 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cls from 'classnames'
-import Section from '@/components/elements/Section'
-import Input from '@/components/elements/Input'
-import Icon from '@/components/elements/Icon'
-
-import { graphql } from 'react-apollo'
-import { LOGIN, GET_CURRENT_USER } from '@/graphql/auth.gql'
 import jwt from 'jsonwebtoken'
+import { graphql } from 'react-apollo'
+import { LOGIN, GET_CURRENT_USER } from '@/apollo/gql/auth.gql'
+import { connect } from 'react-redux'
+import { addToast } from '@/redux/ducks/toasts'
 import { Router } from '@/libs/routes'
+import { sleep } from '@/libs/helpers'
+import Section from '@/components/Elements/Section'
+import Input from '@/components/Elements/Input'
+import Icon from '@/components/Elements/Icon'
 
 const fields = ['username', 'password']
 
+const mapDispatchToProps = {
+	addToast
+}
+
+@connect(null, mapDispatchToProps)
 @graphql(LOGIN)
 class Login extends React.Component {
 	constructor(props) {
@@ -31,7 +38,7 @@ class Login extends React.Component {
 	onSubmit = async e => {
 		e.preventDefault()
 		const { isFormValid, fields } = this.state
-		const { mutate } = this.props
+		const { mutate, addToast } = this.props
 
 		if (!isFormValid) { return }
 
@@ -51,15 +58,16 @@ class Login extends React.Component {
 					const data = store.readQuery({ query: GET_CURRENT_USER })
 					user.__typename = 'UserType'
 					store.writeQuery({ query: GET_CURRENT_USER, data: { ...data, user } })
+					addToast(`Вход выполнен успешно. Привет, ${user.username}!`, 'success')
 				}
 			})
-
+			await sleep(10)
 			this.setState({ isLoading: false })
 			Router.pushRoute('/admin')
 		} catch (error) {
 			// Handle error
 			this.setState({ isLoading: false })
-			alert(error.message)
+			addToast(error.message.replace('GraphQL error: ', ''), 'danger')
 		}
 	}
 
@@ -93,6 +101,7 @@ class Login extends React.Component {
 							onChange={this.onInputChange('username')}
 							pattern={/.+/}
 							errorText="Поле обязательно для заполнения"
+							autoFocus
 						/>
 						<Input
 							type="password"

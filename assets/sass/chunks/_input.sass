@@ -5,9 +5,9 @@ $placeholderColor: lighten($black, 25%)
 	.icon
 		color: $placeholderColor
 	.input.is-danger
-		border-color: rgba($danger, 0.75)
+		border-color: rgba($dangerColor, 0.75)
 		& + .icon
-			color: lighten($danger, 25%)
+			color: lighten($dangerColor, 25%)
 	.has-text-danger
 		font-size: 13px
 
@@ -24,12 +24,10 @@ $placeholderColor: lighten($black, 25%)
 	& + .icon
 		color: $black !important
 	&.is-danger
-		// border-color: $danger
-		// border-color: #dbdbdb
-		border-color: rgba($danger, 0.75)
-		box-shadow: 0 0 0 0.125em rgba($danger, 0.35)
+		border-color: rgba($dangerColor, 0.75)
+		box-shadow: 0 0 0 0.125em rgba($dangerColor, 0.35)
 		& + .icon
-			color: $danger !important
+			color: $dangerColor !important
 
 .input
 	&::-webkit-input-placeholder

@@ -3,14 +3,14 @@ import PropTypes from 'prop-types'
 import cls from 'classnames'
 import onClickOutside from 'react-onclickoutside'
 import { Link } from '@/libs/routes'
+import { graphql } from 'react-apollo'
+import { GET_CURRENT_USER } from '@/apollo/gql/auth.gql'
 import menuMap from '@/maps/menu'
 import css from './Navbar.sass'
 import Burger from './Burger'
-import Icon from '@/components/elements/Icon'
+import Icon from '@/components/Elements/Icon'
 import NavLink from './NavLink'
 
-import { graphql } from 'react-apollo'
-import { GET_CURRENT_USER } from '@/graphql/auth.gql'
 
 @graphql(GET_CURRENT_USER)
 @onClickOutside
