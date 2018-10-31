@@ -53,7 +53,7 @@ module.exports = withSass({
 					...cssLoader.options,
 					modules: true,
 					camelCase: true,
-					localIdentName: '[local]___[hash:base64:5]'
+					localIdentName: dev ? '[local]___[hash:base64:5]' : '[hash:base64]'
 				}
 			},
 			'sass-loader',

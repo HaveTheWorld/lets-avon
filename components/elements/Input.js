@@ -15,7 +15,7 @@ class Input extends React.Component {
 		const { autoFocus } = this.props
 		if (autoFocus) {
 			await sleep(100)
-			this.input.focus()
+			this.input && this.input.focus()
 		}
 	}
 

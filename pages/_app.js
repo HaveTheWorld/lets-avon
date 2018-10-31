@@ -9,16 +9,14 @@ import { Provider } from 'react-redux'
 import initStore from '@/redux/init-store'
 
 import Router from 'next/router'
-import requireAuth from '@/components/HOCs/requireAuth'
+import Redirect from '@/components/HOCs/Redirect'
 import Layout from '@/components/Layout'
-
-const protectedRoutes = ['/admin']
 
 @withApolloClient
 @withRedux(initStore)
 class MyApp extends App {
 
-	static async getInitialProps({ Component, router, ctx }) {
+	static async getInitialProps({ Component, ctx }) {
 		let pageProps = {}
 
 		if (Component.getInitialProps) {
@@ -41,18 +39,16 @@ class MyApp extends App {
 	}
 
 	render () {
-		let {Component, pageProps, apolloClient, store, redirect, router} = this.props
-
-		if (protectedRoutes.includes(router.asPath)) {
-			Component = requireAuth(Component)
-		}
+		let {Component, pageProps, apolloClient, store, redirect} = this.props
 
 		return (
 			<ApolloProvider client={apolloClient}>
 				<Provider store={store}>
 					<Container>
 						<Layout>
-							<Component {...pageProps} />
+							<Redirect {...pageProps}>
+								<Component />
+							</Redirect>
 						</Layout>
 					</Container>
 				</Provider>

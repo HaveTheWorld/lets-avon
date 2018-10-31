@@ -27,7 +27,7 @@ app.prepare()
 			}
 		}))
 
-		server.use(async (req, res, next) => {
+		server.use((req, res, next) => {
 			bearerHeader = req.cookies['token'] ? `Bearer ${req.cookies['token']}` : null
 			next()	
 		})

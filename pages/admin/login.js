@@ -62,7 +62,7 @@ class Login extends React.Component {
 				}
 			})
 			await sleep(10)
-			this.setState({ isLoading: false })
+			// this.setState({ isLoading: false })
 			Router.pushRoute('/admin')
 		} catch (error) {
 			// Handle error
