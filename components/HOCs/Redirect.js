@@ -4,11 +4,12 @@ import { withRouter } from 'next/router'
 import { graphql, compose } from 'react-apollo'
 import { GET_CURRENT_USER } from '@/apollo/gql/auth.gql'
 import { Router } from '@/libs/routes'
+import Error from '@/components/Service/Error'
 
 import routesMap from '@/maps/routes'
 const adminRoutes = ['/admin']
 
-const Redirect = ({ children, router, data, redirect, ...props }) => {
+const Redirect = ({ children, router, data, redirect, statusCode, ...props }) => {
 
 	const doRedirect = redirect ? redirect : Router.pushRoute
 
@@ -28,6 +29,10 @@ const Redirect = ({ children, router, data, redirect, ...props }) => {
 	if (dirtyRoute) {
 		doRedirect(dirtyRoute[0])
 		return null
+	}
+
+	if (router.route === '/_error') {
+		return <Error statusCode={statusCode || 500} />
 	}
 
 	const Component = () => children

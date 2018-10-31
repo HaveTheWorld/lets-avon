@@ -1,0 +1,18 @@
+.error
+	margin: auto
+	display: flex
+	align-items: center
+
+.status
+	padding: 5px 15px
+	border-right: 2px solid rgba($blackColor, 0.75)
+
+.message
+	padding: 5px 15px
+	transform: translateY(-1px)
+
+@media screen and (max-width: 500px)
+	.error
+		flex-direction: column
+	.status
+		border-right: none

@@ -21,7 +21,7 @@ const ToastsContainer = ({ toasts }) => {
 					))}
 				</TransitionGroup>
 			</div>
-			{!isProd && <ToastsTester />}
+			{/*{!isProd && <ToastsTester />}*/}
 		</Fragment>
 	)
 }
