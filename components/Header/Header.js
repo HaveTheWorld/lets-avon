@@ -11,15 +11,17 @@ import bgImage from '@/assets/images/bg-header.jpg'
 class Header extends React.Component {
 	state = {
 		isMounted: false,
-		height: null,
+		flexBasis: null,
 		paddingTop: 0,
 		showNavbar: false
 	}
 
+	timer
+
 	static getDerivedStateFromProps({ isHome }) {
 		const isClient = typeof window !== 'undefined'
 		return {
-			height: isClient && isHome ? window.outerHeight : null
+			flexBasis: isClient && isHome ? window.outerHeight : null
 		}
 	}
 
@@ -29,12 +31,26 @@ class Header extends React.Component {
 
 		this.setState({ paddingTop: height, isMounted: true }, () => {
 			document.getElementById('__next').classList.add('is-ready')
+			window.addEventListener('resize', this.onWindowResize)
 			window.addEventListener('scroll', this.onWindowScroll)
 		})
 	}
 
 	componentWillUnmount() {
+		window.removeEventListener('resize', this.onWindowResize)
 		window.removeEventListener('scroll', this.onWindowScroll)
+	}
+
+	onWindowResize = () => {
+		if (this.timer) { clearTimeout(this.timer) }
+
+		this.timer = setTimeout(() => {
+			const { flexBasis } = this.state
+			const { isHome } = this.props
+			if (isHome && flexBasis !== window.outerHeight) {
+				this.setState({ flexBasis: window.outerHeight })
+			}
+		}, 100)		
 	}
 
 	onWindowScroll = () => {
@@ -57,19 +73,19 @@ class Header extends React.Component {
 	}
 
 	render() {
-		const { height, paddingTop, showNavbar, isMounted } = this.state
+		const { flexBasis, paddingTop, showNavbar, isMounted } = this.state
 		const { isHome, asPath } = this.props
 		
 		let headerStyles = { paddingTop }
 
 		if (isHome && isMounted) {
-			headerStyles['height'] = height
+			headerStyles['flexBasis'] = flexBasis
 			headerStyles['backgroundImage'] = `url(${bgImage})`
 		}
 
 		return (
 			<header className={css.header} style={headerStyles}>
-				<Navbar ref={ref => this.navbar = ref} isShown={showNavbar} isHome={isHome} asPath={asPath} />
+				<Navbar ref={ref => this.navbar = ref} isShown={showNavbar} isHome={isHome} asPath={asPath} />				
 			</header>
 		)
 	}

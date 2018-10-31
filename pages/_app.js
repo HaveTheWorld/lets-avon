@@ -2,9 +2,9 @@ import App, { Container } from 'next/app'
 import withApolloClient from '@/libs/with-apollo-client'
 import { ApolloProvider } from 'react-apollo'
 import Router from 'next/router'
+import requireAuth from '@/components/hocs/requireAuth'
 import Layout from '@/components/Layout'
 
-import requireAuth from '@/components/hocs/requireAuth'
 const protectedRoutes = ['/admin']
 
 @withApolloClient
@@ -17,8 +17,8 @@ class MyApp extends App {
 			pageProps = await Component.getInitialProps(ctx)
 		}
 
-		if (protectedRoutes.includes(ctx.asPath)) {
-			pageProps.redirect = (path) => ctx.res ? ctx.res.redirect(path) : Router.pushRoute(path)
+		if (ctx.res) {
+			pageProps.redirect = (path) => ctx.res.redirect(path)
 		}
 
 		return { pageProps }
@@ -33,9 +33,9 @@ class MyApp extends App {
 	}
 
 	render () {
-		let {Component, pageProps, apolloClient, redirect} = this.props
+		let {Component, pageProps, apolloClient, redirect, router} = this.props
 
-		if (pageProps.redirect) {
+		if (protectedRoutes.includes(router.asPath)) {
 			Component = requireAuth(Component)
 		}
 

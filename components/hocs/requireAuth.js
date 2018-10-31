@@ -7,7 +7,7 @@ export default WrappedComponent => {
 
 	const ReauireAuth = ({ redirect, data, ...props }) => {
 		if (!data.loading && !data.user) {
-			redirect('/login')
+			redirect ? redirect('/login') : Router.pushRoute('/login')
 			return null
 		}
 		return <WrappedComponent {...props} />
