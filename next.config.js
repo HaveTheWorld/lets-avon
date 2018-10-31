@@ -17,9 +17,13 @@ module.exports = withSass({
 
 		config.module.rules.push(sassModules)
 
-		const componentsPath = path.resolve(__dirname, 'components')
-		sass.exclude = componentsPath
-		sassModules.include = componentsPath
+		const modulesPaths = [
+			path.resolve(__dirname, 'components'),
+			path.resolve(__dirname, 'pages/User'),
+			path.resolve(__dirname, 'pages/Admin')
+		]
+		sass.exclude = modulesPaths
+		sassModules.include = modulesPaths
 
 		const cssLoader = {
 			loader: isServer ? 'css-loader/locals' : 'css-loader',

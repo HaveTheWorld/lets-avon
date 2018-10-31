@@ -1,13 +1,13 @@
 module.exports = {
 
 	// User Routes
-	'/': { filePath: 'user/home' },
-	'/catalogs': { filePath: 'user/catalogs' },
-	'/actions': { filePath: 'user/actions' },
-	'/info': { filePath: 'user/info' },
-	'/register': { filePath: 'user/register' },
+	'/': { filePath: 'User/Home/Home' },
+	'/catalogs': { filePath: 'User/Catalogs' },
+	'/actions': { filePath: 'User/Actions' },
+	'/info': { filePath: 'User/Info' },
+	'/register': { filePath: 'User/Register' },
 
 	// Admin Routes
-	'/login': { filePath: 'admin/login' },
-	'/admin': { filePath: 'admin/home' }
+	'/login': { filePath: 'Admin/Login' },
+	'/admin': { filePath: 'Admin/Home' }
 }

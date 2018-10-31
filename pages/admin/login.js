@@ -37,10 +37,10 @@ class Login extends React.Component {
 
 	onSubmit = async e => {
 		e.preventDefault()
-		const { isFormValid, fields } = this.state
+		const { isFormValid, fields, isLoading } = this.state
 		const { mutate, addToast } = this.props
 
-		if (!isFormValid) { return }
+		if (!isFormValid || isLoading) { return }
 
 		const variables = Object.entries(fields).reduce((acc, [name, field]) => {
 			acc[name] = field.value
