@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cls from 'classnames'
 import { graphql } from 'react-apollo'
-import { GET_CURRENT_USER } from '@/graphql/auth.gql'
+import { GET_CURRENT_USER } from '@/apollo/gql/auth.gql'
 import { sleep } from '@/libs/helpers'
-import Icon from '@/components/elements/Icon'
+import Icon from '@/components/Elements/Icon'
 
 @graphql(GET_CURRENT_USER)
 class LogoutButton extends React.Component {

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from '@/libs/routes'
-import Icon from '@/components/elements/Icon'
+import Icon from '@/components/Elements/Icon'
 import css from './SideLink.sass'
 
 const SideLink = ({ to, icon, text }) => {

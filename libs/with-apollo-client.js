@@ -1,5 +1,5 @@
 import React from 'react'
-import initApollo from './init-apollo'
+import initApollo from '@/apollo/init-apollo'
 import Head from 'next/head'
 import { getDataFromTree } from 'react-apollo'
 

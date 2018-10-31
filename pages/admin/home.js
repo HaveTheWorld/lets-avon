@@ -1,5 +1,5 @@
 import React from 'react'
-import Section from '@/components/elements/Section'
+import Section from '@/components/Elements/Section'
 
 const AdminHome = () => {
 	return (

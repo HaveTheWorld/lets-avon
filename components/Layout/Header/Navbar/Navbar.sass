@@ -6,10 +6,10 @@
 	background: transparent	
 	transition: background 0.25s ease
 	&:not(.is-home):not(.is-shown)
-		border-bottom: 1px solid rgba($black, 0.15)
+		border-bottom: 1px solid rgba($blackColor, 0.15)
 		& :global(.navbar-burger)
 			&:hover
-				background-color: rgba($black, 0.085)
+				background-color: rgba($blackColor, 0.085)
 			
 	& .menu
 		& a:global(.is-active)
@@ -17,44 +17,44 @@
 	
 	a
 		transition: color 0.25s ease
-		color: $black
+		color: $blackColor
 		&:hover, &:global(.is-active)
-			color: $primary
+			color: $primaryColor
 			background-color: transparent
 			& :global(.icon)
-				color: rgba($primary, 0.85)
+				color: rgba($primaryColor, 0.85)
 		& :global(.icon)
 			margin-right: 5px
-			color: rgba($black, 0.85)
+			color: rgba($blackColor, 0.85)
 			transition: color 0.25s ease	
 
 	.brand
-		color: $primary
+		color: $primaryColor
 		transition: color 0.25s ease	
 
 	& :global(.navbar-burger)		
 		span
 			height: 2px
-			color: $black
+			color: $blackColor
 
 	&.is-shown
-		background: rgba($primary, 0.9)
-		box-shadow: 0 2px 10px rgba($primary, 0.25), 0 0 5px rgba($primary, 0.25)
+		background: rgba($primaryColor, 0.9)
+		box-shadow: 0 2px 10px rgba($primaryColor, 0.25), 0 0 5px rgba($primaryColor, 0.25)
 		a
-			color: $white
+			color: $whiteColor
 			&:hover, &:global(.is-active)
-				color: $salad
+				color: $successColor
 				& :global(.icon)
-					color: rgba($salad, 0.75)			
+					color: rgba($successColor, 0.75)			
 			& :global(.icon)
-				color: rgba($white, 0.85)		
+				color: rgba($whiteColor, 0.85)		
 
 		.brand
-			color: $white		
+			color: $whiteColor		
 
 		& :global(.navbar-burger)			
 			span
-				color: rgba($white, 0.85)
+				color: rgba($whiteColor, 0.85)
 
 @media screen and (max-width: 1087px)
 	.menu
@@ -65,19 +65,19 @@
 		width: 320px
 		height: 100vh
 		padding: 0 10px
-		background-color: rgba($black, 0.85)
+		background-color: rgba($blackColor, 0.85)
 		transition: right 0.35s ease
 		&:global(.is-active)
 			right: 0
 		a
-			color: $white
-			border-bottom: 1px solid rgba($white, 0.25)
+			color: $whiteColor
+			border-bottom: 1px solid rgba($whiteColor, 0.25)
 			&:hover, &:global(.is-active)
-				color: $salad
+				color: $successColor
 				& :global(.icon)
-					color: rgba($salad, 0.75)	
+					color: rgba($successColor, 0.75)	
 			& :global(.icon)
-				color: rgba($white, 0.85)
+				color: rgba($whiteColor, 0.85)
 		& :global(.navbar-start)
 			a:last-child
-				border-color: rgba($white, 1)
+				border-color: rgba($whiteColor, 1)

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cls from 'classnames'
 import { Link } from '@/libs/routes'
-import Icon from '@/components/elements/Icon'
+import Icon from '@/components/Elements/Icon'
 
 const NavLink = ({ to, icon, text, isActive, onClick }) => {
 	return (

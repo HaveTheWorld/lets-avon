@@ -23,11 +23,17 @@
 		"isomorphic-unfetch": "^3.0.0",
 		"jsonwebtoken": "^8.3.0",
 		"next": "^7.0.2",
+		"next-redux-wrapper": "^2.0.0",
 		"next-routes": "^1.4.2",
 		"react": "^16.5.2",
 		"react-apollo": "^2.2.4",
 		"react-dom": "^16.5.2",
-		"react-onclickoutside": "^6.7.1"
+		"react-onclickoutside": "^6.7.1",
+		"react-redux": "^5.1.0",
+		"react-transition-group": "^2.5.0",
+		"redux": "^4.0.1",
+		"redux-devtools-extension": "^2.13.5",
+		"redux-thunk": "^2.3.0"
 	},
 	"devDependencies": {
 		"@babel/plugin-proposal-decorators": "^7.1.2",

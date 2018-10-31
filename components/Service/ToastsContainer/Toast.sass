@@ -1,0 +1,26 @@
+.toast
+	padding: 15px
+	background: rgba($blackColor, 0.95)
+	border-radius: 2px
+	cursor: default
+	box-shadow: 2px 3px 5px rgba(0,0,0,.35)
+	&:not(:first-child)
+		margin-top: 7px
+	&.default
+		color: $whiteColor
+	&.info
+		color: $infoColor
+	&.success
+		color: $successColor
+	&.warning
+		color: $warningColor
+	&.danger
+		color: lighten($dangerColor, 20%)
+		// color: #fd8199
+.inner
+	display: flex
+.icon
+	margin-right: 15px
+	transform: translateY(-1px)
+.content
+	font-size: 14px
