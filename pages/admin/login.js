@@ -7,6 +7,7 @@ import { LOGIN, GET_CURRENT_USER } from '@/apollo/gql/auth.gql'
 import { connect } from 'react-redux'
 import { addToast } from '@/redux/ducks/toasts'
 import { Router } from '@/libs/routes'
+import { sleep } from '@/libs/helpers'
 import Section from '@/components/Elements/Section'
 import Input from '@/components/Elements/Input'
 import Icon from '@/components/Elements/Icon'
@@ -57,9 +58,10 @@ class Login extends React.Component {
 					const data = store.readQuery({ query: GET_CURRENT_USER })
 					user.__typename = 'UserType'
 					store.writeQuery({ query: GET_CURRENT_USER, data: { ...data, user } })
+					addToast(`Вход выполнен успешно. Привет, ${user.username}!`, 'success')
 				}
 			})
-
+			await sleep(10)
 			this.setState({ isLoading: false })
 			Router.pushRoute('/admin')
 		} catch (error) {
@@ -99,6 +101,7 @@ class Login extends React.Component {
 							onChange={this.onInputChange('username')}
 							pattern={/.+/}
 							errorText="Поле обязательно для заполнения"
+							autoFocus
 						/>
 						<Input
 							type="password"

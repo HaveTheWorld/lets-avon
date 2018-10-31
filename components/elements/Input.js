@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cls from 'classnames'
+import { sleep } from '@/libs/helpers'
 import Icon from '@/components/Elements/Icon'
 
 class Input extends React.Component {
@@ -8,6 +9,14 @@ class Input extends React.Component {
 		isTouched: false,
 		isActivated: false,
 		isValid: false
+	}
+
+	async componentDidMount() {
+		const { autoFocus } = this.props
+		if (autoFocus) {
+			await sleep(100)
+			this.input.focus()
+		}
 	}
 
 	onBlur = e => {
@@ -52,6 +61,7 @@ class Input extends React.Component {
 						onChange={this.onInput}
 						onBlur={this.onBlur}
 						placeholder={icon ? label : null}
+						ref={ref => this.input = ref}
 					/>
 					{icon && <Icon icon={icon} isLeft />}
 					{error && <span className="has-text-danger">{errorText}</span>}
