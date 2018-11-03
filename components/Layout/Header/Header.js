@@ -26,7 +26,9 @@ class Header extends React.Component {
 	}
 
 	componentDidMount() {
+		const { isNavbarAbsolute, route } = this.props
 		const navbar = findDOMNode(this.navbar)
+		isNavbarAbsolute && navbar.classList.add('is-absolute')
 		const { height } = navbar.getBoundingClientRect()
 
 		this.setState({ paddingTop: height, isMounted: true }, () => {
@@ -34,6 +36,15 @@ class Header extends React.Component {
 			window.addEventListener('resize', this.onWindowResize)
 			window.addEventListener('scroll', this.onWindowScroll)
 		})
+	}
+
+	componentDidUpdate(props) {
+		const { isNavbarAbsolute, route } = this.props
+		if (route !== props.route) {
+			const navbar = findDOMNode(this.navbar)
+			isNavbarAbsolute && navbar.classList.add('is-absolute')
+			!isNavbarAbsolute && navbar.classList.remove('is-absolute')
+		}
 	}
 
 	componentWillUnmount() {
@@ -55,12 +66,18 @@ class Header extends React.Component {
 
 	onWindowScroll = () => {
 		const { showNavbar, paddingTop } = this.state
+		const { isNavbarAbsolute } = this.props
 
-		if (window.scrollY > paddingTop && !showNavbar) {
+		if (isNavbarAbsolute) {
+			this.setState({ showNavbar: false })
+			return
+		}
+
+		if (window.scrollY > /*paddingTop*/0 && !showNavbar) {
 			document.body.classList.add('is-scrolled')
 			this.setState({ showNavbar: true })
 		}
-		if (window.scrollY <= paddingTop && showNavbar) {
+		if (window.scrollY <= /*paddingTop*/0 && showNavbar) {
 			document.body.classList.remove('is-scrolled')
 			this.setState({ showNavbar: false })
 		}
@@ -85,7 +102,12 @@ class Header extends React.Component {
 
 		return (
 			<header className={css.header} style={headerStyles}>
-				<Navbar ref={ref => this.navbar = ref} isShown={showNavbar} isHome={isHome} asPath={asPath} />				
+				<Navbar
+					ref={ref => this.navbar = ref}
+					isShown={showNavbar}
+					isHome={isHome}
+					asPath={asPath}
+				/>				
 			</header>
 		)
 	}

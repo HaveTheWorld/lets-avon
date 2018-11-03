@@ -8,7 +8,7 @@ import css from './Sidebar.sass'
 
 
 const Sidebar = ({ router }) => {
-	if (!/^\/admin(\/|$)/.test(router.asPath)) { return null }	
+	if (!/^\/admin(\/|$)/.test(router.asPath) || router.route === '/_error') { return null }	
 
 	return (
 		<aside className={css.sidebar}>

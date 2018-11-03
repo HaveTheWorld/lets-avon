@@ -1,13 +1,48 @@
 module.exports = {
 
 	// User Routes
-	'/': { filePath: 'User/Home/Home' },
-	'/catalogs': { filePath: 'User/Catalogs' },
-	'/actions': { filePath: 'User/Actions' },
-	'/info': { filePath: 'User/Info' },
-	'/register': { filePath: 'User/Register' },
+	home: {
+		asPath: '/',
+		filePath: 'User/Home/Home',
+		title: 'Главная',
+		isHome: true
+	},
+	catalogs: {
+		asPath: '/catalogs',
+		filePath: 'User/Catalogs/Catalogs',
+		title: 'Каталоги'
+	},
+	catalogView: {
+		asPath: '/catalogs/:name',
+		filePath: 'User/Catalogs/CatalogView',
+		title: 'Просмотр каталога',
+		isNavbarAbsolute: true
+	},
+	actions: {
+		asPath: '/actions',
+		filePath: 'User/Actions',
+		title: 'Акции'
+	},
+	info: {
+		asPath: '/info',
+		filePath: 'User/Info',
+		title: 'Информация'
+	},
+	register: {
+		asPath: '/register',
+		filePath: 'User/Register',
+		title: 'Регистрация'
+	},
 
 	// Admin Routes
-	'/login': { filePath: 'Admin/Login' },
-	'/admin': { filePath: 'Admin/Home' }
+	login: {
+		asPath: '/login',
+		filePath: 'Admin/Login',
+		title: 'Админ'
+	},
+	adminHome: {
+		asPath: '/admin',
+		filePath: 'Admin/Home',
+		title: 'Вход'
+	}
 }

@@ -1,14 +1,15 @@
 import React from 'react'
-import pagesMap from '@/maps/pages'
+import routesMap from '@/maps/routes'
 import { withRouter } from 'next/router'
 
 export default WrappedComponent => {
-	const WithPageData = ({ router, ...props }) => {
-		const pageData = { asPath: router.asPath, ...pagesMap[router.asPath] }
-		if (router.route === '/_error') { pageData.error = true }
+	const WithRouteData = ({ router, ...props }) => {
+		const route = Object.values(routesMap).find(({ filePath }) => '/' + filePath === router.route)
+		const routeData = { route: router.route, ...route }
+		if (router.route === '/_error') { routeData.error = true }
 		
-		return <WrappedComponent {...pageData} {...props} />
+		return <WrappedComponent {...routeData} {...props} />
 	}
 
-	return withRouter(WithPageData)
+	return withRouter(WithRouteData)
 }

@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import 'bulma/bulma.sass'
+import 'react-image-gallery/styles/scss/image-gallery.scss'
 import '@/assets/sass/main.sass'
 import css from './Layout.sass'
 import Helmet from './Helmet'
@@ -14,7 +15,7 @@ if (!isProd) { DevHelper = require('@/components/Service/DevHelper').default }
 
 const Layout = ({ children }) => {
 	return (
-		<React.Fragment>
+		<Fragment>
 			<Helmet />
 			<Header />
 			<div className={css.body}>
@@ -28,7 +29,7 @@ const Layout = ({ children }) => {
 			<Footer />
 			{!isProd && <DevHelper />}
 			<ToastsContainer />
-		</React.Fragment>
+		</Fragment>
 	)
 }
 

@@ -5,6 +5,8 @@
 	width: 100%
 	background: transparent	
 	transition: background 0.25s ease
+	&:global(.is-absolute)
+		position: absolute
 	&:not(.is-home):not(.is-shown)
 		border-bottom: 1px solid rgba($blackColor, 0.15)
 		& :global(.navbar-burger)
