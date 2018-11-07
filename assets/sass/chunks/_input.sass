@@ -4,6 +4,7 @@ $placeholderColor: lighten($black, 25%)
 .control.has-icons-right
 	.icon
 		color: $placeholderColor
+		z-index: 0
 	.input.is-danger
 		border-color: rgba($dangerColor, 0.75)
 		& + .icon
@@ -47,3 +48,13 @@ $placeholderColor: lighten($black, 25%)
 
 .label
 	color: $black
+
+.react-datepicker
+	&-wrapper, &__input-container
+		display: block !important
+	&__day--keyboard-selected,
+	&__day--selected,
+	&__day--in-selecting-range,
+	&__day--in-range
+		background-color: $primaryColor !important
+

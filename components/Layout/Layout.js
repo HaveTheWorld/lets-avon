@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import 'bulma/bulma.sass'
 import 'react-image-gallery/styles/scss/image-gallery.scss'
+import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import '@/assets/sass/main.sass'
 import css from './Layout.sass'
 import Helmet from './Helmet'

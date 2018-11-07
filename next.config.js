@@ -44,6 +44,14 @@ module.exports = withSass({
 			}
 		}
 
+		config.module.rules.push({
+			test: /\.css$/,
+			use: [
+				...sass.use,
+				cssLoader
+			]
+		})
+
 		sass.use = [
 			...sass.use,
 			cssLoader,

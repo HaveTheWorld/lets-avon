@@ -62,10 +62,8 @@ class Login extends React.Component {
 				}
 			})
 			await sleep(10)
-			// this.setState({ isLoading: false })
 			Router.pushRoute('/admin')
 		} catch (error) {
-			// Handle error
 			this.setState({ isLoading: false })
 			addToast(error.message.replace('GraphQL error: ', ''), 'danger')
 		}

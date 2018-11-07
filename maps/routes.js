@@ -45,6 +45,11 @@ module.exports = {
 		filePath: 'Admin/Home',
 		title: 'Админ :: Главная'
 	},
+	adminCompanies: {
+		asPath: '/admin/companies',
+		filePath: 'Admin/Companies/Companies',
+		title: 'Админ :: Кампании'
+	},
 	adminCatalogs: {
 		asPath: '/admin/catalogs',
 		filePath: 'Admin/Catalogs/Catalogs',
