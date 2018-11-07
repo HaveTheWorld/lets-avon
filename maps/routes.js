@@ -38,11 +38,16 @@ module.exports = {
 	login: {
 		asPath: '/login',
 		filePath: 'Admin/Login',
-		title: 'Админ'
+		title: 'Вход'
 	},
 	adminHome: {
 		asPath: '/admin',
 		filePath: 'Admin/Home',
-		title: 'Вход'
+		title: 'Админ :: Главная'
+	},
+	adminCatalogs: {
+		asPath: '/admin/catalogs',
+		filePath: 'Admin/Catalogs/Catalogs',
+		title: 'Админ :: Каталоги'
 	}
 }

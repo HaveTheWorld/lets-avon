@@ -3,7 +3,7 @@ import Section from '@/components/Elements/Section'
 
 const AdminHome = () => {
 	return (
-		<Section title="Панель администратора">
+		<Section title="Админ / Главная">
 			
 		</Section>
 	)

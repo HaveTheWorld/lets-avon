@@ -9,14 +9,14 @@ const CatalogView = ({ router }) => {
 	const imagesPath = `/static/images/catalogs/${router.query.name}`
 
 	const images = [
-		{ original: `${imagesPath}/1.jpg`, thumbnail: `${imagesPath}/1.jpg` },
-		{ original: `${imagesPath}/2.jpg`, thumbnail: `${imagesPath}/2.jpg` },
-		{ original: `${imagesPath}/3.jpg`, thumbnail: `${imagesPath}/3.jpg` },
-		{ original: `${imagesPath}/4.jpg`, thumbnail: `${imagesPath}/4.jpg` },
-		{ original: `${imagesPath}/5.jpg`, thumbnail: `${imagesPath}/5.jpg` },
-		{ original: `${imagesPath}/6.jpg`, thumbnail: `${imagesPath}/6.jpg` },
-		{ original: `${imagesPath}/7.jpg`, thumbnail: `${imagesPath}/7.jpg` },
-		{ original: `${imagesPath}/8.jpg`, thumbnail: `${imagesPath}/8.jpg` },
+		{ original: `${imagesPath}/originals/1.jpg`, thumbnail: `${imagesPath}/thumbnails/1.jpg` },
+		{ original: `${imagesPath}/originals/2.jpg`, thumbnail: `${imagesPath}/thumbnails/2.jpg` },
+		{ original: `${imagesPath}/originals/3.jpg`, thumbnail: `${imagesPath}/thumbnails/3.jpg` },
+		{ original: `${imagesPath}/originals/4.jpg`, thumbnail: `${imagesPath}/thumbnails/4.jpg` },
+		{ original: `${imagesPath}/originals/5.jpg`, thumbnail: `${imagesPath}/thumbnails/5.jpg` },
+		{ original: `${imagesPath}/originals/6.jpg`, thumbnail: `${imagesPath}/thumbnails/6.jpg` },
+		{ original: `${imagesPath}/originals/7.jpg`, thumbnail: `${imagesPath}/thumbnails/7.jpg` },
+		{ original: `${imagesPath}/originals/8.jpg`, thumbnail: `${imagesPath}/thumbnails/8.jpg` },
 	]
 
 	const renderItem = (item) => {

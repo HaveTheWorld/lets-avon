@@ -71,7 +71,7 @@ class Login extends React.Component {
 		}
 	}
 
-	onInputChange = name => ({ value, isValid }) => {
+	onInputChange = name => (value, isValid) => {
 		const { fields } = this.state
 
 		const newFields = {

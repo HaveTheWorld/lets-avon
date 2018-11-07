@@ -14,9 +14,8 @@ const Sidebar = ({ router }) => {
 		<aside className={css.sidebar}>
 			<Section>
 				<div className={css.menu}>
-					<SideLink to="/admin" icon={['fas', 'wrench']} text="Sidebar Link 1" />
-					<SideLink to="/admin" icon={['fas', 'wrench']} text="Sidebar Link 2" />
-					<SideLink to="/admin" icon={['fas', 'wrench']} text="Sidebar Link 3" />
+					<SideLink to="/admin" icon={['fas', 'wrench']} text="Главная" />
+					<SideLink to="/admin/catalogs" icon={['fas', 'images']} text="Каталоги" />
 				</div>
 				<LogoutButton />
 			</Section>

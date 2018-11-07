@@ -31,7 +31,7 @@ class Input extends React.Component {
 		const { pattern, onChange } = this.props
 		const { value } = e.target
 		
-		const isValid = pattern.test(value)
+		const isValid = pattern ? pattern.test(value) : null
 		const newState = { isValid }
 		if (!isActivated && (!value || isValid !== this.state.isValid)) {
 			newState.isActivated = true
@@ -41,13 +41,13 @@ class Input extends React.Component {
 		}
 		this.setState(newState)
 
-		onChange({ value, isValid })
+		onChange(value, isValid)
 	}
 
 	render() {
 		const { isActivated, isValid } = this.state
-		const { type = 'text', name, label, icon, value, errorText } = this.props
-		const error = isActivated && !isValid
+		const { type = 'text', name, label, icon, value, errorText, pattern } = this.props
+		const error = pattern && isActivated && !isValid
 
 		return (
 			<div className="field">
