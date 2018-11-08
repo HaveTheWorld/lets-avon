@@ -55,7 +55,7 @@ class InputDate extends React.Component {
 						disabledKeyboardNavigation
 					/>
 					{icon && <Icon icon={icon} isLeft />}
-					{error && <span className="has-text-danger">Поле обязательно для заполнения</span>}
+					{error && <span className="has-text-danger">Обязательное поле</span>}
 				</div>
 			</div>
 		)

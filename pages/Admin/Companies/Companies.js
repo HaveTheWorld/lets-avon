@@ -7,7 +7,7 @@ import Section from '@/components/Elements/Section'
 import AddButton from './AddButton'
 import RemoveButton from './RemoveButton'
 
-const Companies = ({ data }) => {
+const AdminCompanies = ({ data }) => {
 	const { loading, companiesList } = data
 
 	if (loading) return null
@@ -43,8 +43,8 @@ const Companies = ({ data }) => {
 	)
 }
 
-Companies.propTypes = {
+AdminCompanies.propTypes = {
 	
 }
 
-export default graphql(GET_COMPANIES_LIST)(Companies)
+export default graphql(GET_COMPANIES_LIST)(AdminCompanies)

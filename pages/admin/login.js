@@ -12,8 +12,6 @@ import Section from '@/components/Elements/Section'
 import Input from '@/components/Elements/Input'
 import Icon from '@/components/Elements/Icon'
 
-const fields = ['username', 'password']
-
 const mapDispatchToProps = {
 	addToast
 }
@@ -21,14 +19,13 @@ const mapDispatchToProps = {
 @connect(null, mapDispatchToProps)
 @graphql(LOGIN)
 class Login extends React.Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			fields: {},
-			isLoading: false,
-			isFormValid: false
-		}
-		fields.forEach(field => this.state.fields[field] = { value: '', isValid: false })
+	state = {
+		fields: {
+			username: { value: '', isValid: '' },
+			password: { value: '', isValid: '' },
+		},
+		isLoading: false,
+		isFormValid: false
 	}
 
 	checkFormValid(fields) {
@@ -98,7 +95,7 @@ class Login extends React.Component {
 							value={fields.username.value}
 							onChange={this.onInputChange('username')}
 							pattern={/.+/}
-							errorText="Поле обязательно для заполнения"
+							errorText="Обязательное поле."
 							autoFocus
 						/>
 						<Input
@@ -109,7 +106,7 @@ class Login extends React.Component {
 							value={fields.password.value}
 							onChange={this.onInputChange('password')}
 							pattern={/.+/}
-							errorText="Поле обязательно для заполнения"
+							errorText="Обязательное поле."
 						/>
 						<button
 							className={cls('button', 'is-primary', 'is-outlined', { 'is-loading': isLoading })}

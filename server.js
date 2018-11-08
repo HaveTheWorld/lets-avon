@@ -24,7 +24,8 @@ app.prepare()
 			},
 			proxyReqPathResolver: function (req) {
 				return '/graphql'
-			}
+			},
+			limit: '75mb'
 		}))
 
 		server.use((req, res, next) => {

@@ -85,7 +85,7 @@ class AddModal extends React.Component {
 							onChange={this.onChange('name')}
 							autoFocus
 							pattern={/^\d{2}-20\d{2}$/}
-							errorText="Формат: 12-2017"
+							errorText="Формат: 12-2017. Обязательное поле."
 						/>
 						<InputDate
 							label="Дата начала"

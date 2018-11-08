@@ -1,0 +1,3 @@
+mutation UPLOAD_CATALOG($fields: CatalogInput, $files: [Upload!]!) {
+	uploadCatalog(fields: $fields, files: $files)
+}
