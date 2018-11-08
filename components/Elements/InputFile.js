@@ -13,7 +13,13 @@ const InputFile = ({ files = [], onChange, isRequired }) => {
 			<div className="control">
 				<div className="file has-name">
 					<label className="file-label">
-						<input className="file-input" type="file" multiple onChange={onChange} />
+						<input
+							className="file-input"
+							type="file"
+							multiple
+							onChange={onChange}
+							onFocus={e => e.target.value = ''}
+						/>
 						<span className="file-cta">
 							<Icon icon={['fas', 'upload']} />
 							<span className="file-label">Выбрать файлы</span>

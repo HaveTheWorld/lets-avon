@@ -67,17 +67,16 @@ class AdminCatalogs extends React.Component {
 
 		if (!isFormValid || isLoading) { return }
 
-		const variables = Object.entries(fields).reduce((acc, [name, field]) => {
-			acc['fields'][name] = field.value
+		const variables = Object.entries(fields).reduce((acc, [name, { value }]) => {
+			acc['fields'][name] = value
 			return acc
-		}, { fields: {}, fields })
+		}, { fields: {}, files })
 
 		this.setState({ isLoading: true })
 		try {
-			await mutate({
-				variables: { fields, files }
-			})
+			await mutate({ variables })
 			addToast('Каталог успешно загружен', 'success')
+		
 			this.setState(initialState)
 		} catch (error) {
 			this.setState({ isLoading: false })
