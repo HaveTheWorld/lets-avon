@@ -38,8 +38,8 @@ class Select extends React.Component {
 							onBlur={this.onBlur}
 						>
 							<option className="is-placeholder" value="">{label}</option>
-							{options.map(({ id, name, startDate, finishDate }) => (
-								<option key={id} value={name}>{name}</option>
+							{options.map(({ id, name }) => (
+								<option key={id} value={id}>{name}</option>
 							))}
 						</select>
 						{icon && <Icon icon={icon} isLeft />}

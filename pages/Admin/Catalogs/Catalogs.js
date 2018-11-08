@@ -63,18 +63,26 @@ class AdminCatalogs extends React.Component {
 	onSubmit = async e => {
 		e.preventDefault()
 		const { isFormValid, fields, files, isLoading } = this.state
-		const { mutate, addToast } = this.props
+		const { mutate, addToast, data } = this.props
 
 		if (!isFormValid || isLoading) { return }
 
-		const variables = Object.entries(fields).reduce((acc, [name, { value }]) => {
-			acc['fields'][name] = value
+		const company = data.companiesList.find(({ id }) => id === fields.company.value)
+		const companyInput = Object.entries(company).reduce((acc, [key, value]) => {
+			if (['id', 'name'].includes(key)) {
+				acc[key] = value
+			}
 			return acc
-		}, { fields: {}, files })
+		}, {})
 
 		this.setState({ isLoading: true })
 		try {
-			await mutate({ variables })
+			await mutate({ variables: {
+				catalog: fields.catalog.value,
+				title: fields.title.value,
+				company: companyInput,
+				files
+			} })
 			addToast('Каталог успешно загружен', 'success')
 		
 			this.setState(initialState)
@@ -109,7 +117,7 @@ class AdminCatalogs extends React.Component {
 							icon={['fas', 'pen']}
 							value={title.value}
 							onChange={this.onInputChange('title')}
-							pattern={/^[А-Яа-я ]+$/}
+							pattern={/^[A-Za-zА-Яа-я ]+$/}
 							errorText="Формат: только русские буквы и пробелы. Обязательное поле."
 						/>						
 						<Select
