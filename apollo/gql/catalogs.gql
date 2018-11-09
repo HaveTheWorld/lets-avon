@@ -1,3 +1,25 @@
+query GET_ALL_CATALOGS {
+	getAllCatalogs {
+		id
+		name
+		title
+		company {
+			name			
+		}
+		face {
+			path
+		}
+	}
+}
+
 mutation ADD_CATALOG($catalog: String!, $title: String!, $company: CompanyInput!, $images: CatalogImagesInput!) {
-	addCatalog(catalog: $catalog, title: $title, company: $company, images: $images)
+	addCatalog(catalog: $catalog, title: $title, company: $company, images: $images) {
+		id
+		name
+		title
+	}
+}
+
+mutation REMOVE_CATALOG($id: ID!) {
+	removeCatalog(id: $id)
 }

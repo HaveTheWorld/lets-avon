@@ -8,6 +8,7 @@ mutation UPLOAD_CATALOG_IMAGE($catalog: String!, $company: CompanyInput!, $file:
 		}
 		face {
 			id
+			path
 		}
 	}
 }

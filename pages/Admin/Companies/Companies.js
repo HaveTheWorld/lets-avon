@@ -4,8 +4,8 @@ import { graphql } from 'react-apollo'
 import { GET_ALL_COMPANIES } from '@/apollo/gql/companies.gql'
 import { formatDate } from '@/libs/helpers'
 import Section from '@/components/Elements/Section'
-import AddButton from './AddButton'
-import RemoveButton from './RemoveButton'
+import ButtonAdd from './ButtonAdd'
+import ButtonRemove from './ButtonRemove'
 
 const AdminCompanies = ({ data }) => {
 	const { loading, getAllCompanies } = data
@@ -31,14 +31,14 @@ const AdminCompanies = ({ data }) => {
 								<td>{formatDate(startDate)}</td>
 								<td>{formatDate(finishDate)}</td>
 								<td>
-									<RemoveButton id={id} />
+									<ButtonRemove id={id} />
 								</td>
 							</tr>
 						)
 					})}
 				</tbody>
 			</table>
-			<AddButton />
+			<ButtonAdd />
 		</Section>
 	)
 }

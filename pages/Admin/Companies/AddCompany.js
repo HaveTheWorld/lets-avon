@@ -10,7 +10,7 @@ import { addToast } from '@/redux/ducks/toasts'
 
 @connect(null, { addToast })
 @graphql(ADD_COMPANY)
-class AddModal extends React.Component {
+class AddCompany extends React.Component {
 	state = {
 		fields: {
 			name: { value: '', isValid: false },
@@ -112,8 +112,8 @@ class AddModal extends React.Component {
 	}
 }
 
-AddModal.propTypes = {
+AddCompany.propTypes = {
 	
 }
 
-export default AddModal
+export default AddCompany

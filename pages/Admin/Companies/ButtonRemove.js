@@ -9,7 +9,7 @@ import { addToast } from '@/redux/ducks/toasts'
 
 @connect(null, { addToast })
 @graphql(REMOVE_COMPANY)
-class RemoveButton extends React.Component {
+class ButtonRemove extends React.Component {
 	state = {
 		isLoading: false
 	}
@@ -49,8 +49,8 @@ class RemoveButton extends React.Component {
 	}
 }
 
-RemoveButton.propTypes = {
+ButtonRemove.propTypes = {
 	
 }
 
-export default RemoveButton
+export default ButtonRemove

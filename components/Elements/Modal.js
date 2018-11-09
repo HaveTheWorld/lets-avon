@@ -8,7 +8,7 @@ const Modal = ({ title, onClose, children }) => {
 			<div className="modal is-active">
 				<div className="modal-background" onClick={onClose}></div>
 				<div className="modal-card">
-					<div className="modal-card-head">
+					<div id="modal-head" className="modal-card-head">
 						<p className="modal-card-title">{title}</p>
 						<button className="delete" onClick={onClose}></button>
 					</div>
