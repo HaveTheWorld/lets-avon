@@ -14,3 +14,10 @@ export function formatDate(timestamp, withTime = false) {
 	}
 	return date
 }
+
+export function reduceObject(array, object) {
+	return Object.entries(object).reduce((acc, [key, value]) => {
+		if (array.includes(key)) { acc[key] = value }
+		return acc
+	}, {})
+}

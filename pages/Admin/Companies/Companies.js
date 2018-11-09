@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
-import { GET_COMPANIES_LIST } from '@/apollo/gql/companies.gql'
+import { GET_ALL_COMPANIES } from '@/apollo/gql/companies.gql'
 import { formatDate } from '@/libs/helpers'
 import Section from '@/components/Elements/Section'
 import AddButton from './AddButton'
 import RemoveButton from './RemoveButton'
 
 const AdminCompanies = ({ data }) => {
-	const { loading, companiesList } = data
+	const { loading, getAllCompanies } = data
 
 	if (loading) return null
 
@@ -24,7 +24,7 @@ const AdminCompanies = ({ data }) => {
 					</tr>
 				</thead>
 				<tbody>
-					{companiesList.map(({ id, name, startDate, finishDate }) => {
+					{getAllCompanies.map(({ id, name, startDate, finishDate }) => {
 						return (
 							<tr key={id}>
 								<td>{name}</td>
@@ -47,4 +47,4 @@ AdminCompanies.propTypes = {
 	
 }
 
-export default graphql(GET_COMPANIES_LIST)(AdminCompanies)
+export default graphql(GET_ALL_COMPANIES)(AdminCompanies)

@@ -23,8 +23,8 @@ const Redirect = ({ children, router, data, redirect, statusCode, ...props }) =>
 	
 	const requireAdmin = adminRoutes.includes(/*dirtyRoute ? dirtyRoute[0] : */router.asPath)
 	if (requireAdmin) {
-		const { loading, user } = data
-		if (!loading && (!user || !user.isAdmin)) {
+		const { loading, getCurrentUser } = data
+		if (!loading && (!getCurrentUser || !getCurrentUser.isAdmin)) {
 			doRedirect('/login')
 			return null
 		}

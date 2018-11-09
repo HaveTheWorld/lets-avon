@@ -1,5 +1,5 @@
-query GET_COMPANIES_LIST {
-	companiesList {
+query GET_ALL_COMPANIES {
+	getAllCompanies {
 		id
 		name
 		startDate

@@ -1,0 +1,13 @@
+mutation UPLOAD_CATALOG_IMAGE($catalog: String!, $company: CompanyInput!, $file: Upload!, $withFace: Boolean) {
+	uploadCatalogImage(catalog: $catalog, company: $company, file: $file, withFace: $withFace) {
+		original {
+			id
+		}
+		thumbnail {
+			id
+		}
+		face {
+			id
+		}
+	}
+}

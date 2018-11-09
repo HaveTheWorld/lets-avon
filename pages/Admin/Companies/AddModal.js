@@ -4,7 +4,7 @@ import cls from 'classnames'
 import Input from '@/components/Elements/Input'
 import InputDate from '@/components/Elements/InputDate'
 import { graphql } from 'react-apollo'
-import { GET_COMPANIES_LIST, ADD_COMPANY } from '@/apollo/gql/companies.gql'
+import { GET_ALL_COMPANIES, ADD_COMPANY } from '@/apollo/gql/companies.gql'
 import { connect } from 'react-redux'
 import { addToast } from '@/redux/ducks/toasts'
 
@@ -58,9 +58,9 @@ class AddModal extends React.Component {
 			await mutate({
 				variables,
 				update: (store, { data: { addCompany } }) => {
-					const data = store.readQuery({ query: GET_COMPANIES_LIST })
-					const companiesList = [...data.companiesList, addCompany]
-					store.writeQuery({ query: GET_COMPANIES_LIST, data: { ...data, companiesList } })
+					const data = store.readQuery({ query: GET_ALL_COMPANIES })
+					const getAllCompanies = [...data.getAllCompanies, addCompany]
+					store.writeQuery({ query: GET_ALL_COMPANIES, data: { ...data, getAllCompanies } })
 				}
 			})
 			onClose()

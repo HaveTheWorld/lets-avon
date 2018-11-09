@@ -1,5 +1,5 @@
 query GET_CURRENT_USER {
-	user {
+	getCurrentUser {
 		id
 		username
 		isAdmin

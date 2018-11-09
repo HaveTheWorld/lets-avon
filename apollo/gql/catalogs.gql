@@ -1,3 +1,3 @@
-mutation UPLOAD_CATALOG($catalog: String!, $title: String!, $company: CompanyInput!, $files: [Upload!]!) {
-	uploadCatalog(catalog: $catalog, title: $title, company: $company, files: $files)
+mutation ADD_CATALOG($catalog: String!, $title: String!, $company: CompanyInput!, $images: CatalogImagesInput!) {
+	addCatalog(catalog: $catalog, title: $title, company: $company, images: $images)
 }

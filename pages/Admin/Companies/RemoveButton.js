@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import cls from 'classnames'
 import Icon from '@/components/Elements/Icon'
 import { graphql } from 'react-apollo'
-import { GET_COMPANIES_LIST, REMOVE_COMPANY } from '@/apollo/gql/companies.gql'
+import { GET_ALL_COMPANIES, REMOVE_COMPANY } from '@/apollo/gql/companies.gql'
 import { connect } from 'react-redux'
 import { addToast } from '@/redux/ducks/toasts'
 
@@ -23,9 +23,9 @@ class RemoveButton extends React.Component {
 			await mutate({
 				variables: { id },
 				update: store => {
-					const data = store.readQuery({ query: GET_COMPANIES_LIST })
-					const companiesList = data.companiesList.filter(company => company.id !== id)
-					store.writeQuery({ query: GET_COMPANIES_LIST, data: { ...data, companiesList } })
+					const data = store.readQuery({ query: GET_ALL_COMPANIES })
+					const getAllCompanies = data.getAllCompanies.filter(company => company.id !== id)
+					store.writeQuery({ query: GET_ALL_COMPANIES, data: { ...data, getAllCompanies } })
 				}
 			})
 		} catch (error) {
