@@ -28,6 +28,18 @@ query GET_CURRENT_CATALOGS {
 	}
 }
 
+query GET_CATALOG($company: String!, $name: String!) {
+	getCatalog(company: $company, name: $name) {
+		title
+		originals {
+			path
+		}
+		thumbnails {
+			path
+		}
+	}
+}
+
 mutation ADD_CATALOG($catalog: String!, $title: String!, $company: CompanyInput!, $images: CatalogImagesInput!) {
 	addCatalog(catalog: $catalog, title: $title, company: $company, images: $images) {
 		id
