@@ -4,7 +4,7 @@ import cls from 'classnames'
 import { connect } from 'react-redux'
 import { addToast } from '@/redux/ducks/toasts'
 import { graphql } from 'react-apollo'
-import { GET_CURRENT_USER } from '@/apollo/gql/auth.gql'
+import { MAIN_QUERY } from '@/apollo/gql/main.gql'
 import { sleep } from '@/libs/helpers'
 import Icon from '@/components/Elements/Icon'
 
@@ -13,7 +13,7 @@ const mapDispatchToProps = {
 }
 
 @connect(null, mapDispatchToProps)
-@graphql(GET_CURRENT_USER)
+@graphql(MAIN_QUERY)
 class LogoutButton extends React.Component {
 	state = {
 		isLoading: false

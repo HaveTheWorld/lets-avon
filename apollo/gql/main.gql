@@ -1,0 +1,7 @@
+query MAIN_QUERY {
+	getCurrentUser {
+		id
+		username
+		isAdmin
+	}
+}

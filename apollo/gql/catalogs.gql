@@ -4,7 +4,23 @@ query GET_ALL_CATALOGS {
 		name
 		title
 		company {
-			name			
+			name
+		}
+		face {
+			path
+		}
+	}
+}
+
+query GET_CURRENT_CATALOGS {
+	getAllCatalogs(current: true) {
+		id
+		name
+		title
+		company {
+			name
+			startDate
+			finishDate
 		}
 		face {
 			path

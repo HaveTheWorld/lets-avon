@@ -6,7 +6,7 @@ import { addToast } from '@/redux/ducks/toasts'
 import { graphql } from 'react-apollo'
 import { GET_ALL_COMPANIES } from '@/apollo/gql/companies.gql'
 import { UPLOAD_CATALOG_IMAGE } from '@/apollo/gql/images.gql'
-import { GET_ALL_CATALOGS, ADD_CATALOG } from '@/apollo/gql/catalogs.gql'
+import { GET_ALL_CATALOGS, GET_CURRENT_CATALOGS, ADD_CATALOG } from '@/apollo/gql/catalogs.gql'
 import { reduceObject } from '@/libs/helpers'
 import Input from '@/components/Elements/Input'
 import InputFile from '@/components/Elements/InputFile'
@@ -130,7 +130,8 @@ class AdminCatalogs extends React.Component {
 							}
 							const getAllCatalogs = [...data.getAllCatalogs, newCatalog]							
 							store.writeQuery({ query: GET_ALL_CATALOGS, data: { ...data, getAllCatalogs } })
-						}
+						},
+						refetchQueries: [{ query: GET_CURRENT_CATALOGS }]
 					})
 
 					nprogress.done()

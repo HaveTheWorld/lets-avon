@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import cls from 'classnames'
 import jwt from 'jsonwebtoken'
 import { graphql } from 'react-apollo'
-import { LOGIN, GET_CURRENT_USER } from '@/apollo/gql/auth.gql'
+import { MAIN_QUERY } from '@/apollo/gql/main.gql'
+import { LOGIN } from '@/apollo/gql/auth.gql'
 import { connect } from 'react-redux'
 import { addToast } from '@/redux/ducks/toasts'
 import { Router } from '@/libs/routes'
@@ -53,9 +54,9 @@ class Login extends React.Component {
 					const { exp, iat, ...user } = jwt.decode(token)
 					document.cookie = `token=${token}; path=/; expires=${new Date(exp * 1000)}`
 
-					const data = store.readQuery({ query: GET_CURRENT_USER })
+					const data = store.readQuery({ query: MAIN_QUERY })
 					user.__typename = 'UserType'
-					store.writeQuery({ query: GET_CURRENT_USER, data: { ...data, getCurrentUser: user } })
+					store.writeQuery({ query: MAIN_QUERY, data: { ...data, getCurrentUser: user } })
 
 					addToast(`Вход выполнен успешно. Привет, ${user.username}!`, 'success')
 				}

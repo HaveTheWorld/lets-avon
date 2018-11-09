@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'next/router'
 import { graphql, compose } from 'react-apollo'
-import { GET_CURRENT_USER } from '@/apollo/gql/auth.gql'
+import { MAIN_QUERY } from '@/apollo/gql/main.gql'
 import { Router } from '@/libs/routes'
 import Error from '@/components/Service/Error'
 
@@ -49,5 +49,5 @@ Redirect.propTypes = {
 
 export default compose(
 	withRouter,
-	graphql(GET_CURRENT_USER)
+	graphql(MAIN_QUERY)
 )(Redirect)
