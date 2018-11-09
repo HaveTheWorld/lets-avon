@@ -7,6 +7,7 @@ module.exports = withSass({
 		config.module.rules = config.module.rules.filter(({ test }) => String(test) !== String(/\.scss$/))
 
 		const sass = config.module.rules.find(({ test }) => String(test) === String(/\.sass$/))
+		sass.test = /\.(sass|scss)$/
 		
 		const cssLoaderIndex = sass.use.findIndex(({ loader }) => loader === 'css-loader')
 		sass.use = sass.use.slice(0, cssLoaderIndex)
@@ -42,6 +43,14 @@ module.exports = withSass({
 				]
 			}
 		}
+
+		config.module.rules.push({
+			test: /\.css$/,
+			use: [
+				...sass.use,
+				cssLoader
+			]
+		})
 
 		sass.use = [
 			...sass.use,

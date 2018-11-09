@@ -1,11 +1,11 @@
 query GET_CURRENT_USER {
-	user {
+	getCurrentUser {
 		id
 		username
 		isAdmin
 	}
 }
 
-mutation LOGIN($username: String, $password: String) {
+mutation LOGIN($username: String!, $password: String!) {
 	login(username: $username, password: $password)
 }

@@ -12,8 +12,6 @@ import Section from '@/components/Elements/Section'
 import Input from '@/components/Elements/Input'
 import Icon from '@/components/Elements/Icon'
 
-const fields = ['username', 'password']
-
 const mapDispatchToProps = {
 	addToast
 }
@@ -21,14 +19,13 @@ const mapDispatchToProps = {
 @connect(null, mapDispatchToProps)
 @graphql(LOGIN)
 class Login extends React.Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			fields: {},
-			isLoading: false,
-			isFormValid: false
-		}
-		fields.forEach(field => this.state.fields[field] = { value: '', isValid: false })
+	state = {
+		fields: {
+			username: { value: '', isValid: '' },
+			password: { value: '', isValid: '' },
+		},
+		isLoading: false,
+		isFormValid: false
 	}
 
 	checkFormValid(fields) {
@@ -54,24 +51,24 @@ class Login extends React.Component {
 				variables,
 				update: (store, { data: { login: token } }) => {
 					const { exp, iat, ...user } = jwt.decode(token)
-					document.cookie = `token=${token}; expires=${new Date(exp * 1000)}`
+					document.cookie = `token=${token}; path=/; expires=${new Date(exp * 1000)}`
+
 					const data = store.readQuery({ query: GET_CURRENT_USER })
 					user.__typename = 'UserType'
-					store.writeQuery({ query: GET_CURRENT_USER, data: { ...data, user } })
+					store.writeQuery({ query: GET_CURRENT_USER, data: { ...data, getCurrentUser: user } })
+
 					addToast(`Вход выполнен успешно. Привет, ${user.username}!`, 'success')
 				}
 			})
 			await sleep(10)
-			// this.setState({ isLoading: false })
 			Router.pushRoute('/admin')
 		} catch (error) {
-			// Handle error
 			this.setState({ isLoading: false })
 			addToast(error.message.replace('GraphQL error: ', ''), 'danger')
 		}
 	}
 
-	onInputChange = name => ({ value, isValid }) => {
+	onInputChange = name => (value, isValid) => {
 		const { fields } = this.state
 
 		const newFields = {
@@ -100,7 +97,7 @@ class Login extends React.Component {
 							value={fields.username.value}
 							onChange={this.onInputChange('username')}
 							pattern={/.+/}
-							errorText="Поле обязательно для заполнения"
+							errorText="Обязательное поле."
 							autoFocus
 						/>
 						<Input
@@ -111,7 +108,7 @@ class Login extends React.Component {
 							value={fields.password.value}
 							onChange={this.onInputChange('password')}
 							pattern={/.+/}
-							errorText="Поле обязательно для заполнения"
+							errorText="Обязательное поле."
 						/>
 						<button
 							className={cls('button', 'is-primary', 'is-outlined', { 'is-loading': isLoading })}

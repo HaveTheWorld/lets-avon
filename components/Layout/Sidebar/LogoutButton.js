@@ -26,8 +26,8 @@ class LogoutButton extends React.Component {
 		await sleep(300)
 
 		data.updateQuery(() => {
-			document.cookie = `token=; expires=-1`
-			return { user: null }
+			document.cookie = `token=; path=/; expires=-1`
+			return { getCurrentUser: null }
 		})
 		await sleep(10)
 		addToast('Сессия успешно завершена.', 'success')

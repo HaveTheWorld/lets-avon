@@ -12,6 +12,31 @@
 			&:hover
 				color: #fff !important
 				background-color: $primaryColor !important
-			&:active
-	&.is-primary
+		&.is-danger
+			color: $dangerColor
+			&:focus
+				border-color: $dangerColor
+				color: $dangerColor
+				box-shadow: none
+			&:hover
+				color: #fff !important
+				background-color: $dangerColor !important
+	&.is-primary,
+	&.is-danger
 		border-color: transparent
+
+.delete
+	background-color: transparent
+	&::before, &::after
+		background-color: rgba($blackColor, 0.7)
+	&::before
+		width: 80%
+	&::after
+		height: 80%
+	&:hover, &:focus
+		background-color: transparent
+		&::before, &::after
+			background-color: $blackColor
+	&:active
+		&::before, &::after
+			background-color: darken($blackColor, 10%)

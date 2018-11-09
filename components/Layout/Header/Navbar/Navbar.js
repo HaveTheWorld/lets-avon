@@ -44,10 +44,10 @@ class Navbar extends React.Component {
 	}
 
 	renderMenuStart() {
-		const { asPath, data: { user } } = this.props
+		const { asPath, data: { getCurrentUser } } = this.props
 		const isProd = process.env.NODE_ENV === 'production'
 
-		if (!user && isProd) { return null }
+		if (!getCurrentUser && isProd) { return null }
 
 		const isActive = /^\/admin/.test(asPath)
 

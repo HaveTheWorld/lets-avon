@@ -1,0 +1,30 @@
+.select
+	outline-color: none
+	&:not(.is-multiple):not(.is-loading)
+		&::after
+			border-color: $placeholderColor
+	select
+		&.is-empty
+			color: $placeholderColor
+		&.is-danger
+			border-color: rgba($dangerColor, 0.75)
+			box-shadow: none
+			& + .icon
+				color: lighten($dangerColor, 25%)
+		&:focus,
+		&:active,
+			border-color: $primaryColor
+			box-shadow: 0 0 0 0.125em rgba($primaryColor, 0.25)
+			& + .icon
+				color: $blackColor
+			&.is-danger
+				border-color: rgba($dangerColor, 0.75)
+				box-shadow: 0 0 0 0.125em rgba($dangerColor, 0.35)
+				& + .icon
+					color: $dangerColor !important
+
+		option
+			&.is-placeholder
+				color: $placeholderColor
+			&:not(.is-placeholder)
+				color: $blackColor

@@ -8,15 +8,15 @@ import css from './Sidebar.sass'
 
 
 const Sidebar = ({ router }) => {
-	if (!/^\/admin(\/|$)/.test(router.asPath)) { return null }	
+	if (!/^\/admin(\/|$)/.test(router.asPath) || router.route === '/_error') { return null }	
 
 	return (
 		<aside className={css.sidebar}>
 			<Section>
 				<div className={css.menu}>
-					<SideLink to="/admin" icon={['fas', 'wrench']} text="Sidebar Link 1" />
-					<SideLink to="/admin" icon={['fas', 'wrench']} text="Sidebar Link 2" />
-					<SideLink to="/admin" icon={['fas', 'wrench']} text="Sidebar Link 3" />
+					<SideLink to="/admin" icon={['fas', 'wrench']} text="Главная" />
+					<SideLink to="/admin/companies" icon={['far', 'calendar-alt']} text="Кампании" />
+					<SideLink to="/admin/catalogs" icon={['fas', 'images']} text="Каталоги" />
 				</div>
 				<LogoutButton />
 			</Section>

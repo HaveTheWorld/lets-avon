@@ -1,9 +1,10 @@
-$placeholderColor: lighten($black, 25%)
+$placeholderColor: lighten($blackColor, 25%)
 
 .control.has-icons-left,
 .control.has-icons-right
 	.icon
 		color: $placeholderColor
+		z-index: 0
 	.input.is-danger
 		border-color: rgba($dangerColor, 0.75)
 		& + .icon
@@ -19,10 +20,10 @@ $placeholderColor: lighten($black, 25%)
 .textarea.is-focused,
 .textarea:active,
 .textarea:focus
-	border-color: $primary
-	box-shadow: 0 0 0 0.125em rgba($primary, 0.25)
+	border-color: $primaryColor
+	box-shadow: 0 0 0 0.125em rgba($primaryColor, 0.25)
 	& + .icon
-		color: $black !important
+		color: $blackColor !important
 	&.is-danger
 		border-color: rgba($dangerColor, 0.75)
 		box-shadow: 0 0 0 0.125em rgba($dangerColor, 0.35)
@@ -46,4 +47,22 @@ $placeholderColor: lighten($black, 25%)
 		color: $placeholderColor
 
 .label
-	color: $black
+	color: $blackColor
+
+.input-error
+	display: block
+
+.file-cta
+	color: $blackColor
+	.icon
+		color: $blackColor
+
+.react-datepicker
+	&-wrapper, &__input-container
+		display: block !important
+	&__day--keyboard-selected,
+	&__day--selected,
+	&__day--in-selecting-range,
+	&__day--in-range
+		background-color: $primaryColor !important
+
