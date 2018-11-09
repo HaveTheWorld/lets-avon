@@ -51,10 +51,12 @@ class Login extends React.Component {
 				variables,
 				update: (store, { data: { login: token } }) => {
 					const { exp, iat, ...user } = jwt.decode(token)
-					document.cookie = `token=${token}; expires=${new Date(exp * 1000)}`
+					document.cookie = `token=${token}; path=/; expires=${new Date(exp * 1000)}`
+
 					const data = store.readQuery({ query: GET_CURRENT_USER })
 					user.__typename = 'UserType'
 					store.writeQuery({ query: GET_CURRENT_USER, data: { ...data, getCurrentUser: user } })
+
 					addToast(`Вход выполнен успешно. Привет, ${user.username}!`, 'success')
 				}
 			})
