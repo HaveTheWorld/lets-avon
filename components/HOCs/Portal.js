@@ -2,13 +2,14 @@ import React from 'react'
 import { createPortal } from 'react-dom'
 import PropTypes from 'prop-types'
 
-class Portal extends React.Component {
-	render() {
-		return createPortal(
-			this.props.children,
-			document.body
-		)
-	}
+const Portal = ({ children, selector }) =>  {
+	if (typeof document === 'undefined') { return null }
+
+	const target = selector ? document.querySelector(selector) : document.body
+
+	if (!target) { return null }
+
+	return createPortal(children, target)
 }
 
 Portal.propTypes = {

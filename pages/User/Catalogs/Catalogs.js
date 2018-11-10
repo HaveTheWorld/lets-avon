@@ -19,11 +19,11 @@ const Catalogs = ({ data }) => {
 		return (
 			<div className={css.info}>
 				Кампания&nbsp;
-				<span className="has-text-weight-semibold">№{num}</span>
+				<span className="has-text-weight-bold">№{num}</span>
 				. Действует с&nbsp;
-				<span className="has-text-weight-semibold">{formatDate(startDate)}</span>
+				<span className="has-text-weight-bold">{formatDate(startDate)}</span>
 				&nbsp;по&nbsp; 
-				<span className="has-text-weight-semibold">{formatDate(finishDate)}</span>
+				<span className="has-text-weight-bold">{formatDate(finishDate)}</span>
 				.
 			</div>
 		)

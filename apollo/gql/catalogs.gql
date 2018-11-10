@@ -34,9 +34,6 @@ query GET_CATALOG($company: String!, $name: String!) {
 		originals {
 			path
 		}
-		thumbnails {
-			path
-		}
 	}
 }
 
