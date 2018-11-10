@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import cls from 'classnames'
 import Icon from '@/components/Elements/Icon'
 import { graphql } from 'react-apollo'
-import { GET_ALL_CATALOGS, REMOVE_CATALOG } from '@/apollo/gql/catalogs.gql'
+import { GET_ALL_CATALOGS, GET_CURRENT_CATALOGS, REMOVE_CATALOG } from '@/apollo/gql/catalogs.gql'
 import { connect } from 'react-redux'
 import { addToast } from '@/redux/ducks/toasts'
 
@@ -26,7 +26,8 @@ class ButtonRemove extends React.Component {
 					const data = store.readQuery({ query: GET_ALL_CATALOGS })
 					const getAllCatalogs = data.getAllCatalogs.filter(catalog => catalog.id !== id)
 					store.writeQuery({ query: GET_ALL_CATALOGS, data: { ...data, getAllCatalogs } })
-				}
+				},
+				refetchQueries: [{ query: GET_CURRENT_CATALOGS }]
 			})
 		} catch (error) {
 			this.setState({ isLoading: false })

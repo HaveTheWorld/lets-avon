@@ -4,9 +4,34 @@ query GET_ALL_CATALOGS {
 		name
 		title
 		company {
-			name			
+			name
 		}
 		face {
+			path
+		}
+	}
+}
+
+query GET_CURRENT_CATALOGS {
+	getAllCatalogs(current: true) {
+		id
+		name
+		title
+		company {
+			name
+			startDate
+			finishDate
+		}
+		face {
+			path
+		}
+	}
+}
+
+query GET_CATALOG($company: String!, $name: String!) {
+	getCatalog(company: $company, name: $name) {
+		title
+		originals {
 			path
 		}
 	}

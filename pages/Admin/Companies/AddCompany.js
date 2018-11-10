@@ -47,20 +47,21 @@ class AddCompany extends React.Component {
 
 		if (!isFormValid || isLoading) { return }
 
-		const variables = Object.entries(fields).reduce((acc, [name, field]) => {
-			acc[name] = field.value
-			return acc
-		}, {})
-
 		this.setState({ isLoading: true })
 
 		try {
 			await mutate({
-				variables,
+				variables: {
+					name: fields.name.value,
+					startDate: fields.startDate.value,
+					finishDate: fields.finishDate.value
+				},
 				update: (store, { data: { addCompany } }) => {
-					const data = store.readQuery({ query: GET_ALL_COMPANIES })
-					const getAllCompanies = [...data.getAllCompanies, addCompany]
-					store.writeQuery({ query: GET_ALL_COMPANIES, data: { ...data, getAllCompanies } })
+					const { getAllCompanies } = store.readQuery({ query: GET_ALL_COMPANIES })
+					store.writeQuery({
+						query: GET_ALL_COMPANIES,
+						data: { getAllCompanies: [...getAllCompanies, addCompany] }
+					})
 				}
 			})
 			onClose()
