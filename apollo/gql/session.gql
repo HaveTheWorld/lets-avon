@@ -1,4 +1,4 @@
-query MAIN_QUERY {
+query SESSION {
 	getCurrentUser {
 		id
 		username

@@ -23,9 +23,11 @@ class ButtonRemove extends React.Component {
 			await mutate({
 				variables: { id },
 				update: store => {
-					const data = store.readQuery({ query: GET_ALL_COMPANIES })
-					const getAllCompanies = data.getAllCompanies.filter(company => company.id !== id)
-					store.writeQuery({ query: GET_ALL_COMPANIES, data: { ...data, getAllCompanies } })
+					const { getAllCompanies } = store.readQuery({ query: GET_ALL_COMPANIES })
+					store.writeQuery({
+						query: GET_ALL_COMPANIES,
+						data: { getAllCompanies: getAllCompanies.filter(company => company.id !== id) }
+					})
 				}
 			})
 		} catch (error) {

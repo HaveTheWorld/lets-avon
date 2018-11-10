@@ -4,7 +4,7 @@ import cls from 'classnames'
 import onClickOutside from 'react-onclickoutside'
 import { Link } from '@/libs/routes'
 import { graphql } from 'react-apollo'
-import { MAIN_QUERY } from '@/apollo/gql/main.gql'
+import { SESSION } from '@/apollo/gql/session.gql'
 import menuMap from '@/maps/menu'
 import css from './Navbar.sass'
 import Burger from './Burger'
@@ -12,7 +12,7 @@ import Icon from '@/components/Elements/Icon'
 import NavLink from './NavLink'
 
 
-@graphql(MAIN_QUERY)
+@graphql(SESSION)
 @onClickOutside
 class Navbar extends React.Component {
 	state = {
