@@ -3,32 +3,31 @@ import PropTypes from 'prop-types'
 import cls from 'classnames'
 import Icon from '@/components/Elements/Icon'
 import { graphql } from 'react-apollo'
-import { GET_ALL_COMPANIES, REMOVE_COMPANY } from '@/apollo/gql/companies.gql'
+import { GET_ALL_CATALOGS, GET_CURRENT_CATALOGS, REMOVE_CATALOG } from '@/apollo/gql/catalogs.gql'
 import { connect } from 'react-redux'
 import { addToast } from '@/redux/ducks/toasts'
 
 @connect(null, { addToast })
-@graphql(REMOVE_COMPANY)
+@graphql(REMOVE_CATALOG)
 class ButtonRemove extends React.Component {
 	state = {
 		isLoading: false
 	}
 
 	onDelete = async () => {
-		const { id, mutate, addToast } = this.props
+		const { catalogId, companyId, mutate, addToast } = this.props
 
 		this.setState({ isLoading: true })
 
 		try {
 			await mutate({
-				variables: { id },
+				variables: { catalogId, companyId },
 				update: store => {
-					const { getAllCompanies } = store.readQuery({ query: GET_ALL_COMPANIES })
-					store.writeQuery({
-						query: GET_ALL_COMPANIES,
-						data: { getAllCompanies: getAllCompanies.filter(company => company.id !== id) }
-					})
-				}
+					const data = store.readQuery({ query: GET_ALL_CATALOGS })
+					const getAllCatalogs = data.getAllCatalogs.filter(catalog => catalog.id !== catalogId)
+					store.writeQuery({ query: GET_ALL_CATALOGS, data: { ...data, getAllCatalogs } })
+				},
+				refetchQueries: [{ query: GET_CURRENT_CATALOGS }]
 			})
 		} catch (error) {
 			this.setState({ isLoading: false })

@@ -1,4 +1,6 @@
 const express = require('express')
+const proxy = require('express-http-proxy')
+const cookieParser = require('cookie-parser')
 const next = require('next')
 const routes = require('./libs/routes')
 
@@ -7,14 +9,16 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = routes.getRequestHandler(app)
 
-const cookieParser = require('cookie-parser')
-const proxy = require('express-http-proxy')
 let authHeader
 
 app.prepare()
 	.then(() => {
 		const server = express()
 		server.use(cookieParser())
+
+		server.use('/static/catalogs', (req, res) => {
+			res.redirect(`http://localhost:3001/catalogs${req.url}`)
+		})
 
 		server.use('/graphql', proxy('http://localhost:3001', {
 			proxyReqOptDecorator(opts) {

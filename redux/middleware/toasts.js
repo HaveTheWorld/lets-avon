@@ -11,7 +11,9 @@ const setTimer = (dispatch, id) => setInterval(() => {
 }, toastInterval)
 
 
-export default ({ dispatch, getState }) => next => ({ type, payload }) => {
+export default ({ dispatch, getState }) => next => action => {
+	const { type, payload } = action
+
 	switch (type) {
 		
 		case ADD_TOAST: {
@@ -19,7 +21,7 @@ export default ({ dispatch, getState }) => next => ({ type, payload }) => {
 			const id = getState().toasts.counter + 1
 			payload.id = id
 			toastsTimers[id] = { timeLeft: toastTimeout, timer: setTimer(dispatch, id) }
-			return next({ type, payload })
+			return next(action)
 		}
 
 		case REMOVE_TOAST: {
@@ -33,16 +35,16 @@ export default ({ dispatch, getState }) => next => ({ type, payload }) => {
 		case PAUSE_TOAST_TIMER: {
 			// payload: id
 			if (toastsTimers[payload]) clearInterval(toastsTimers[payload].timer)
-			return next({ type, payload })
+			return next(action)
 		}
 
 		case RESUME_TOAST_TIMER: {
 			// payload: id
 			if (toastsTimers[payload]) toastsTimers[payload].timer = setTimer(dispatch, payload)
-			return next({ type, payload })
+			return next(action)
 		}
 
 		default:
-			next({ type, payload })
+			return next(action)
 	}
 }

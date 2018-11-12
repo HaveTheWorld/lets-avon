@@ -1,16 +1,18 @@
 query GET_ALL_COMPANIES {
 	getAllCompanies {
 		id
-		name
+		number
+		year
 		startDate
 		finishDate
 	}
 }
 
-mutation ADD_COMPANY($name: String!, $startDate: Date!, $finishDate: Date!) {
-	addCompany(name: $name, startDate: $startDate, finishDate: $finishDate) {
+mutation ADD_COMPANY($number: Int!, $year: Int!, $startDate: Date!, $finishDate: Date!) {
+	addCompany(number: $number, year: $year startDate: $startDate, finishDate: $finishDate) {
 		id
-		name
+		number
+		year
 		startDate
 		finishDate
 	}

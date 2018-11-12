@@ -37,7 +37,7 @@ module.exports = {
 	// Admin Routes
 	login: {
 		asPath: '/login',
-		filePath: 'Admin/Login',
+		filePath: 'Admin/LoginPage/LoginPage',
 		title: 'Вход'
 	},
 	adminHome: {
@@ -45,14 +45,24 @@ module.exports = {
 		filePath: 'Admin/Home',
 		title: 'Админ :: Главная'
 	},
-	adminCompanies: {
+	adminCompaniesList: {
 		asPath: '/admin/companies',
-		filePath: 'Admin/Companies/Companies',
+		filePath: 'Admin/Companies/CompaniesList/CompaniesList',
 		title: 'Админ :: Кампании'
 	},
-	adminCatalogs: {
+	adminAddCompany: {
+		asPath: '/admin/companies/add',
+		filePath: 'Admin/Companies/AddCompany/AddCompany',
+		title: 'Админ :: Новая кампания'
+	},
+	adminCatalogsList: {
 		asPath: '/admin/catalogs',
-		filePath: 'Admin/Catalogs/Catalogs',
+		filePath: 'Admin/Catalogs/CatalogsList/CatalogsList',
 		title: 'Админ :: Каталоги'
-	}
+	},
+	adminAddCatalog: {
+		asPath: '/admin/catalogs/add',
+		filePath: 'Admin/Catalogs/AddCatalog/AddCatalog',
+		title: 'Админ :: Новый каталог'
+	},
 }

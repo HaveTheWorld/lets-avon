@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cls from 'classnames'
-import Icon from '@/components/Elements/Icon'
-import { graphql } from 'react-apollo'
-import { GET_ALL_CATALOGS, GET_CURRENT_CATALOGS, REMOVE_CATALOG } from '@/apollo/gql/catalogs.gql'
 import { connect } from 'react-redux'
 import { addToast } from '@/redux/ducks/toasts'
+import { graphql } from 'react-apollo'
+import { GET_ALL_COMPANIES, REMOVE_COMPANY } from '@/apollo/gql/companies.gql'
+import Icon from '@/components/Elements/Icon'
 
 @connect(null, { addToast })
-@graphql(REMOVE_CATALOG)
+@graphql(REMOVE_COMPANY)
 class ButtonRemove extends React.Component {
 	state = {
 		isLoading: false
@@ -23,11 +23,12 @@ class ButtonRemove extends React.Component {
 			await mutate({
 				variables: { id },
 				update: store => {
-					const data = store.readQuery({ query: GET_ALL_CATALOGS })
-					const getAllCatalogs = data.getAllCatalogs.filter(catalog => catalog.id !== id)
-					store.writeQuery({ query: GET_ALL_CATALOGS, data: { ...data, getAllCatalogs } })
-				},
-				refetchQueries: [{ query: GET_CURRENT_CATALOGS }]
+					const { getAllCompanies } = store.readQuery({ query: GET_ALL_COMPANIES })
+					store.writeQuery({
+						query: GET_ALL_COMPANIES,
+						data: { getAllCompanies: getAllCompanies.filter(company => company.id !== id) }
+					})
+				}
 			})
 		} catch (error) {
 			this.setState({ isLoading: false })
@@ -37,7 +38,6 @@ class ButtonRemove extends React.Component {
 
 	render() {
 		const { isLoading } = this.state
-		const { id } = this.props
 
 		return (
 			<button

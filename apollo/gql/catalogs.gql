@@ -4,10 +4,12 @@ query GET_ALL_CATALOGS {
 		name
 		title
 		company {
-			name
+			id
+			number
+			year
 		}
-		face {
-			path
+		images {
+			catalogThumbPath
 		}
 	}
 }
@@ -18,12 +20,13 @@ query GET_CURRENT_CATALOGS {
 		name
 		title
 		company {
-			name
+			number
+			year
 			startDate
 			finishDate
 		}
-		face {
-			path
+		images {
+			catalogFacePath
 		}
 	}
 }
@@ -37,14 +40,22 @@ query GET_CATALOG($company: String!, $name: String!) {
 	}
 }
 
-mutation ADD_CATALOG($catalog: String!, $title: String!, $company: CompanyInput!, $images: CatalogImagesInput!) {
-	addCatalog(catalog: $catalog, title: $title, company: $company, images: $images) {
+mutation ADD_CATALOG($name: String!, $title: String!, $companyId: ID!, $images: [ID]!) {
+	addCatalog(name: $name, title: $title, companyId: $companyId, images: $images) {
 		id
 		name
 		title
+		company {
+			id
+			number
+			year
+		}
+		images {
+			catalogThumbPath
+		}
 	}
 }
 
-mutation REMOVE_CATALOG($id: ID!) {
-	removeCatalog(id: $id)
+mutation REMOVE_CATALOG($catalogId: ID!, $companyId: ID!) {
+	removeCatalog(catalogId: $catalogId, companyId: $companyId)
 }
