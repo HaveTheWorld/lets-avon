@@ -23,29 +23,29 @@ const AdminCatalogs = ({ uploadCatalogImage, addCatalog, addToast, data: { getAl
 		nprogress.set(0)
 
 		const company = getAllCompanies.find(({ id }) => id === companyId)
-		const images = []
-		let faceImage = null
+		let images = []
 		let done = 0
 		
 		try {
 			for (let i = 0; i < files.length; i++) {
-				const result = await uploadCatalogImage({
+				const { data } = await uploadCatalogImage({
 					variables: {
 						catalogName: name,
 						companyId,
 						companyName: `${company.number}-${company.year}`,
 						file: files[i],
-						index: i
+						index: i,
+						length: files.length
 					}
 				})
 
-				if (i < files.length - 1) { nprogress.set(++done / files.length) }
-				if (!i) { faceImage = result.data.uploadCatalogImage }
-				images.push(result.data.uploadCatalogImage.id)
-
-				if (i === files.length - 1) {
+				images = images.concat(data.uploadCatalogImage)
+				if (i < files.length - 1) {
+					nprogress.set(++done / files.length)
+				} else {
+					images.sort((a, b) => a.catalogIndex - b.catalogIndex)
 					await addCatalog({
-						variables: { name, title, companyId, images },
+						variables: { name, title, companyId, images: images.map(({ id }) => id) },
 						update: (store, { data: { addCatalog } }) => {
 							const { getAllCatalogs } = store.readQuery({ query: GET_ALL_CATALOGS })
 							store.writeQuery({

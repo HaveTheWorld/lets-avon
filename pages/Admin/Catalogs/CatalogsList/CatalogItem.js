@@ -8,8 +8,8 @@ const CatalogItem = ({ id, name, title, company, images }) => {
 		<tr>
 			<td>
 				<img
-					className={css.face}
-					src={`/static/${images[0].catalogThumbPath}`}
+					className={css.thumb}
+					src={`/static/${images[0] && images[0].catalogThumbPath}`}
 					alt={`Превью ${name} ${company.number}-${company.year}`}
 				/>
 			</td>

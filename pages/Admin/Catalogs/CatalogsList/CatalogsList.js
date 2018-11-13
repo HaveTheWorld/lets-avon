@@ -16,7 +16,7 @@ const CatalogsList = ({ data: { loading, getAllCatalogs } }) => {
 							<tr>
 								<th>Обложка</th>
 								<th>Роут</th>
-								<th>Название</th>
+								<th>Заголовок</th>
 								<th>Кампания</th>
 								<th>Удалить</th>
 							</tr>

@@ -21,7 +21,8 @@ module.exports = {
 	actions: {
 		asPath: '/actions',
 		filePath: 'User/Actions',
-		title: 'Акции'
+		title: 'Акции',
+		isNavbarAbsolute: true
 	},
 	info: {
 		asPath: '/info',
