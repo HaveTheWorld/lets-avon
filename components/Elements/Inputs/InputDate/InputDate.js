@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cls from 'classnames'
 import moment from 'moment'
+import siteMap from '@/maps/site'
 import DatePicker from 'react-datepicker'
 import { Icon } from '@/components/Elements'
 
@@ -9,19 +10,18 @@ moment.locale('ru')
 
 const InputDate = ({ input, meta, label, icon }) => {
 	const showError = meta.touched && meta.error
-	const dateFormat = 'DD.MM.YYYY'
 
 	const formattedValue = !input.value
 		? ''
 		: typeof input.value === 'number'
-			? moment(input.value).format(dateFormat)
+			? moment(input.value).format(siteMap.dateFormat)
 			: input.value
 
 	const selectedValue = !input.value
 		? null
 		: typeof input.value === 'number'
 			? moment(input.value)
-			: moment(input.value, dateFormat)
+			: moment(input.value, siteMap.dateFormat)
 
 	const onChange = date => {
 		const value = date ? moment(date).valueOf() : null

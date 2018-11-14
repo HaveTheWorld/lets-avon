@@ -1,58 +1,35 @@
 import React, { Fragment } from 'react'
-import Section from '@/components/Elements/Section'
-import { formatDate } from '@/libs/helpers'
 import { graphql } from 'react-apollo'
 import { GET_CURRENT_CATALOGS } from '@/apollo/gql/catalogs.gql'
-import { Link } from '@/libs/routes'
-import Loader from '@/components/Elements/Loader'
-import css from './Catalogs.sass'
+import { Section, Loader } from '@/components/Elements'
+import CompanyInfo from './CompanyInfo'
+import CatalogFace from './CatalogFace'
 
-const Catalogs = ({ data }) => {
-	const { loading, getAllCatalogs } = data
-	
-	const renderCompanyInfo = () => {
-		if (loading) { return null }
+@graphql(GET_CURRENT_CATALOGS)
+class Catalogs extends React.Component {
+	componentDidMount() {
+		this.props.data.refetch()
+	}
 
-		const { name, startDate, finishDate } = getAllCatalogs[0].company
-		const [num, year] = name.split('-')
+	render() {
+		const { loading, getAllCatalogs } = this.props.data
+		const company = !loading && getAllCatalogs.length && getAllCatalogs[0].company
 
 		return (
-			<div className={css.info}>
-				Кампания&nbsp;
-				<span className="has-text-weight-bold">№{num}</span>
-				. Действует с&nbsp;
-				<span className="has-text-weight-bold">{formatDate(startDate)}</span>
-				&nbsp;по&nbsp; 
-				<span className="has-text-weight-bold">{formatDate(finishDate)}</span>
-				.
-			</div>
+			<Section title="Текущие каталоги">
+				{loading ? <Loader /> : (
+					<Fragment>
+						<CompanyInfo company={company} />
+						<div className="columns is-multiline">
+							{getAllCatalogs.map((catalog) => (
+								<CatalogFace key={catalog.id} {...catalog} />
+							))}
+						</div>
+					</Fragment>
+				)}			
+			</Section>
 		)
 	}
-
-	const renderCatalogs = () => {
-		if (loading) { return null }
-		
-		return getAllCatalogs.map(({ id, name, title, company, face }) => (
-			<div key={id} className="column is-10-mobile is-offset-1-mobile is-4-tablet is-3-desktop">
-				<h3 className="subtitle">{title}</h3>
-				<Link route={`/catalogs/${company.name}/${name}`}>
-					<a className={css.face}>
-						<img src={`http://localhost:3001/${face.path}`} alt={`Обложка каталога ${title}`} />
-					</a>
-				</Link>
-			</div>
-		))
-	}
-
-	return (
-		<Section title="Текущие каталоги">
-			{loading && <Loader />}
-			{renderCompanyInfo()}
-			<div className="columns is-multiline">
-				{renderCatalogs()}
-			</div>
-		</Section>
-	)
 }
 
-export default graphql(GET_CURRENT_CATALOGS)(Catalogs)
+export default Catalogs

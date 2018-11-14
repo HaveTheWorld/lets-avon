@@ -13,16 +13,15 @@ module.exports = {
 		title: 'Каталоги'
 	},
 	catalogView: {
-		asPath: '/catalogs/:company/:name',
-		filePath: 'User/Catalogs/CatalogView',
+		asPath: '/catalogs/:company/:name/:page?',
+		filePath: 'User/CatalogView/CatalogView',
 		title: 'Просмотр каталога',
 		isNavbarAbsolute: true
 	},
 	actions: {
 		asPath: '/actions',
 		filePath: 'User/Actions',
-		title: 'Акции',
-		isNavbarAbsolute: true
+		title: 'Акции'
 	},
 	info: {
 		asPath: '/info',
