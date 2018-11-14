@@ -45,7 +45,7 @@ const AdminCatalogs = ({ uploadCatalogImage, addCatalog, addToast, data: { getAl
 				} else {
 					images.sort((a, b) => a.catalogIndex - b.catalogIndex)
 					await addCatalog({
-						variables: { name, title, companyId, images: images.map(({ id }) => id) },
+						variables: { name, title, companyId, imagesIds: images.map(({ id }) => id) },
 						update: (store, { data: { addCatalog } }) => {
 							const { getAllCatalogs } = store.readQuery({ query: GET_ALL_CATALOGS })
 							store.writeQuery({

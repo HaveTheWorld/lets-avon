@@ -8,6 +8,7 @@ query GET_ALL_CATALOGS {
 			number
 			year
 		}
+		count
 		images {
 			id
 			catalogThumbPath
@@ -27,6 +28,7 @@ query GET_CURRENT_CATALOGS {
 			startDate
 			finishDate
 		}
+		count
 		images {
 			id
 			catalogFacePath
@@ -38,6 +40,7 @@ query GET_CATALOG($number: String!, $year: String!, $name: String!) {
 	getCatalog(number: $number, year: $year, name: $name) {
 		id
 		title
+		count
 		images {
 			id
 			path
@@ -46,8 +49,8 @@ query GET_CATALOG($number: String!, $year: String!, $name: String!) {
 	}
 }
 
-mutation ADD_CATALOG($name: String!, $title: String!, $companyId: ID!, $images: [ID]!) {
-	addCatalog(name: $name, title: $title, companyId: $companyId, images: $images) {
+mutation ADD_CATALOG($name: String!, $title: String!, $companyId: ID!, $imagesIds: [ID]!) {
+	addCatalog(name: $name, title: $title, companyId: $companyId, imagesIds: $imagesIds) {
 		id
 		name
 		title
@@ -56,6 +59,7 @@ mutation ADD_CATALOG($name: String!, $title: String!, $companyId: ID!, $images: 
 			number
 			year
 		}
+		count
 		images {
 			id
 			catalogThumbPath
