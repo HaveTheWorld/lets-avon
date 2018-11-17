@@ -7,14 +7,14 @@ module.exports = {
 		title: 'Главная',
 		isHome: true
 	},
-	catalogs: {
+	catalogsList: {
 		asPath: '/catalogs',
-		filePath: 'User/Catalogs/Catalogs',
+		filePath: 'User/Catalogs/CatalogsList/CatalogsList',
 		title: 'Каталоги'
 	},
 	catalogView: {
 		asPath: '/catalogs/:company/:name/:page?',
-		filePath: 'User/CatalogView/CatalogView',
+		filePath: 'User/Catalogs/CatalogView/CatalogView',
 		title: 'Просмотр каталога',
 		isNavbarAbsolute: true
 	},

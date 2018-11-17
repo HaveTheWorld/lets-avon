@@ -4,10 +4,16 @@ import { GET_CURRENT_CATALOGS } from '@/apollo/gql/catalogs.gql'
 import { Section, Loader } from '@/components/Elements'
 import CompanyInfo from './CompanyInfo'
 import CatalogFace from './CatalogFace'
+import Preloads from './Preloads'
 
 @graphql(GET_CURRENT_CATALOGS)
-class Catalogs extends React.Component {
+class CatalogsList extends React.Component {
+	state = {
+		isMounted: false
+	}
+
 	componentDidMount() {
+		this.setState({ isMounted: true })
 		this.props.data.refetch()
 	}
 
@@ -25,6 +31,7 @@ class Catalogs extends React.Component {
 								<CatalogFace key={catalog.id} {...catalog} />
 							))}
 						</div>
+						<Preloads preload={this.state.isMounted} catalogs={getAllCatalogs} />
 					</Fragment>
 				)}			
 			</Section>
@@ -32,4 +39,4 @@ class Catalogs extends React.Component {
 	}
 }
 
-export default Catalogs
+export default CatalogsList

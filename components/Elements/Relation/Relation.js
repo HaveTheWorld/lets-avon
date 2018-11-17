@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import cls from 'classnames'
 import css from './Relation.sass'
 
-const Relation = ({ children, relationCls, ratioCls, ratio }) => {
+const Relation = ({ children, relationCls, ratioCls, ratio, ...rest }) => {
 	return (
-		<div className={cls(css.relation, relationCls)}>
+		<div className={cls(css.relation, relationCls)} {...rest}>
 			<div
 				style={{ paddingTop: ratio && `${ratio}%` }}
 				className={cls(css.ratio, { [ratioCls]: !ratio })}

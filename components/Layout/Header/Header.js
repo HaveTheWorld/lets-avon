@@ -26,10 +26,13 @@ class Header extends React.Component {
 	}
 
 	componentDidMount() {
-		const { isNavbarAbsolute, route } = this.props
-		const navbar = findDOMNode(this.navbar)
-		isNavbarAbsolute && navbar.classList.add('is-absolute')
-		const { height } = navbar.getBoundingClientRect()
+		let height = 54
+		this.navbar = findDOMNode(this.navbarRef)
+
+		if (this.navbar.nodeType === 1) {
+			this.props.isNavbarAbsolute && this.navbar.classList.add('is-absolute')
+			height = this.navbar.getBoundingClientRect().height
+		}		
 
 		this.setState({ paddingTop: height, isMounted: true }, () => {
 			document.getElementById('__next').classList.add('is-ready')
@@ -39,12 +42,10 @@ class Header extends React.Component {
 	}
 
 	componentDidUpdate(props) {
-		const { isNavbarAbsolute, route } = this.props
-		if (route !== props.route) {
-			const navbar = findDOMNode(this.navbar)
-			isNavbarAbsolute && navbar.classList.add('is-absolute')
-			!isNavbarAbsolute && navbar.classList.remove('is-absolute')
-		}
+		if (this.navbar.nodeType !== 1) { return }
+
+		const operation = this.props.isNavbarAbsolute ? 'add' : 'remove'
+		this.navbar.classList[operation]('is-absolute')
 	}
 
 	componentWillUnmount() {
@@ -103,7 +104,7 @@ class Header extends React.Component {
 		return (
 			<header className={css.header} style={headerStyles}>
 				<Navbar
-					ref={ref => this.navbar = ref}
+					ref={ref => this.navbarRef = ref}
 					isShown={showNavbar}
 					isHome={isHome}
 					asPath={asPath}
