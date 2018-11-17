@@ -4,18 +4,18 @@ export function sleep(ms) {
 	})
 }
 
-export function formatDate(timestamp, withTime = false) {
-	let date = new Date(timestamp)
-		.toLocaleString('ru')
-		.replace(/-/g, '.')
-		.replace(',', '')
-	if (!withTime) {
-		date = date.split(' ')[0]
-	}
-	return date
+export function getValueSafely(obj, path) {
+	path = path.split('.')
+	if (!path[0]) { return obj }
+	const field = path.shift()
+	return obj[field]
+		? obj[field].constructor.name === 'Object'
+			? getValueSafely(obj[field], path.join('.'))
+			: obj[field]
+		: false
 }
 
-export function reduceObject(array, object) {
+export function reduceObjectValues(array, object) {
 	return Object.entries(object).reduce((acc, [key, value]) => {
 		if (array.includes(key)) { acc[key] = value }
 		return acc

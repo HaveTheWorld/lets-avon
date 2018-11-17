@@ -1,3 +1,4 @@
 export default {
-	title: `Let's AVON`
+	title: `Let's AVON`,
+	dateFormat: 'DD.MM.YYYY'
 }

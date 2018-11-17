@@ -1,17 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from '@/libs/routes'
 import ButtonRemove from './ButtonRemove'
 import css from './CatalogItem.sass'
 
-const CatalogItem = ({ id, name, title, company, images }) => {
+const CatalogItem = ({ id, name, title, company, count, images }) => {
+	const companyName = `${company.number}-${company.year}`
+
 	return (
 		<tr>
 			<td>
-				<img
-					className={css.face}
-					src={`/static/${images[0].catalogThumbPath}`}
-					alt={`Превью ${name} ${company.number}-${company.year}`}
-				/>
+				<Link route={`/catalogs/${companyName}/${name}/${count}-1`} prefetch>
+					<a>
+						<img
+							className={css.thumb}
+							src={`/static/${images[0] && images[0].catalogThumbPath}`}
+							alt={`Превью ${name} ${companyName}`}
+						/>
+					</a>
+				</Link>
 			</td>
 			<td>{name}</td>
 			<td>{title}</td>
