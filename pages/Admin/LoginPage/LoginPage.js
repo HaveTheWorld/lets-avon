@@ -1,40 +1,32 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cls from 'classnames'
-import jwt from 'jsonwebtoken'
 import { graphql, compose } from 'react-apollo'
-import { SESSION } from '@/apollo/gql/session.gql'
-import { LOGIN_USER } from '@/apollo/gql/auth.gql'
+import { CurrentUserQuery } from '@/apollo/gql/auth.gql'
 import { connect } from 'react-redux'
 import { addToast } from '@/redux/ducks/toasts'
-import { Router } from '@/libs/routes'
-import { sleep } from '@/libs/helpers'
+// import { Router } from '@/libs/routes'
+// import { sleep } from '@/libs/helpers'
 import { Section, FormWrapper } from '@/components/Elements'
 import LoginForm from './LoginForm'
 
-const LoginPage = ({ mutate, addToast }) => {
+const LoginPage = ({ addToast, data: { refetch } }) => {
 
 	const onSubmit = async variables => {
 		try {
-			await mutate({
-				variables,
-				update: (store, { data: { loginUser } }) => {
-					const { exp, ...user } = jwt.decode(loginUser.token)
-					document.cookie = `token=${loginUser.token}; path=/; expires=${new Date(exp * 1000)}`
-
-					const { getCurrentUser } = store.readQuery({ query: SESSION })
-					store.writeQuery({
-						query: SESSION,
-						data: { getCurrentUser: user }
-					})
-				}
+			const response = await fetch('http://localhost:3001/login', {
+				method: 'POST',
+				headers: { 'content-type': 'application/json' },
+				body: JSON.stringify(variables)
 			})
+			const { token, expires, error } = await response.json()
 
-			addToast(`Вход выполнен успешно. Привет, ${variables.username}!`, 'success')
-			await sleep(10)
-			Router.pushRoute('/admin')
+			if (error) { return addToast(error.message, 'danger') }
+			
+			document.cookie = `token=${token}; path=/; expires=${new Date(expires)}`
+			const { data: { currentUser } }  = await refetch()
+			console.log(currentUser)
 		} catch (error) {
-			addToast(error.message.replace('GraphQL error: ', ''), 'danger')
+			addToast(error.message, 'danger')
 		}
 	}
 
@@ -53,5 +45,5 @@ LoginPage.propTypes = {
 
 export default compose(
 	connect(null, { addToast }),
-	graphql(LOGIN_USER)
+	graphql(CurrentUserQuery)
 )(LoginPage)

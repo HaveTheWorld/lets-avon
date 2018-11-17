@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'next/router'
 import { graphql, compose } from 'react-apollo'
-import { SESSION } from '@/apollo/gql/session.gql'
+import { CurrentUserQuery } from '@/apollo/gql/auth.gql'
 import { Router } from '@/libs/routes'
 import Error from '@/components/Service/Error'
 
@@ -23,8 +23,8 @@ const Redirect = ({ children, router, data, redirect, statusCode, ...props }) =>
 	
 	const requireAdmin = adminRoutes.includes(/*dirtyRoute ? dirtyRoute[0] : */router.asPath)
 	if (requireAdmin) {
-		const { loading, getCurrentUser } = data
-		if (!loading && (!getCurrentUser || !getCurrentUser.isAdmin)) {
+		const { loading, currentUser } = data
+		if (!loading && (!currentUser || !currentUser.isAdmin)) {
 			doRedirect('/login')
 			return null
 		}
@@ -49,5 +49,5 @@ Redirect.propTypes = {
 
 export default compose(
 	withRouter,
-	graphql(SESSION)
+	graphql(CurrentUserQuery)
 )(Redirect)

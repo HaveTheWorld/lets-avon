@@ -4,7 +4,7 @@ import cls from 'classnames'
 import onClickOutside from 'react-onclickoutside'
 import { Link } from '@/libs/routes'
 import { graphql } from 'react-apollo'
-import { SESSION } from '@/apollo/gql/session.gql'
+import { CurrentUserQuery } from '@/apollo/gql/auth.gql'
 import menuMap from '@/maps/menu'
 import css from './Navbar.sass'
 import Burger from './Burger'
@@ -12,7 +12,7 @@ import Icon from '@/components/Elements/Icon'
 import NavLink from './NavLink'
 
 
-@graphql(SESSION)
+@graphql(CurrentUserQuery)
 @onClickOutside
 class Navbar extends React.Component {
 	state = {
@@ -44,10 +44,10 @@ class Navbar extends React.Component {
 	}
 
 	renderMenuStart() {
-		const { asPath, data: { getCurrentUser } } = this.props
+		const { asPath, data: { currentUser } } = this.props
 		const isProd = process.env.NODE_ENV === 'production'
 
-		if (!getCurrentUser && isProd) { return null }
+		if (!currentUser && isProd) { return null }
 
 		const isActive = /^\/admin/.test(asPath)
 

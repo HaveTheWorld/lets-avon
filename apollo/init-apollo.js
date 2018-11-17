@@ -1,5 +1,4 @@
-import { ApolloClient } from 'apollo-client'
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import { ApolloClient, InMemoryCache } from 'apollo-boost'
 import { createUploadLink } from 'apollo-upload-client'
 import fetch from 'isomorphic-unfetch'
 
