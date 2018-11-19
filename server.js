@@ -40,6 +40,7 @@ app.prepare()
 					
 					delete opts.headers.cookie
 				}
+				console.log(opts.headers['authorization'] && opts.headers['authorization'].length)
 
 				return opts
 			},

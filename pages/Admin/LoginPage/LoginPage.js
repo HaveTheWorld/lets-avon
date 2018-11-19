@@ -1,30 +1,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql, compose } from 'react-apollo'
-import { CurrentUserQuery } from '@/apollo/gql/auth.gql'
+import { CurrentUserQuery, LoginUserMutation } from '@/apollo/gql/auth.gql'
 import { connect } from 'react-redux'
 import { addToast } from '@/redux/ducks/toasts'
-// import { Router } from '@/libs/routes'
-// import { sleep } from '@/libs/helpers'
+import { Router } from '@/libs/routes'
+import { sleep } from '@/libs/helpers'
 import { Section, FormWrapper } from '@/components/Elements'
 import LoginForm from './LoginForm'
+import { setCookie, deleteCookie } from '@/libs/helpers'
 
-const LoginPage = ({ addToast, data: { refetch } }) => {
+const LoginPage = ({ addToast, mutate }) => {
 
 	const onSubmit = async variables => {
+		deleteCookie('token')
 		try {
-			const response = await fetch('http://localhost:3001/login', {
-				method: 'POST',
-				headers: { 'content-type': 'application/json' },
-				body: JSON.stringify(variables)
+			await mutate({
+				variables,
+				update: (store, { data: { loginUser } }) => {
+					setCookie('token', loginUser.token, { expires: loginUser.expires })
+					store.writeQuery({
+						query: CurrentUserQuery,
+						data: { currentUser: loginUser.user }
+					})					
+				}
 			})
-			const { token, expires, error } = await response.json()
-
-			if (error) { return addToast(error.message, 'danger') }
-			
-			document.cookie = `token=${token}; path=/; expires=${new Date(expires)}`
-			const { data: { currentUser } }  = await refetch()
-			console.log(currentUser)
+			Router.pushRoute('/admin')
+			await sleep(10)
+			addToast(`Вход выполнен успешно.\nПривет, ${variables.username}!`, 'success')
 		} catch (error) {
 			addToast(error.message, 'danger')
 		}
@@ -45,5 +48,5 @@ LoginPage.propTypes = {
 
 export default compose(
 	connect(null, { addToast }),
-	graphql(CurrentUserQuery)
+	graphql(LoginUserMutation)
 )(LoginPage)

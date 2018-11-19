@@ -2,6 +2,18 @@ query CurrentUserQuery {
 	currentUser {
 		id
 		username
-		isAdmin
+		role
+	}
+}
+
+mutation LoginUserMutation($username: String!, $password: String!) {
+	loginUser(username: $username, password: $password) {
+		user {
+			id
+			username
+			role
+		}
+		token
+		expires
 	}
 }
