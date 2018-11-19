@@ -23,6 +23,7 @@ const CatalogItem = ({ id, name, title, company, count, images }) => {
 			<td>{name}</td>
 			<td>{title}</td>
 			<td>{company.number} - {company.year}</td>
+			<td>{count}</td>
 			<td><ButtonRemove catalogId={id} companyId={company.id} /></td>
 		</tr>
 	)

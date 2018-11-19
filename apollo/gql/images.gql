@@ -1,5 +1,5 @@
-mutation UPLOAD_CATALOG_IMAGE($catalogName: String!, $companyId: ID!, $companyName: String!, $file: Upload!, $index: Int!, $length: Int!) {
-	uploadCatalogImage(catalogName: $catalogName, companyId: $companyId, companyName: $companyName, file: $file, index: $index, length: $length) {
+mutation UploadCatalogImageMutation($input: AddCatalogImageInput!) {
+	image: uploadCatalogImage(input: $input) {
 		id
 		catalogIndex
 	}

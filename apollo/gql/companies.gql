@@ -4,6 +4,21 @@ query CompaniesQuery {
 	}
 }
 
+query CurrentCompanyQuery {
+	company: currentCompany {
+		...CompanyDetail
+		catalogs {
+			id
+			name
+			count
+			images {
+				id
+				catalogFacePath
+			}
+		}
+	}
+}
+
 mutation AddCompanyMutation($input: AddCompanyInput!) {
 	company: addCompany(input: $input) {
 		...CompanyDetail

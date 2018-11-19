@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { addToast } from '@/redux/ducks/toasts'
 import { graphql, compose } from 'react-apollo'
-import { GET_ALL_COMPANIES } from '@/apollo/gql/companies.gql'
-import { UPLOAD_CATALOG_IMAGE } from '@/apollo/gql/images.gql'
-import { GET_ALL_CATALOGS, ADD_CATALOG } from '@/apollo/gql/catalogs.gql'
+import { CompaniesQuery } from '@/apollo/gql/companies.gql'
+import { UploadCatalogImageMutation } from '@/apollo/gql/images.gql'
+import { CatalogsQuery, AddCatalogMutation } from '@/apollo/gql/catalogs.gql'
 import nprogress from 'nprogress'
 import { Router } from '@/libs/routes'
 import { sleep } from '@/libs/helpers'
@@ -17,12 +17,12 @@ nprogress.configure({
 	trickle: false
 })
 
-const AdminCatalogs = ({ uploadCatalogImage, addCatalog, addToast, data: { getAllCompanies } }) => {
+const AdminCatalogs = ({ uploadCatalogImage, addCatalog, addToast, data: { companies } }) => {
 
 	const onSubmit = async ({ name, title, companyId, files }) => {
 		nprogress.set(0)
 
-		const company = getAllCompanies.find(({ id }) => id === companyId)
+		const company = companies.find(({ id }) => id === companyId)
 		let images = []
 		let done = 0
 		
@@ -30,27 +30,32 @@ const AdminCatalogs = ({ uploadCatalogImage, addCatalog, addToast, data: { getAl
 			for (let i = 0; i < files.length; i++) {
 				const { data } = await uploadCatalogImage({
 					variables: {
-						catalogName: name,
-						companyId,
-						companyName: `${company.number}-${company.year}`,
-						file: files[i],
-						index: i,
-						length: files.length
+						input: {
+							catalogName: name,
+							companyId,
+							companyName: `${company.number}-${company.year}`,
+							file: files[i],
+							index: i,
+							length: files.length
+						}
 					}
 				})
 
-				images = images.concat(data.uploadCatalogImage)
+				images = images.concat(data.image)
 				if (i < files.length - 1) {
 					nprogress.set(++done / files.length)
 				} else {
 					images.sort((a, b) => a.catalogIndex - b.catalogIndex)
+
 					await addCatalog({
-						variables: { name, title, companyId, imagesIds: images.map(({ id }) => id) },
-						update: (store, { data: { addCatalog } }) => {
-							const { getAllCatalogs } = store.readQuery({ query: GET_ALL_CATALOGS })
+						variables: {
+							input: { name, title, companyId, imagesIds: images.map(({ id }) => id) }
+						},
+						update: (store, { data: { catalog } }) => {
+							const { catalogs } = store.readQuery({ query: CatalogsQuery })
 							store.writeQuery({
-								query: GET_ALL_CATALOGS,
-								data: { getAllCatalogs: [...getAllCatalogs, addCatalog] }
+								query: CatalogsQuery,
+								data: { catalogs: [...catalogs, catalog] }
 							})
 						}
 					})
@@ -83,7 +88,7 @@ AdminCatalogs.propTypes = {
 
 export default compose(
 	connect(null, { addToast }),
-	graphql(GET_ALL_COMPANIES),
-	graphql(UPLOAD_CATALOG_IMAGE, { name: 'uploadCatalogImage' }),
-	graphql(ADD_CATALOG, { name: 'addCatalog' })
+	graphql(CompaniesQuery),
+	graphql(UploadCatalogImageMutation, { name: 'uploadCatalogImage' }),
+	graphql(AddCatalogMutation, { name: 'addCatalog' })
 )(AdminCatalogs)

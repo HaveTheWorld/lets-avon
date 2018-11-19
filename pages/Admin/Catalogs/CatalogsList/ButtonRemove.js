@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import cls from 'classnames'
 import Icon from '@/components/Elements/Icon'
 import { graphql } from 'react-apollo'
-import { GET_ALL_CATALOGS, GET_CURRENT_CATALOGS, REMOVE_CATALOG } from '@/apollo/gql/catalogs.gql'
+import { CatalogsQuery, RemoveCatalogMutation } from '@/apollo/gql/catalogs.gql'
 import { connect } from 'react-redux'
 import { addToast } from '@/redux/ducks/toasts'
 
 @connect(null, { addToast })
-@graphql(REMOVE_CATALOG)
+@graphql(RemoveCatalogMutation)
 class ButtonRemove extends React.Component {
 	state = {
 		isLoading: false
@@ -23,11 +23,12 @@ class ButtonRemove extends React.Component {
 			await mutate({
 				variables: { catalogId, companyId },
 				update: store => {
-					const data = store.readQuery({ query: GET_ALL_CATALOGS })
-					const getAllCatalogs = data.getAllCatalogs.filter(catalog => catalog.id !== catalogId)
-					store.writeQuery({ query: GET_ALL_CATALOGS, data: { ...data, getAllCatalogs } })
-				},
-				refetchQueries: [{ query: GET_CURRENT_CATALOGS }]
+					const { catalogs } = store.readQuery({ query: CatalogsQuery })
+					store.writeQuery({
+						query: CatalogsQuery,
+						data: { catalogs: catalogs.filter(catalog => catalog.id !== catalogId) }
+					})
+				}
 			})
 		} catch (error) {
 			this.setState({ isLoading: false })

@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
-import { GET_ALL_CATALOGS } from '@/apollo/gql/catalogs.gql'
+import { CatalogsQuery } from '@/apollo/gql/catalogs.gql'
 import { Link } from '@/libs/routes'
 import { Section, Loader, Icon } from '@/components/Elements'
 import CatalogItem from './CatalogItem'
 
-const CatalogsList = ({ data: { loading, getAllCatalogs } }) => {
+const CatalogsList = ({ data: { loading, catalogs } }) => {
 	return (
 		<Section title="Админ / Каталоги">
 			{loading ? <Loader /> : (
@@ -18,11 +18,12 @@ const CatalogsList = ({ data: { loading, getAllCatalogs } }) => {
 								<th>Роут</th>
 								<th>Заголовок</th>
 								<th>Кампания</th>
+								<th>Число страниц</th>
 								<th>Удалить</th>
 							</tr>
 						</thead>
 						<tbody>
-							{getAllCatalogs.map(catalog => (
+							{catalogs.map(catalog => (
 								<CatalogItem key={catalog.id} {...catalog} />
 							))}
 						</tbody>
@@ -43,4 +44,4 @@ CatalogsList.propTypes = {
 	
 }
 
-export default graphql(GET_ALL_CATALOGS)(CatalogsList)
+export default graphql(CatalogsQuery)(CatalogsList)

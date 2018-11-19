@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from '@/libs/routes'
 import css from './CatalogsList.sass'
 
-const CatalogFace = ({ name, title, company, count, images }) => {
+const CatalogFace = ({ name, title, count, images, company }) => {
 	return (
 		<div className="column is-10-mobile is-offset-1-mobile is-4-tablet is-3-desktop">
 			<h3 className="subtitle">{title}</h3>

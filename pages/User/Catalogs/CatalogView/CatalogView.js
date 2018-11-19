@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'next/router'
 import { graphql } from 'react-apollo'
-import { GET_CATALOG } from '@/apollo/gql/catalogs.gql'
+import { CatalogQuery } from '@/apollo/gql/catalogs.gql'
 import { getValueSafely } from '@/libs/helpers'
 import { findDOMNode } from 'react-dom'
 import { Router } from '@/libs/routes'
@@ -21,7 +21,7 @@ const getVariables = ({ router }) => {
 }
 
 @withRouter
-@graphql(GET_CATALOG, { options: getVariables })
+@graphql(CatalogQuery, { options: getVariables })
 class CatalogView extends React.Component {
 	constructor(props) {
 		super(props)
@@ -36,7 +36,7 @@ class CatalogView extends React.Component {
 			: /^\d{1,3}-\d{1,3}$/.test(page) ? 'double'
 			: null
 		
-		const images = getValueSafely(props.data, 'getCatalog.images')
+		const images = getValueSafely(props.data, 'catalog.images')
 		if (images.length === 1) {
 			this.state.isRefetching = true
 			props.data.refetch()
@@ -65,10 +65,9 @@ class CatalogView extends React.Component {
 			this.relation = findDOMNode(this.relationRef)			
 		}
 		if (!getValueSafely(this, 'relation.getBoundingClientRect')) { return }
-
 		const { mode } = this.state
 		const { name, company, page } = this.props.router.query
-		const { count, images } = getValueSafely(this.props.data, 'getCatalog')
+		const { count, images } = getValueSafely(this.props.data, 'catalog')
 
 		const { width, height } = this.relation.getBoundingClientRect()
 		const ratio = 100 * height / width
@@ -88,7 +87,7 @@ class CatalogView extends React.Component {
 
 	calcSingleMode() {
 		const { page } = this.props.router.query
-		const { images, count } = this.props.data.getCatalog
+		const { images, count } = this.props.data.catalog
 
 		const index1 = page - 1
 
@@ -101,7 +100,7 @@ class CatalogView extends React.Component {
 
 	calcDoubleMode() {
 		const { page } = this.props.router.query
-		const { images, count } = this.props.data.getCatalog
+		const { images, count } = this.props.data.catalog
 
 		const [index1, index2] = page.split('-').map(num => num - 1)
 
@@ -124,11 +123,11 @@ class CatalogView extends React.Component {
 
 	render() {
 		const { isRefetching, isMounted, mode } = this.state
-		const { router, data: { loading, getCatalog } } = this.props
+		const { router, data: { loading, catalog } } = this.props
 		if (loading || isRefetching) { return <Loader /> }
-		if (!getCatalog) { return <Error statusCode={404} /> }
+		if (!catalog) { return <Error statusCode={404} /> }
 
-		const { title, images, count } = getCatalog
+		const { title, images, count } = catalog
 		let { company, name, page } = router.query
 		const catalogUrl = `/catalogs/${company}/${name}`
 		

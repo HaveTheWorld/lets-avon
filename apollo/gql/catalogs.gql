@@ -1,14 +1,9 @@
-query GET_ALL_CATALOGS {
-	getAllCatalogs {
-		id
-		name
-		title
+query CatalogsQuery {
+	catalogs {
+		...CatalogDetail
 		company {
-			id
-			number
-			year
+			...CompanyDetail
 		}
-		count
 		images {
 			id
 			catalogThumbPath
@@ -16,31 +11,9 @@ query GET_ALL_CATALOGS {
 	}
 }
 
-query GET_CURRENT_CATALOGS {
-	getAllCatalogs(current: true) {
-		id
-		name
-		title
-		company {
-			id
-			number
-			year
-			startDate
-			finishDate
-		}
-		count
-		images {
-			id
-			catalogFacePath
-		}
-	}
-}
-
-query GET_CATALOG($number: String!, $year: String!, $name: String!) {
-	getCatalog(number: $number, year: $year, name: $name) {
-		id
-		title
-		count
+query CatalogQuery($number: String!, $year: String!, $name: String!) {
+	catalog(number: $number, year: $year, name: $name) {
+		...CatalogDetail
 		images {
 			id
 			path
@@ -49,17 +22,12 @@ query GET_CATALOG($number: String!, $year: String!, $name: String!) {
 	}
 }
 
-mutation ADD_CATALOG($name: String!, $title: String!, $companyId: ID!, $imagesIds: [ID]!) {
-	addCatalog(name: $name, title: $title, companyId: $companyId, imagesIds: $imagesIds) {
-		id
-		name
-		title
+mutation AddCatalogMutation($input: AddCatalogInput!) {
+	catalog: addCatalog(input: $input) {
+		...CatalogDetail
 		company {
-			id
-			number
-			year
+			...CompanyDetail
 		}
-		count
 		images {
 			id
 			catalogThumbPath
@@ -67,6 +35,19 @@ mutation ADD_CATALOG($name: String!, $title: String!, $companyId: ID!, $imagesId
 	}
 }
 
-mutation REMOVE_CATALOG($catalogId: ID!, $companyId: ID!) {
+mutation RemoveCatalogMutation($catalogId: ID!, $companyId: ID!) {
 	removeCatalog(catalogId: $catalogId, companyId: $companyId)
+}
+
+fragment CatalogDetail on Catalog {
+	id
+	name
+	title
+	count
+}
+
+fragment CompanyDetail on Company {
+	id
+	number
+	year
 }
