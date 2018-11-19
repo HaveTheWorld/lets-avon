@@ -1,23 +1,23 @@
-query GET_ALL_COMPANIES {
-	getAllCompanies {
-		id
-		number
-		year
-		startDate
-		finishDate
+query CompaniesQuery {
+	companies {
+		...CompanyDetail
 	}
 }
 
-mutation ADD_COMPANY($number: Int!, $year: Int!, $startDate: Date!, $finishDate: Date!) {
-	addCompany(number: $number, year: $year startDate: $startDate, finishDate: $finishDate) {
-		id
-		number
-		year
-		startDate
-		finishDate
+mutation AddCompanyMutation($input: AddCompanyInput!) {
+	company: addCompany(input: $input) {
+		...CompanyDetail
 	}
 }
 
-mutation REMOVE_COMPANY($id: ID!) {
+mutation RemoveCompanyMutation($id: ID!) {
 	removeCompany(id: $id)
+}
+
+fragment CompanyDetail on Company {
+	id
+	number
+	year
+	startDate
+	finishDate
 }

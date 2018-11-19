@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
-import { GET_ALL_COMPANIES } from '@/apollo/gql/companies.gql'
+import { CompaniesQuery } from '@/apollo/gql/companies.gql'
 import { Link } from '@/libs/routes'
 import { Section, Loader, Icon } from '@/components/Elements'
 import CompanyItem from './CompanyItem'
 
-const CompaniesList = ({ data: { loading, getAllCompanies } }) => {
+const CompaniesList = ({ data: { loading, companies } }) => {
 	return (
 		<Section title="Админ / Кампании">
 			{loading ? <Loader /> : (
@@ -22,7 +22,7 @@ const CompaniesList = ({ data: { loading, getAllCompanies } }) => {
 							</tr>
 						</thead>
 						<tbody>
-							{getAllCompanies.map(company => (
+							{companies.map(company => (
 								<CompanyItem key={company.id} {...company} />
 							))}
 						</tbody>
@@ -43,4 +43,4 @@ CompaniesList.propTypes = {
 	
 }
 
-export default graphql(GET_ALL_COMPANIES)(CompaniesList)
+export default graphql(CompaniesQuery)(CompaniesList)
