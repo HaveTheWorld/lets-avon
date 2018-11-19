@@ -1,40 +1,43 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cls from 'classnames'
-import jwt from 'jsonwebtoken'
 import { graphql, compose } from 'react-apollo'
-import { SESSION } from '@/apollo/gql/session.gql'
-import { LOGIN_USER } from '@/apollo/gql/auth.gql'
+import { CurrentUserQuery, LoginUserMutation } from '@/apollo/gql/auth.gql'
 import { connect } from 'react-redux'
 import { addToast } from '@/redux/ducks/toasts'
 import { Router } from '@/libs/routes'
 import { sleep } from '@/libs/helpers'
 import { Section, FormWrapper } from '@/components/Elements'
 import LoginForm from './LoginForm'
+import { setCookie, deleteCookie } from '@/libs/helpers'
 
-const LoginPage = ({ mutate, addToast }) => {
+const LoginPage = ({ addToast, mutate }) => {
 
 	const onSubmit = async variables => {
+		deleteCookie('token')
 		try {
 			await mutate({
 				variables,
 				update: (store, { data: { loginUser } }) => {
-					const { exp, ...user } = jwt.decode(loginUser.token)
-					document.cookie = `token=${loginUser.token}; path=/; expires=${new Date(exp * 1000)}`
-
-					const { getCurrentUser } = store.readQuery({ query: SESSION })
+					setCookie('token', loginUser.token, { expires: loginUser.expires })
 					store.writeQuery({
-						query: SESSION,
-						data: { getCurrentUser: user }
-					})
+						query: CurrentUserQuery,
+						data: { currentUser: loginUser.user }
+					})					
 				}
 			})
-
-			addToast(`Вход выполнен успешно. Привет, ${variables.username}!`, 'success')
-			await sleep(10)
 			Router.pushRoute('/admin')
+			await sleep(10)
+			addToast(`Вход выполнен успешно.\nПривет, ${variables.username}!`, 'success')
 		} catch (error) {
-			addToast(error.message.replace('GraphQL error: ', ''), 'danger')
+			if (error.hasOwnProperty('graphQLErrors')) {
+				const messages = error.graphQLErrors.map(({ message }) => message)
+				for (let i = 0; i < messages.length; i++) {
+					addToast(messages[i], 'danger')
+					await sleep(100)
+				}
+			} else {
+				addToast(error.message, 'danger')
+			}			
 		}
 	}
 
@@ -53,5 +56,5 @@ LoginPage.propTypes = {
 
 export default compose(
 	connect(null, { addToast }),
-	graphql(LOGIN_USER)
+	graphql(LoginUserMutation)
 )(LoginPage)

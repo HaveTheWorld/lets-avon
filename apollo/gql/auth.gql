@@ -1,5 +1,19 @@
-mutation LOGIN_USER($username: String!, $password: String!) {
+query CurrentUserQuery {
+	currentUser {
+		id
+		username
+		role
+	}
+}
+
+mutation LoginUserMutation($username: String!, $password: String!) {
 	loginUser(username: $username, password: $password) {
+		user {
+			id
+			username
+			role
+		}
 		token
+		expires
 	}
 }

@@ -4,11 +4,11 @@ import cls from 'classnames'
 import { connect } from 'react-redux'
 import { addToast } from '@/redux/ducks/toasts'
 import { graphql } from 'react-apollo'
-import { GET_ALL_COMPANIES, REMOVE_COMPANY } from '@/apollo/gql/companies.gql'
+import { CompaniesQuery, RemoveCompanyMutation } from '@/apollo/gql/companies.gql'
 import Icon from '@/components/Elements/Icon'
 
 @connect(null, { addToast })
-@graphql(REMOVE_COMPANY)
+@graphql(RemoveCompanyMutation)
 class ButtonRemove extends React.Component {
 	state = {
 		isLoading: false
@@ -23,10 +23,10 @@ class ButtonRemove extends React.Component {
 			await mutate({
 				variables: { id },
 				update: store => {
-					const { getAllCompanies } = store.readQuery({ query: GET_ALL_COMPANIES })
+					const { companies } = store.readQuery({ query: CompaniesQuery })
 					store.writeQuery({
-						query: GET_ALL_COMPANIES,
-						data: { getAllCompanies: getAllCompanies.filter(company => company.id !== id) }
+						query: CompaniesQuery,
+						data: { companies: companies.filter(company => company.id !== id) }
 					})
 				}
 			})

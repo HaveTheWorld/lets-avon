@@ -1,7 +1,0 @@
-query SESSION {
-	getCurrentUser {
-		id
-		username
-		isAdmin
-	}
-}

@@ -43,26 +43,31 @@ module.exports = {
 	adminHome: {
 		asPath: '/admin',
 		filePath: 'Admin/Home',
-		title: 'Админ :: Главная'
+		title: 'Админ :: Главная',
+		requireRoles: ['editor', 'admin']
 	},
 	adminCompaniesList: {
 		asPath: '/admin/companies',
 		filePath: 'Admin/Companies/CompaniesList/CompaniesList',
-		title: 'Админ :: Кампании'
+		title: 'Админ :: Кампании',
+		requireRoles: ['editor', 'admin']
 	},
 	adminAddCompany: {
 		asPath: '/admin/companies/add',
 		filePath: 'Admin/Companies/AddCompany/AddCompany',
-		title: 'Админ :: Новая кампания'
+		title: 'Админ :: Новая кампания',
+		requireRoles: ['editor', 'admin']
 	},
 	adminCatalogsList: {
 		asPath: '/admin/catalogs',
 		filePath: 'Admin/Catalogs/CatalogsList/CatalogsList',
-		title: 'Админ :: Каталоги'
+		title: 'Админ :: Каталоги',
+		requireRoles: ['editor', 'admin']
 	},
 	adminAddCatalog: {
 		asPath: '/admin/catalogs/add',
 		filePath: 'Admin/Catalogs/AddCatalog/AddCatalog',
-		title: 'Админ :: Новый каталог'
+		title: 'Админ :: Новый каталог',
+		requireRoles: ['editor', 'admin']
 	},
 }

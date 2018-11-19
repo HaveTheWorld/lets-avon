@@ -30,10 +30,17 @@ app.prepare()
 
 				if (opts.headers.cookie) {
 					opts.headers.cookie = opts.headers.cookie.split('; ').filter(cookie => {
-						return cookie.split('=')[0] !== 'token'
+						const [key, value] = cookie.split('=')
+						const isTokenCookie = key === 'token'
+						if (isTokenCookie && !authHeader) {
+							opts.headers['authorization'] = `Bearer ${value}`
+						}
+						return !isTokenCookie
 					}).join('; ')
-					!opts.headers.cookie && delete opts.headers.cookie
+					
+					delete opts.headers.cookie
 				}
+				console.log(opts.headers['authorization'] && opts.headers['authorization'].length)
 
 				return opts
 			},
@@ -45,14 +52,14 @@ app.prepare()
 
 		server.use((req, res, next) => {
 			authHeader = req.cookies['token'] ? `Bearer ${req.cookies['token']}` : null
-			next()	
+			next()
 		})
 
 		server.get('*', (req, res) => handle(req, res))
 
 		server.listen(port, (err) => {
 			if (err) throw err
-				console.log(`> Ready on http://localhost:${port}`)
+			console.log(`> Ready on http://localhost:${port}`)
 		})
 	})
 	.catch(error => {

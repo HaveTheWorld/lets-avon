@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import cls from 'classnames'
 import { reduxForm, Field } from 'redux-form'
 import { graphql, compose } from 'react-apollo'
-import { GET_ALL_COMPANIES } from '@/apollo/gql/companies.gql'
+import { CompaniesQuery } from '@/apollo/gql/companies.gql'
 import { Input, InputFile, Select, Icon } from '@/components/Elements'
 import { required, latinNoSpace, alpanumeric } from '@/libs/validate'
 import { toLower, toCapitalFirst } from '@/libs/normalize'
@@ -35,7 +35,7 @@ const AddCatalogForm = ({ data, handleSubmit, submitting, invalid }) => {
 				component={Select}
 				label="Кампания"
 				icon={['fas', 'calendar-alt']}
-				options={data.loading ? [] : data.getAllCompanies.map(addNameToCompany)}
+				options={data.loading ? [] : data.companies.map(addNameToCompany)}
 				validate={required}
 			/>
 			<Field
@@ -61,5 +61,5 @@ AddCatalogForm.propTypes = {
 
 export default compose(
 	reduxForm({ form: 'add-catalog' }),
-	graphql(GET_ALL_COMPANIES)
+	graphql(CompaniesQuery)
 )(AddCatalogForm)

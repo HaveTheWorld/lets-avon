@@ -6,7 +6,6 @@ import SideLink from './SideLink'
 import LogoutButton from './LogoutButton'
 import css from './Sidebar.sass'
 
-
 const Sidebar = ({ router }) => {
 	if (!/^\/admin(\/|$)/.test(router.asPath) || router.route === '/_error') { return null }	
 
