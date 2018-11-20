@@ -82,5 +82,11 @@ module.exports = {
 		filePath: 'Admin/Users/AddUser/AddUser',
 		title: 'Админ :: Новый пользователь',
 		requireRoles: ['admin']
+	},
+	adminEditUser: {
+		asPath: '/admin/users/:username',
+		filePath: 'Admin/Users/EditUser/EditUser',
+		title: 'Админ :: Редактирование пользователя',
+		requireRoles: ['admin']
 	}
 }

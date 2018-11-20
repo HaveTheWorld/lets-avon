@@ -9,13 +9,13 @@ import { Input, Select, Icon } from '@/components/Elements'
 import { required, latinAlpanumeric, minLength, maxLength, confirmPassword } from '@/libs/validate'
 
 const minLength2 = minLength(2)
-const minLength5 = minLength(5)
 const maxLength15 = maxLength(15)
-const maxLength32 = maxLength(32)
+const minLength5 = minLength(5, false)
+const maxLength32 = maxLength(32, false)
 
 const roles = Object.entries(rolesMap).map(([id, name]) => ({ id, name }))
 
-const AddUserForm = ({ handleSubmit, invalid, submitting }) => {
+const EditUserForm = ({ handleSubmit, invalid, submitting }) => {
 	return (
 		<form onSubmit={handleSubmit}>
 			<Field
@@ -30,9 +30,9 @@ const AddUserForm = ({ handleSubmit, invalid, submitting }) => {
 				name="password"
 				component={Input}
 				type="password"
-				label="Пароль"
+				label="Новый пароль"
 				icon={['fas', 'key']}
-				validate={[required, minLength5, maxLength32]}
+				validate={[minLength5, maxLength32]}
 			/>
 			<Field
 				name="confirm"
@@ -55,23 +55,24 @@ const AddUserForm = ({ handleSubmit, invalid, submitting }) => {
 				disabled={submitting || invalid}
 			>
 				<Icon icon={['fas', 'paper-plane']} />
-				<span>Создать пользователя</span>
+				<span>Изменить пользователя</span>
 			</button>
 		</form>
 	)
 }
 
-AddUserForm.propTypes = {
+EditUserForm.propTypes = {
 	
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, { user }) => ({
 	initialValues: {
-		role: "user"
+		username: user.username,
+		role: user.role
 	}
 })
 
 export default compose(
 	connect(mapStateToProps),
-	reduxForm({ form: 'add-user' })
-)(AddUserForm)
+	reduxForm({ form: 'edit-user' })
+)(EditUserForm)

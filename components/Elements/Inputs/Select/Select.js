@@ -13,6 +13,7 @@ const Select = ({ input, meta, label, icon, options }) => {
 					<select
 						{...input}
 						className={cls({ 'is-empty': !input.value }, { 'is-danger': showError })}
+						 title={label}
 					>
 						<option className="is-placeholder" value="">{label}</option>
 						{options.map(({ id, name }) => (
