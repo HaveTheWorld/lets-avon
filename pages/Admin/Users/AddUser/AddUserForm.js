@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cls from 'classnames'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
 import rolesMap from '@/maps/roles'
 import { Input, Select, Icon } from '@/components/Elements'
@@ -63,4 +65,13 @@ AddUserForm.propTypes = {
 	
 }
 
-export default reduxForm({ form: 'add-user' })(AddUserForm)
+const mapStateToProps = state => ({
+	initialValues: {
+		role: "user"
+	}
+})
+
+export default compose(
+	connect(mapStateToProps),
+	reduxForm({ form: 'add-user' })
+)(AddUserForm)

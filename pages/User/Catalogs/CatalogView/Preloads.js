@@ -11,14 +11,16 @@ const Preloads = ({ preload, next, prev, double, url, images }) => {
 		.filter((item, index, array) => {
 			return array.indexOf(item) === index
 		})
-		.map(pageNum => (
-		<img
-			key={images[pageNum - 1].id}
-			src={`/static/${images[pageNum - 1].path}`}
-			alt={`Preload ${url}/${pageNum + 1}`}
-			className={css.preloaded}
-		/>
-	))
+		.map(pageNum => {
+			return images[pageNum - 1] ? (
+				<img
+					key={images[pageNum - 1].id}
+					src={`/static/${images[pageNum - 1].path}`}
+					alt={`Preload ${url}/${pageNum + 1}`}
+					className={css.preloaded}
+				/>
+			) : null
+		})
 }
 
 Preloads.propTypes = {

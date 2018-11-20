@@ -5,7 +5,8 @@ import { connect } from 'react-redux'
 import { addToast } from '@/redux/ducks/toasts'
 import { graphql } from 'react-apollo'
 import { CompaniesQuery, RemoveCompanyMutation } from '@/apollo/gql/companies.gql'
-import Icon from '@/components/Elements/Icon'
+import { handleMutationError } from '@/libs/helpers'
+import { Icon, Confirm } from '@/components/Elements'
 
 @connect(null, { addToast })
 @graphql(RemoveCompanyMutation)
@@ -32,7 +33,7 @@ class ButtonRemove extends React.Component {
 			})
 		} catch (error) {
 			this.setState({ isLoading: false })
-			addToast(error.message.replace('GraphQL error: ', ''), 'danger')
+			handleMutationError(error, message => addToast(message, 'danger'))
 		}
 	}
 
@@ -40,12 +41,16 @@ class ButtonRemove extends React.Component {
 		const { isLoading } = this.state
 
 		return (
-			<button
-				className={cls('button', 'is-danger', 'is-small', 'is-outlined', { 'is-loading': isLoading })}
-				onClick={this.onDelete}
-			>
-				<Icon icon={['fas', 'trash']} />
-			</button>
+			<Confirm title="Удалить кампанию?" noWrap onConfirm={this.onDelete}>
+				{toggle => (
+					<button
+						className={cls('button', 'is-danger', 'is-outlined', 'is-small', { 'is-loading': isLoading })}
+						onClick={toggle}
+					>
+						<Icon icon={['fas', 'trash']} />
+					</button>
+				)}
+			</Confirm>
 		)
 	}
 }

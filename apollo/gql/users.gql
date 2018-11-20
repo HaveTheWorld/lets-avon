@@ -1,12 +1,12 @@
 query UsersQuery {
 	users {
-		...UserDetail
+		...UserDetailAdm
 	}
 }
 
 mutation AddUserMutation($username: String!, $password: String!, $role: String) {
 	user: addUser(username: $username, password: $password, role: $role) {
-		...UserDetail
+		...UserDetailAdm
 	}
 }
 
@@ -14,7 +14,7 @@ mutation RemoveUserMutation($id: ID!) {
 	removeUser(id: $id)
 }
 
-fragment UserDetail on User {
+fragment UserDetailAdm on User {
 	id
 	username
 	role

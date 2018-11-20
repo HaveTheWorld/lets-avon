@@ -15,7 +15,7 @@ class CatalogsList extends React.Component {
 
 	componentDidMount() {
 		this.setState({ isMounted: true })
-		// this.props.data.refetch()
+		this.props.data.refetch()
 	}
 
 	render() {

@@ -6,16 +6,16 @@ import { addToast } from '@/redux/ducks/toasts'
 import { graphql } from 'react-apollo'
 import { UsersQuery, RemoveUserMutation } from '@/apollo/gql/users.gql'
 import { handleMutationError } from '@/libs/helpers'
-import { Icon } from '@/components/Elements'
+import { Icon, Confirm } from '@/components/Elements'
 
-@graphql(RemoveUserMutation)
 @connect(null, { addToast })
+@graphql(RemoveUserMutation)
 class ButtonRemove extends React.Component {
 	state = {
 		isLoading: false
 	}
 
-	onClick = async () => {
+	onDelete = async () => {
 		const { id, mutate, addToast } = this.props
 		
 		this.setState({ isLoading: true })
@@ -40,12 +40,16 @@ class ButtonRemove extends React.Component {
 		const { isLoading } = this.state
 
 		return (
-			<button
-				className={cls('button', 'is-danger', 'is-outlined', 'is-small', { 'is-loading': isLoading })}
-				onClick={this.onClick}
-			>
-				<Icon icon={['fas', 'trash']} />
-			</button>
+			<Confirm title="Удалить пользователя?" noWrap onConfirm={this.onDelete}>
+				{toggle => (
+					<button
+						className={cls('button', 'is-danger', 'is-outlined', 'is-small', { 'is-loading': isLoading })}
+						onClick={toggle}
+					>
+						<Icon icon={['fas', 'trash']} />
+					</button>
+				)}
+			</Confirm>
 		)
 	}
 }
