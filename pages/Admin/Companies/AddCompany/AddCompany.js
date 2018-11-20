@@ -9,7 +9,6 @@ import { Router } from '@/libs/routes'
 import { Section, FormWrapper } from '@/components/Elements'
 import AddCompanyForm from './AddCompanyForm'
 
-import moment from 'moment'
 const AddCompany = ({ mutate, addToast }) => {
 
 	const onSubmit = async input => {

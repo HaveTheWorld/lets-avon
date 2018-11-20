@@ -29,7 +29,7 @@ const LoginPage = ({ addToast, mutate }) => {
 			await sleep(10)
 			addToast(`Вход выполнен успешно.\nПривет, ${variables.username}!`, 'success')
 		} catch (error) {
-			if (error.hasOwnProperty('graphQLErrors')) {
+			if (error.graphQLErrors) {
 				const messages = error.graphQLErrors.map(({ message }) => message)
 				for (let i = 0; i < messages.length; i++) {
 					addToast(messages[i], 'danger')

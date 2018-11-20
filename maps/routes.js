@@ -42,6 +42,7 @@ module.exports = {
 	},
 	adminHome: {
 		asPath: '/admin',
+		redirect: '/admin/companies',
 		filePath: 'Admin/Home',
 		title: 'Админ :: Главная',
 		requireRoles: ['editor', 'admin']
@@ -70,4 +71,16 @@ module.exports = {
 		title: 'Админ :: Новый каталог',
 		requireRoles: ['editor', 'admin']
 	},
+	adminUsersList: {
+		asPath: '/admin/users',
+		filePath: 'Admin/Users/UsersList/UsersList',
+		title: 'Админ :: Пользователи',
+		requireRoles: ['admin']
+	},
+	adminAddUser: {
+		asPath: '/admin/users/add',
+		filePath: 'Admin/Users/AddUser/AddUser',
+		title: 'Админ :: Новый пользователь',
+		requireRoles: ['admin']
+	}
 }

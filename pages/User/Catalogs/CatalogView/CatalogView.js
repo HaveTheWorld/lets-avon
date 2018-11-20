@@ -11,6 +11,7 @@ import ImagesSpace from './ImagesSpace'
 import NavButtons from './NavButtons'
 import Preloads from './Preloads'
 import Error from '@/components/Service/Error'
+import css from './CatalogView.sass'
 
 const getVariables = ({ router }) => {
 	const { company, name } = router.query
@@ -139,7 +140,7 @@ class CatalogView extends React.Component {
 		if (error) { return <Error statusCode={404} /> }
 
 		return (
-			<Section title={`Каталог ${title}`}>
+			<Section title={`Каталог ${title}`} addClass={css.section}>
 				<ImagesSpace
 					ref={ref => this.relationRef = ref}
 					title={title}

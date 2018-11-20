@@ -1,0 +1,22 @@
+query UsersQuery {
+	users {
+		...UserDetail
+	}
+}
+
+mutation AddUserMutation($username: String!, $password: String!, $role: String) {
+	user: addUser(username: $username, password: $password, role: $role) {
+		...UserDetail
+	}
+}
+
+mutation RemoveUserMutation($id: ID!) {
+	removeUser(id: $id)
+}
+
+fragment UserDetail on User {
+	id
+	username
+	role
+	canBeRemoved
+}

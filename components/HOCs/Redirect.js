@@ -26,6 +26,11 @@ const Redirect = ({ children, router, data, redirect, statusCode, ...props }) =>
 	if (dirtyRoute) {
 		return <Error statusCode={statusCode || 404} />
 	}
+
+	if (currentRoute.redirect) {
+		doRedirect(currentRoute.redirect)
+		return null
+	}
 	
 	// Check user privs by role
 	if (currentRoute.requireRoles) {

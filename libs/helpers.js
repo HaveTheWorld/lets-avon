@@ -1,3 +1,15 @@
+export async function handleMutationError(error, callback) {
+	if (error.graphQLErrors) {
+		const messages = error.graphQLErrors.map(({ message }) => message)
+		for (let i = 0; i < messages.length; i++) {
+			callback(messages[i])
+			await sleep(100)
+		}
+	} else {
+		callback(error.message)
+	}
+}
+
 export function getCookie(name) {
 	const matches = document.cookie.match(new RegExp(
 		`(?:^|; )${name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1')}=([^;]*)`
@@ -15,6 +27,9 @@ export function setCookie(name, value, options = {}) {
 	}
 	if (expires && expires.toUTCString) {
 		options.expires = expires.toUTCString()
+	}
+	if (!options.path) {
+		options.path = '/'
 	}
 
 	value = encodeURIComponent(value);

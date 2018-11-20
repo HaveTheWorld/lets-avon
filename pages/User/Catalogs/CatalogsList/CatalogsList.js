@@ -5,6 +5,7 @@ import { Section, Loader } from '@/components/Elements'
 import CompanyInfo from './CompanyInfo'
 import CatalogFace from './CatalogFace'
 import Preloads from './Preloads'
+import css from './CatalogsList.sass'
 
 @graphql(CurrentCompanyQuery)
 class CatalogsList extends React.Component {
@@ -21,7 +22,7 @@ class CatalogsList extends React.Component {
 		const { loading, company } = this.props.data
 
 		return (
-			<Section title="Текущие каталоги">
+			<Section title="Текущие каталоги" addClass={css.section}>
 				{loading ? <Loader /> : (
 					<Fragment>
 						<CompanyInfo company={company} />
