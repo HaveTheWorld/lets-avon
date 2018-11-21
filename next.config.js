@@ -3,7 +3,7 @@ const withSass = require('@zeit/next-sass')
 const DirectoryNamedWebpackPlugin = require('directory-named-webpack-plugin')
 
 module.exports = withSass({
-	pagesBufferLength: 2,
+	pagesBufferLength: 10,
 	maxInactiveAge: 60 * 60 * 1000,
 	webpack(config, { dev, isServer }) {
 		config.module.rules = config.module.rules.filter(({ test }) => String(test) !== String(/\.scss$/))

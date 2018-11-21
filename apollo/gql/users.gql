@@ -1,0 +1,34 @@
+query UsersQuery {
+	users {
+		...UserDetailAdm
+	}
+}
+
+query UserQuery($username: String!) {
+	user(username: $username) {
+		...UserDetailAdm
+	}
+}
+
+mutation AddUserMutation($username: String!, $password: String!, $role: String) {
+	user: addUser(username: $username, password: $password, role: $role) {
+		...UserDetailAdm
+	}
+}
+
+mutation RemoveUserMutation($id: ID!) {
+	removeUser(id: $id)
+}
+
+mutation EditUserMutation($id: ID!, $username: String, $password: String, $role: String) {
+	user: editUser(id: $id, username: $username, password: $password, role: $role) {
+		...UserDetailAdm
+	}
+}
+
+fragment UserDetailAdm on User {
+	id
+	username
+	role
+	canBeRemoved
+}

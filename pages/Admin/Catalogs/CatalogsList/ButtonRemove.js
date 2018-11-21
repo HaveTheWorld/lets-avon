@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cls from 'classnames'
-import Icon from '@/components/Elements/Icon'
-import { graphql } from 'react-apollo'
-import { CatalogsQuery, RemoveCatalogMutation } from '@/apollo/gql/catalogs.gql'
 import { connect } from 'react-redux'
 import { addToast } from '@/redux/ducks/toasts'
+import { graphql } from 'react-apollo'
+import { CatalogsQuery, RemoveCatalogMutation } from '@/apollo/gql/catalogs.gql'
+import { handleMutationError } from '@/libs/helpers'
+import { Icon, Confirm } from '@/components/Elements'
 
 @connect(null, { addToast })
 @graphql(RemoveCatalogMutation)
@@ -32,21 +33,24 @@ class ButtonRemove extends React.Component {
 			})
 		} catch (error) {
 			this.setState({ isLoading: false })
-			addToast(error.message.replace('GraphQL error: ', ''), 'danger')
+			handleMutationError(error, message => addToast(message, 'danger'))
 		}
 	}
 
 	render() {
 		const { isLoading } = this.state
-		const { id } = this.props
 
 		return (
-			<button
-				className={cls('button', 'is-danger', 'is-small', 'is-outlined', { 'is-loading': isLoading })}
-				onClick={this.onDelete}
-			>
-				<Icon icon={['fas', 'trash']} />
-			</button>
+			<Confirm title="Удалить каталог?" noWrap onConfirm={this.onDelete}>
+				{toggle => (
+					<button
+						className={cls('button', 'is-danger', 'is-outlined', 'is-small', { 'is-loading': isLoading })}
+						onClick={toggle}
+					>
+						<Icon icon={['fas', 'trash']} />
+					</button>
+				)}
+			</Confirm>
 		)
 	}
 }

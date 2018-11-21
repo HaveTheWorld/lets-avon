@@ -4,12 +4,12 @@ import cls from 'classnames'
 import { connect } from 'react-redux'
 import { addToast } from '@/redux/ducks/toasts'
 import { graphql } from 'react-apollo'
-import { CompaniesQuery, RemoveCompanyMutation } from '@/apollo/gql/companies.gql'
+import { UsersQuery, RemoveUserMutation } from '@/apollo/gql/users.gql'
 import { handleMutationError } from '@/libs/helpers'
 import { Icon, Confirm } from '@/components/Elements'
 
 @connect(null, { addToast })
-@graphql(RemoveCompanyMutation)
+@graphql(RemoveUserMutation)
 class ButtonRemove extends React.Component {
 	state = {
 		isLoading: false
@@ -17,17 +17,16 @@ class ButtonRemove extends React.Component {
 
 	onDelete = async () => {
 		const { id, mutate, addToast } = this.props
-
+		
 		this.setState({ isLoading: true })
-
 		try {
 			await mutate({
 				variables: { id },
 				update: store => {
-					const { companies } = store.readQuery({ query: CompaniesQuery })
+					const { users } = store.readQuery({ query: UsersQuery })
 					store.writeQuery({
-						query: CompaniesQuery,
-						data: { companies: companies.filter(company => company.id !== id) }
+						query: UsersQuery,
+						data: { users: users.filter(user => user.id !== id) }
 					})
 				}
 			})
@@ -41,7 +40,7 @@ class ButtonRemove extends React.Component {
 		const { isLoading } = this.state
 
 		return (
-			<Confirm title="Удалить кампанию?" noWrap onConfirm={this.onDelete}>
+			<Confirm title="Удалить пользователя?" noWrap onConfirm={this.onDelete}>
 				{toggle => (
 					<button
 						className={cls('button', 'is-danger', 'is-outlined', 'is-small', { 'is-loading': isLoading })}

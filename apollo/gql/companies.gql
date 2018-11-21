@@ -1,12 +1,12 @@
 query CompaniesQuery {
 	companies {
-		...CompanyDetail
+		...CompanyDetailFull
 	}
 }
 
 query CurrentCompanyQuery {
 	company: currentCompany {
-		...CompanyDetail
+		...CompanyDetailFull
 		catalogs {
 			id
 			name
@@ -21,7 +21,7 @@ query CurrentCompanyQuery {
 
 mutation AddCompanyMutation($input: AddCompanyInput!) {
 	company: addCompany(input: $input) {
-		...CompanyDetail
+		...CompanyDetailFull
 	}
 }
 
@@ -29,7 +29,7 @@ mutation RemoveCompanyMutation($id: ID!) {
 	removeCompany(id: $id)
 }
 
-fragment CompanyDetail on Company {
+fragment CompanyDetailFull on Company {
 	id
 	number
 	year

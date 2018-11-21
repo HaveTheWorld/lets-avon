@@ -7,8 +7,8 @@ import { CompaniesQuery } from '@/apollo/gql/companies.gql'
 import { UploadCatalogImageMutation } from '@/apollo/gql/images.gql'
 import { CatalogsQuery, AddCatalogMutation } from '@/apollo/gql/catalogs.gql'
 import nprogress from 'nprogress'
-import { Router } from '@/libs/routes'
-import { sleep } from '@/libs/helpers'
+import { Router } from '@/routes'
+import { sleep, handleMutationError } from '@/libs/helpers'
 import { Section, FormWrapper } from '@/components/Elements'
 import AddCatalogForm from './AddCatalogForm'
 
@@ -42,6 +42,7 @@ const AdminCatalogs = ({ uploadCatalogImage, addCatalog, addToast, data: { compa
 				})
 
 				images = images.concat(data.image)
+				
 				if (i < files.length - 1) {
 					nprogress.set(++done / files.length)
 				} else {
@@ -52,7 +53,11 @@ const AdminCatalogs = ({ uploadCatalogImage, addCatalog, addToast, data: { compa
 							input: { name, title, companyId, imagesIds: images.map(({ id }) => id) }
 						},
 						update: (store, { data: { catalog } }) => {
-							const { catalogs } = store.readQuery({ query: CatalogsQuery })
+							try {
+								var { catalogs } = store.readQuery({ query: CatalogsQuery })
+							} catch (error) {
+								return
+							}
 							store.writeQuery({
 								query: CatalogsQuery,
 								data: { catalogs: [...catalogs, catalog] }
@@ -68,7 +73,7 @@ const AdminCatalogs = ({ uploadCatalogImage, addCatalog, addToast, data: { compa
 				}
 			}
 		} catch (error) {
-			addToast(error.message.replace('GraphQL error: ', ''), 'danger')
+			handleMutationError(error, message => addToast(message, 'danger'))
 			nprogress.done()
 		}		
 	}

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { withRouter } from 'next/router'
 import { graphql, compose } from 'react-apollo'
 import { CurrentUserQuery } from '@/apollo/gql/auth.gql'
-import { Router } from '@/libs/routes'
+import { Router } from '@/routes'
 import routesMap from '@/maps/routes'
 import Error from '@/components/Service/Error'
 
@@ -25,6 +25,11 @@ const Redirect = ({ children, router, data, redirect, statusCode, ...props }) =>
 	})
 	if (dirtyRoute) {
 		return <Error statusCode={statusCode || 404} />
+	}
+
+	if (currentRoute.redirect) {
+		doRedirect(currentRoute.redirect)
+		return null
 	}
 	
 	// Check user privs by role

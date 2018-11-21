@@ -1,19 +1,21 @@
 query CurrentUserQuery {
 	currentUser {
-		id
-		username
-		role
+		...UserDetail
 	}
 }
 
 mutation LoginUserMutation($username: String!, $password: String!) {
-	loginUser(username: $username, password: $password) {
-		user {
-			id
-			username
-			role
-		}
-		token
-		expires
+	user: loginUser(username: $username, password: $password) {
+		...UserDetail
 	}
+}
+
+mutation LogoutUserMutation {
+	logoutUser
+}
+
+fragment UserDetail on User {
+	id
+	username
+	role
 }

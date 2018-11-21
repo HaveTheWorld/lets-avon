@@ -4,40 +4,30 @@ import { graphql, compose } from 'react-apollo'
 import { CurrentUserQuery, LoginUserMutation } from '@/apollo/gql/auth.gql'
 import { connect } from 'react-redux'
 import { addToast } from '@/redux/ducks/toasts'
-import { Router } from '@/libs/routes'
-import { sleep } from '@/libs/helpers'
+import { Router } from '@/routes'
+import { sleep, handleMutationError } from '@/libs/helpers'
 import { Section, FormWrapper } from '@/components/Elements'
 import LoginForm from './LoginForm'
-import { setCookie, deleteCookie } from '@/libs/helpers'
 
 const LoginPage = ({ addToast, mutate }) => {
 
 	const onSubmit = async variables => {
-		deleteCookie('token')
 		try {
 			await mutate({
 				variables,
-				update: (store, { data: { loginUser } }) => {
-					setCookie('token', loginUser.token, { expires: loginUser.expires })
+				update: (store, { data: { user } }) => {
 					store.writeQuery({
 						query: CurrentUserQuery,
-						data: { currentUser: loginUser.user }
+						data: { currentUser: user }
 					})					
 				}
 			})
+			
 			Router.pushRoute('/admin')
 			await sleep(10)
 			addToast(`Вход выполнен успешно.\nПривет, ${variables.username}!`, 'success')
 		} catch (error) {
-			if (error.hasOwnProperty('graphQLErrors')) {
-				const messages = error.graphQLErrors.map(({ message }) => message)
-				for (let i = 0; i < messages.length; i++) {
-					addToast(messages[i], 'danger')
-					await sleep(100)
-				}
-			} else {
-				addToast(error.message, 'danger')
-			}			
+			handleMutationError(error, message => addToast(message, 'danger'))			
 		}
 	}
 

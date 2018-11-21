@@ -1,7 +1,7 @@
 import React from 'react'
 import App, { Container } from 'next/app'
 
-import withApolloClient from '@/libs/with-apollo-client'
+import withApolloClient from '@/apollo/with-apollo-client'
 import { ApolloProvider } from 'react-apollo'
 
 import withRedux from 'next-redux-wrapper'

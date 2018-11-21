@@ -5,11 +5,11 @@ import { connect } from 'react-redux'
 import { addToast } from '@/redux/ducks/toasts'
 import { graphql, compose } from 'react-apollo'
 import { CompaniesQuery, AddCompanyMutation } from '@/apollo/gql/companies.gql'
-import { Router } from '@/libs/routes'
+import { Router } from '@/routes'
+import { sleep, handleMutationError } from '@/libs/helpers'
 import { Section, FormWrapper } from '@/components/Elements'
 import AddCompanyForm from './AddCompanyForm'
 
-import moment from 'moment'
 const AddCompany = ({ mutate, addToast }) => {
 
 	const onSubmit = async input => {
@@ -17,7 +17,11 @@ const AddCompany = ({ mutate, addToast }) => {
 			await mutate({
 				variables: { input },
 				update: (store, { data: { company } }) => {
-					const { companies } = store.readQuery({ query: CompaniesQuery })
+					try {
+						var { companies } = store.readQuery({ query: CompaniesQuery })
+					} catch (error) {
+						return
+					}
 					store.writeQuery({
 						query: CompaniesQuery,
 						data: { companies: [...companies, company] }
@@ -25,8 +29,10 @@ const AddCompany = ({ mutate, addToast }) => {
 				}
 			})
 			Router.pushRoute('/admin/companies')
+			await sleep(10)
+			addToast(`Кампания успешно создана.`, 'success')
 		} catch (error) {
-			addToast(error.message.replace('GraphQL error: ', ''), 'danger')
+			handleMutationError(error, message => addToast(message, 'danger'))
 		}
 	}
 
