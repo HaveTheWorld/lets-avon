@@ -5,13 +5,13 @@ query CurrentUserQuery {
 }
 
 mutation LoginUserMutation($username: String!, $password: String!) {
-	loginUser(username: $username, password: $password) {
-		user {
-			...UserDetail
-		}
-		token
-		expires
+	user: loginUser(username: $username, password: $password) {
+		...UserDetail
 	}
+}
+
+mutation LogoutUserMutation {
+	logoutUser
 }
 
 fragment UserDetail on User {

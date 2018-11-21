@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from '@/libs/routes'
+import { Link } from '@/routes'
 import css from './CatalogView.sass'
 
 const NavButtons = ({ url, prev, next, double }) => {

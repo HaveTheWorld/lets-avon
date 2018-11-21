@@ -2,14 +2,12 @@ const express = require('express')
 const proxy = require('express-http-proxy')
 const cookieParser = require('cookie-parser')
 const next = require('next')
-const routes = require('./libs/routes')
+const routes = require('./routes')
 
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = routes.getRequestHandler(app)
-
-let authHeader
 
 app.prepare()
 	.then(() => {
@@ -21,26 +19,8 @@ app.prepare()
 		})
 
 		server.use('/graphql', proxy('http://localhost:3001', {
-			proxyReqOptDecorator(opts) {
+			proxyReqOptDecorator(opts, req) {
 				opts.headers['x-forwarded-host'] = 'localhost:3000'
-
-				if (authHeader) {
-					opts.headers['authorization'] = authHeader					
-				}
-
-				if (opts.headers.cookie) {
-					opts.headers.cookie = opts.headers.cookie.split('; ').filter(cookie => {
-						const [key, value] = cookie.split('=')
-						const isTokenCookie = key === 'token'
-						if (isTokenCookie && !authHeader) {
-							opts.headers['authorization'] = `Bearer ${value}`
-						}
-						return !isTokenCookie
-					}).join('; ')
-					
-					delete opts.headers.cookie
-				}
-
 				return opts
 			},
 			proxyReqPathResolver() {
@@ -48,11 +28,6 @@ app.prepare()
 			},
 			limit: '2mb'
 		}))
-
-		server.use((req, res, next) => {
-			authHeader = req.cookies['token'] ? `Bearer ${req.cookies['token']}` : null
-			next()
-		})
 
 		server.get('*', (req, res) => handle(req, res))
 

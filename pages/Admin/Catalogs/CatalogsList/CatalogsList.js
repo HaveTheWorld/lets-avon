@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import { CatalogsQuery } from '@/apollo/gql/catalogs.gql'
-import { Link } from '@/libs/routes'
+import { Link } from '@/routes'
 import { Section, Loader, Icon } from '@/components/Elements'
 import CatalogItem from './CatalogItem'
 

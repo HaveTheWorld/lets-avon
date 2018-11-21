@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import { UsersQuery } from '@/apollo/gql/users.gql'
-import { Link } from '@/libs/routes'
+import { Link } from '@/routes'
 import { Section, Loader, Icon } from '@/components/Elements'
 import UserItem from './UserItem'
 
@@ -21,7 +21,7 @@ const UsersList = ({ data: { loading, users } }) => {
 							</tr>
 						</thead>
 						<tbody>
-							{users.map(user => (
+							{users && users.map(user => (
 								<UserItem key={user.id} {...user} />
 							))}
 						</tbody>

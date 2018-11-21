@@ -2,21 +2,25 @@ import React from 'react'
 import initApollo from '@/apollo/init-apollo'
 import Head from 'next/head'
 import { getDataFromTree } from 'react-apollo'
+import { getValueSafely, getCookie } from '@/libs/helpers'
 
 export default (App) => {
 	return class Apollo extends React.Component {
 		static displayName = 'withApollo(App)'
-		static async getInitialProps (ctx) {
-			const { Component, router } = ctx
+		static async getInitialProps (context) {
+			const { Component, router, ctx } = context
 
 			let appProps = {}
 			if (App.getInitialProps) {
-				appProps = await App.getInitialProps(ctx)
+				appProps = await App.getInitialProps(context)
 			}
 
+			const token = process.browser
+				? getCookie('token')
+				: getValueSafely(ctx.req, 'cookies.token')
 			// Run all GraphQL queries in the component tree
 			// and extract the resulting data
-			const apollo = initApollo()
+			const apollo = initApollo({ token })
 			if (!process.browser) {
 				try {
 					// Run all GraphQL queries
@@ -33,6 +37,7 @@ export default (App) => {
 					// Handle them in components via the data.error prop:
 					// https://www.apollographql.com/docs/react/api/react-apollo.html#graphql-query-data-error
 					console.error('Error while running `getDataFromTree`:', error.message)
+					console.log(JSON.stringify(error, null, 2))
 				}
 
 				// getDataFromTree does not call componentWillUnmount
@@ -42,7 +47,6 @@ export default (App) => {
 
 			// Extract query data from the Apollo store
 			const apolloState = apollo.cache.extract()
-
 			return {
 				...appProps,
 				apolloState

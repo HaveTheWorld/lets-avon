@@ -4,25 +4,31 @@ import cls from 'classnames'
 import { connect } from 'react-redux'
 import { addToast } from '@/redux/ducks/toasts'
 import { graphql } from 'react-apollo'
-import { CurrentUserQuery } from '@/apollo/gql/auth.gql'
-import { sleep, deleteCookie } from '@/libs/helpers'
+import { CurrentUserQuery, LogoutUserMutation } from '@/apollo/gql/auth.gql'
+import { sleep } from '@/libs/helpers'
 import Icon from '@/components/Elements/Icon'
 
 @connect(null, { addToast })
-@graphql(CurrentUserQuery)
+@graphql(LogoutUserMutation)
 class LogoutButton extends React.Component {
 	state = {
 		isLoading: false
 	}
 
 	onLogout = async () => {
-		const { data, addToast } = this.props
+		const { mutate, addToast } = this.props
 
 		this.setState({ isLoading: true })
 		await sleep(300)
 
-		deleteCookie('token')
-		data.updateQuery(() => ({ currentUser: null }))
+		await mutate({
+			update: store => {
+				store.writeQuery({
+					query: CurrentUserQuery,
+					data: { currentUser: null }
+				})
+			}
+		})
 		
 		await sleep(10)
 		addToast('Сессия успешно завершена.', 'success')

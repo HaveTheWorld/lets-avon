@@ -51,15 +51,10 @@ export function deleteCookie(name) {
 	setCookie(name, '', { expires: -1 })
 }
 
-export function getValueSafely(obj, path) {
-	path = path.split('.')
-	if (!path[0]) { return obj }
-	const field = path.shift()
-	return obj[field]
-		? obj[field].constructor.name === 'Object'
-			? getValueSafely(obj[field], path.join('.'))
-			: obj[field]
-		: false
+export function getValueSafely(nestedObj, path) {
+	return path.split('.').reduce((obj, key) => {
+		return (obj && obj[key] !== 'undefined') ? obj[key] : undefined
+	}, nestedObj)
 }
 
 export function reduceObjectValues(array, object) {

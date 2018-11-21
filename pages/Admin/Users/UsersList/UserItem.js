@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import rolesMap from '@/maps/roles'
-import { Link } from '@/libs/routes'
+import { Link } from '@/routes'
 import { Icon } from '@/components/Elements'
 import ButtonRemove from './ButtonRemove'
 

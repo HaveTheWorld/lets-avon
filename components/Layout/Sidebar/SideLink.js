@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from '@/libs/routes'
+import { Link } from '@/routes'
 import Icon from '@/components/Elements/Icon'
 import css from './SideLink.sass'
 

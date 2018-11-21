@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from '@/libs/routes'
+import { Link } from '@/routes'
 import css from './CatalogsList.sass'
 
 const CatalogFace = ({ name, title, count, images, company }) => {

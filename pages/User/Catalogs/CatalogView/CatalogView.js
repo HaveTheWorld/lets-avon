@@ -5,7 +5,7 @@ import { graphql } from 'react-apollo'
 import { CatalogQuery } from '@/apollo/gql/catalogs.gql'
 import { getValueSafely } from '@/libs/helpers'
 import { findDOMNode } from 'react-dom'
-import { Router } from '@/libs/routes'
+import { Router } from '@/routes'
 import { Section, Loader } from '@/components/Elements'
 import ImagesSpace from './ImagesSpace'
 import NavButtons from './NavButtons'
@@ -38,7 +38,7 @@ class CatalogView extends React.Component {
 			: null
 		
 		const images = getValueSafely(props.data, 'catalog.images')
-		if (images.length === 1) {
+		if (images && images.length === 1) {
 			this.state.isRefetching = true
 			props.data.refetch()
 				.then(() => this.setState({ isRefetching: false }))
