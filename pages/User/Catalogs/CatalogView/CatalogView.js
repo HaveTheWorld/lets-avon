@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { withRouter } from 'next/router'
 import { graphql } from 'react-apollo'
 import { CatalogQuery } from '@/apollo/gql/catalogs.gql'
-import { getValueSafely } from '@/libs/helpers'
+import { getNestedValue } from '@/libs/helpers'
 import { findDOMNode } from 'react-dom'
 import { Router } from '@/routes'
 import { Section, Loader } from '@/components/Elements'
@@ -13,7 +13,7 @@ import Preloads from './Preloads'
 import Error from '@/components/Service/Error'
 import css from './CatalogView.sass'
 
-const getVariables = ({ router }) => {
+const getOptions = ({ router }) => {
 	const { company, name } = router.query
 	const [number, year] = company.split('-')
 	return {
@@ -22,13 +22,12 @@ const getVariables = ({ router }) => {
 }
 
 @withRouter
-@graphql(CatalogQuery, { options: getVariables })
+@graphql(CatalogQuery, { options: getOptions })
 class CatalogView extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			isMounted: false,
-			isRefetching: false,
 			mode: null
 		}
 		const { page } = props.router.query
@@ -36,13 +35,6 @@ class CatalogView extends React.Component {
 			= /^\d{1,3}$/.test(page) ? 'single'
 			: /^\d{1,3}-\d{1,3}$/.test(page) ? 'double'
 			: null
-		
-		const images = getValueSafely(props.data, 'catalog.images')
-		if (images && images.length === 1) {
-			this.state.isRefetching = true
-			props.data.refetch()
-				.then(() => this.setState({ isRefetching: false }))
-		}
 	}
 
 	ratioBreakPoint = 65.5
@@ -62,13 +54,13 @@ class CatalogView extends React.Component {
 	}
 
 	switchMode = () => {
-		if (getValueSafely(this, 'relation.nodeType') !== 1) {
+		if (getNestedValue(this, 'relation.nodeType') !== 1) {
 			this.relation = findDOMNode(this.relationRef)			
 		}
-		if (!getValueSafely(this, 'relation.getBoundingClientRect')) { return }
+		if (!getNestedValue(this, 'relation.getBoundingClientRect')) { return }
 		const { mode } = this.state
 		const { name, company, page } = this.props.router.query
-		const { count, images } = getValueSafely(this.props.data, 'catalog')
+		const { count, images } = getNestedValue(this.props.data, 'catalog')
 
 		const { width, height } = this.relation.getBoundingClientRect()
 		const ratio = 100 * height / width
@@ -123,9 +115,9 @@ class CatalogView extends React.Component {
 	}
 
 	render() {
-		const { isRefetching, isMounted, mode } = this.state
+		const { isMounted, mode } = this.state
 		const { router, data: { loading, catalog } } = this.props
-		if (loading || isRefetching) { return <Loader /> }
+		if (loading) { return <Loader /> }
 		if (!catalog) { return <Error statusCode={404} /> }
 
 		const { title, images, count } = catalog

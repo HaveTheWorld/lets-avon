@@ -11,7 +11,7 @@ const CompaniesList = ({ data: { loading, companies } }) => {
 		<Section title="Админ / Кампании">
 			{loading ? <Loader /> : (
 				<Fragment>
-					<table className="table is-bordered">
+					<table className="table">
 						<thead>
 							<tr>
 								<th>Номер</th>
