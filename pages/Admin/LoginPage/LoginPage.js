@@ -33,7 +33,7 @@ const LoginPage = ({ addToast, mutate }) => {
 
 	return (
 		<Section title="Авторизация">
-			<FormWrapper tablet={6} desktop={5}>
+			<FormWrapper>
 				<LoginForm onSubmit={onSubmit} />
 			</FormWrapper>
 		</Section>

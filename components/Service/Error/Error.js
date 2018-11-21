@@ -1,6 +1,5 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import cls from 'classnames'
-import Helmet from '@/components/Layout/Helmet'
 import css from './Error.sass'
 
 const errors = {
@@ -13,13 +12,10 @@ const Error = ({ statusCode }) =>  {
 	const message = errors[statusCode] || 'Неизвестная ошибка'
 
 	return (
-		<Fragment>
-			<Helmet error />
-			<div className={css.error}>
-				<span className={cls(css.status, 'title')}>{status}</span>
-				<span className={cls(css.message, 'subtitle')}>{message}</span>
-			</div>
-		</Fragment>
+		<div className={css.error}>
+			<span className={cls(css.status, 'title')}>{status}</span>
+			<span className={cls(css.message, 'subtitle')}>{message}</span>
+		</div>
 	)
 }
 

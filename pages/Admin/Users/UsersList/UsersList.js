@@ -11,7 +11,7 @@ const UsersList = ({ data: { loading, users } }) => {
 		<Section title="Админ / Пользователи">
 			{loading ? <Loader /> : (
 				<Fragment>
-					<table className="table">
+					<table className="table is-bordered">
 						<thead>
 							<tr>
 								<th>Имя пользователя</th>

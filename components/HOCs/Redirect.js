@@ -26,8 +26,7 @@ const Redirect = ({ children, router, data, redirect, statusCode, ...props }) =>
 	if (dirtyRoute) {
 		return <Error statusCode={statusCode || 404} />
 	}
-	
-	// Push router config redirect
+
 	if (currentRoute.redirect) {
 		doRedirect(currentRoute.redirect)
 		return null

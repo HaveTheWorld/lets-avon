@@ -4,9 +4,7 @@
 	color: $blackColor
 	white-space: nowrap
 	transition: color 0.25s ease
-	&.is-active
-		cursor: default
-	&:hover, &.is-active
+	&:hover, &:global(.is-active)
 		color: $primaryColor
 		& :global(.icon)
 			color: rgba($primaryColor, 0.85)

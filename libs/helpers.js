@@ -51,7 +51,7 @@ export function deleteCookie(name) {
 	setCookie(name, '', { expires: -1 })
 }
 
-export function getNestedValue(nestedObj, path) {
+export function getValueSafely(nestedObj, path) {
 	return path.split('.').reduce((obj, key) => {
 		return (obj && obj[key] !== 'undefined') ? obj[key] : undefined
 	}, nestedObj)

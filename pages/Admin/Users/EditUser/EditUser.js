@@ -57,14 +57,14 @@ EditUser.propTypes = {
 	
 }
 
-const getOptions = ({ router }) => ({
+const getVariables = ({ router }) => ({
 	variables: { username: router.query.username },
-	fetchPolicy: 'cache-and-network'
+	fetchPolicy: 'network'
 })
 
 export default compose(
 	withRouter,
 	connect(null, { addToast }),
-	graphql(UserQuery, { options: getOptions }),
+	graphql(UserQuery, { options: getVariables }),
 	graphql(EditUserMutation)
 )(EditUser)

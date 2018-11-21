@@ -1,18 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cls from 'classnames'
 import { Link } from '@/routes'
 import Icon from '@/components/Elements/Icon'
 import css from './SideLink.sass'
 
-const SideLink = ({ to, icon, text, isActive }) => {
-	const onClick = e => {
-		isActive && e.preventDefault()
-	}
-
+const SideLink = ({ to, icon, text }) => {
 	return (
 		<Link prefetch route={to}>
-			<a className={cls(css.link, { [css.isActive]: isActive })} onClick={onClick}>
+			<a className={css.link}>
 				<Icon icon={icon} fw />
 				<span>{text}</span>
 			</a>

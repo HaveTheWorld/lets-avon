@@ -11,7 +11,7 @@ query CurrentCompanyQuery {
 			id
 			name
 			count
-			images(limit: 1) {
+			images {
 				id
 				catalogFacePath
 			}

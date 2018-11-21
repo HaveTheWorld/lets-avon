@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const FormWrapper = ({ children, tablet, desktop }) => {
+const FormWrapper = ({ children }) => {
 	return (
-		<div className="columns">
-			<div className={`column is-${tablet || 8}-tablet is-${desktop || 7}-desktop`}>
+		<div className="column">
+			<div className="column is-5-desktop is-7-tablet">
 				{children}
 			</div>
 		</div>
