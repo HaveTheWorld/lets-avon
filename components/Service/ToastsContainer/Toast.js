@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import cls from 'classnames'
+import { connect } from 'react-redux'
 import { removeToast, pauseToastTimer, resumeToastTimer } from '@/redux/ducks/toasts'
+import { Icon } from '@/components/Elements'
 import css from './Toast.sass'
-import Icon from '@/components/Elements/Icon'
 
 const Toast = (props) => {
 	const { id, type, message, removeToast, pauseToastTimer, resumeToastTimer } = props

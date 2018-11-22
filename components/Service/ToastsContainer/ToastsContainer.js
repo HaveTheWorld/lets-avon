@@ -15,7 +15,7 @@ const ToastsContainer = ({ toasts }) => {
 			<div className={css.container}>
 				<TransitionGroup component={null} exit={true} >
 					{toasts.reverse().map(toast => (
-						<CSSTransition key={toast.id} timeout={750} classNames='toast-transition'>
+						<CSSTransition key={toast.id} timeout={750} classNames={css.transition}>
 							<Toast {...toast} />
 						</CSSTransition>
 					))}
