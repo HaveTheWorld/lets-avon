@@ -5,7 +5,6 @@ import moment from 'moment'
 import siteMap from '@/maps/site'
 import DatePicker from 'react-datepicker'
 import { Icon } from '@/components/Elements'
-import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 
 moment.locale('ru')
 
