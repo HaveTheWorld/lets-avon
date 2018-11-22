@@ -3,6 +3,7 @@ const moduleImages = require('./webpack-overrides/module-images')
 const { moduleCss, moduleSass } = require('./webpack-overrides/module-styles')
 const plugins = require('./webpack-overrides/plugins')
 const resolve = require('./webpack-overrides/resolve')
+const optimization = require('./webpack-overrides/optimization')
 
 module.exports = {
 	webpack(config, { dev, isServer }) {
@@ -21,9 +22,7 @@ module.exports = {
 		]
 
 		resolve(config)
-
-		// const fs = require('fs')
-		// fs.writeFileSync(`wp-${dev ? 'dev' : 'prod'}-${config.name}.json`, JSON.stringify(config, null, '\t'))
+		optimization(config, isServer)
 
 		return config
 	}

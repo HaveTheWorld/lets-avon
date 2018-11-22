@@ -15,46 +15,39 @@ const sassResourcesLoader = {
 	}
 }
 
-exports.moduleCss = (dev, isServer) => {
-	const rule = {
-		test: /\.css$/,
-		use: [
-			getCssLoader(dev, isServer)
-		]
-	}
+exports.moduleCss = (dev, isServer) => ({
+	test: /\.css$/,
+	use: [
+		...getStyleLoader(dev, isServer),
+		getCssLoader(dev, isServer)
+	]
+})
 
-	!isServer && rule.use.unshift(ExtractCssChunksPlugin.loader)
+exports.moduleSass = (dev, isServer, modules) => ({
+	test: /\.(sass|scss)$/,
+	[modules ? 'include' : 'exclude']: modulesPaths,
+	use: [
+		...getStyleLoader(dev, isServer),
+		getCssLoader(dev, isServer, true, modules),
+		'sass-loader',
+		sassResourcesLoader
+	]
+})
 
-	dev && rule.use.unshift('extracted-loader')
-
-	return rule
+function getStyleLoader(dev, isServer) {
+	if (isServer) { return [] }
+	const loaders = dev ? ['extracted-loader'] : []
+	loaders.push(ExtractCssChunksPlugin.loader)
+	return loaders
 }
 
-exports.moduleSass = (dev, isServer, modules) => {
-	const rule = {
-		test: /\.(sass|scss)$/,
-		[modules ? 'include' : 'exclude']: modulesPaths,
-		use: [
-			getCssLoader(dev, isServer, modules),
-			'sass-loader',
-			sassResourcesLoader
-		]
-	}
-	
-	!isServer && rule.use.unshift(ExtractCssChunksPlugin.loader)
-
-	dev && rule.use.unshift('extracted-loader')
-
-	return rule
-}
-
-function getCssLoader(dev, isServer, modules = false) {
+function getCssLoader(dev, isServer, sass = false, modules = false) {
 	const cssLoader = {
 		loader: isServer ? 'css-loader/locals' : 'css-loader',
 		options: {
 			minimize: !dev,
 			sourceMap: dev,
-			importLoaders: 1
+			importLoaders: sass ? 2 : 0
 		}
 	}
 	if (modules) {

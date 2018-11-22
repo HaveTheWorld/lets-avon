@@ -15,7 +15,7 @@ module.exports = (dev, isServer) => {
 			chunkFilename: dev
 				? 'static/css/[name].chunk.css'
 				: 'static/css/[name].[contenthash:8].chunk.css',
-			// hot: dev
+			orderWarning: false
 		})
 	]
 	
