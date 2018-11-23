@@ -57,7 +57,7 @@ class Confirm extends React.Component {
 				</div>
 				<div
 					ref={ref => this.menu = ref}
-					className={cls('dropdown-menu', css.menu, 'animated', 'zoomIn')}
+					className={cls('dropdown-menu', css.menu, 'animated', 'fadeIn')}
 					onClick={this.toggle}
 				>
 					<div className={cls('dropdown-content', css.content)}>

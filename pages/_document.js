@@ -1,4 +1,5 @@
 import Document, { Head, Main, NextScript } from 'next/document'
+import { Loader } from '@/components/Elements'
 
 class MyDocument extends Document {
 
@@ -23,6 +24,7 @@ class MyDocument extends Document {
 					<script src="/static/js/nprogress.js" />
 				</Head>
 				<body>
+					<Loader initial />
 					<Main />
 					<NextScript />
 				</body>

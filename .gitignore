@@ -6,6 +6,7 @@ node_modules
 
 # misc
 .env
+todo.txt
 
 # logs
 *.log
