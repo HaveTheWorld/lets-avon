@@ -4,9 +4,10 @@ import { withRouter } from 'next/router'
 import { graphql } from 'react-apollo'
 import { CatalogQuery } from '@/apollo/gql/catalogs.gql'
 import { getNestedValue } from '@/libs/helpers'
+import { findDOMNode } from 'react-dom'
 import { Router } from '@/routes'
 import { Section, Loader } from '@/components/Elements'
-import Carousel from './Carousel'
+import ImagesSpace from './ImagesSpace'
 import NavButtons from './NavButtons'
 import Preloads from './Preloads'
 import Error from '@/components/Service/Error'
@@ -34,7 +35,10 @@ class CatalogView extends React.Component {
 			= /^\d{1,3}$/.test(page) ? 'single'
 			: /^\d{1,3}-\d{1,3}$/.test(page) ? 'double'
 			: null
-	}	
+	}
+
+	ratioBreakPoint = 65.5
+	relation
 
 	componentDidMount() {
 		this.setState({ isMounted: true })
@@ -42,7 +46,7 @@ class CatalogView extends React.Component {
 	}
 
 	componentWillUnmount() {
-		window.removeEventListener('resize', this.switchMode)
+		window.removeEventListener('resize', this.switchMode)		
 	}
 
 	componentDidUpdate(props) {
@@ -50,12 +54,10 @@ class CatalogView extends React.Component {
 	}
 
 	switchMode = () => {
-		const bothFound = [this.wrapper, this.relation].every(ref => getNestedValue(ref, 'nodeType') === 1)
-		if (!bothFound) { return }
-
-		const wrapperWidth = this.wrapper.getBoundingClientRect().width
-		const relationWidth = this.relation.getBoundingClientRect().width
-
+		if (getNestedValue(this, 'relation.nodeType') !== 1) {
+			this.relation = findDOMNode(this.relationRef)			
+		}
+		if (!getNestedValue(this, 'relation.getBoundingClientRect')) { return }
 		const { mode } = this.state
 		const { name, company, page } = this.props.router.query
 		const { count, images } = getNestedValue(this.props.data, 'catalog')
@@ -66,10 +68,10 @@ class CatalogView extends React.Component {
 		const catalogPath = `/catalogs/${company}/${name}`
 		let lastNum = +page.match(/(\d+)$/)[1]
 
-		if (mode === 'double' && wrapperWidth - relationWidth < 10) {
+		if (mode === 'double' && ratio > this.ratioBreakPoint) {
 			Router.pushRoute(`${catalogPath}/${lastNum}`)
 		}
-		if (mode === 'single' && wrapperWidth - relationWidth * 2 > 10) {
+		if (mode === 'single' && ratio <= this.ratioBreakPoint) {
 			lastNum = lastNum % 2 === 1 ? lastNum : images[lastNum] ? lastNum + 1 : 1
 			const firstNum = images[lastNum - 2] ? lastNum - 1 : count
 			Router.pushRoute(`${catalogPath}/${firstNum}-${lastNum}`)
@@ -131,17 +133,14 @@ class CatalogView extends React.Component {
 
 		return (
 			<Section title={`Каталог ${title}`} addClass={css.section}>
-				<div className={css.wrapper} ref={ref => this.wrapper = ref}>
-					<div className={css.relation} ref={ref => this.relation = ref}>
-						<Carousel
-							title={title}
-							images={images}
-							index1={index1}
-							index2={index2}
-							double={mode === 'double'}
-						/>
-					</div>
-				</div>
+				<ImagesSpace
+					ref={ref => this.relationRef = ref}
+					title={title}
+					images={images}
+					index1={index1}
+					index2={index2}
+					double={mode === 'double'}
+				/>
 				<Preloads
 					preload={isMounted}
 					url={catalogUrl}
