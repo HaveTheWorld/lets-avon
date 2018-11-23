@@ -2,7 +2,7 @@ import React from 'react'
 import initApollo from '@/apollo/init-apollo'
 import Head from 'next/head'
 import { getDataFromTree } from 'react-apollo'
-import { getValueSafely, getCookie } from '@/libs/helpers'
+import { getNestedValue, getCookie } from '@/libs/helpers'
 
 export default (App) => {
 	return class Apollo extends React.Component {
@@ -17,7 +17,7 @@ export default (App) => {
 
 			const token = process.browser
 				? getCookie('token')
-				: getValueSafely(ctx.req, 'cookies.token')
+				: getNestedValue(ctx.req, 'cookies.token')
 			// Run all GraphQL queries in the component tree
 			// and extract the resulting data
 			const apollo = initApollo({ token })

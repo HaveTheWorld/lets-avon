@@ -8,6 +8,7 @@ import { addToast } from '@/redux/ducks/toasts'
 import { Router } from '@/routes'
 import { sleep, handleMutationError } from '@/libs/helpers'
 import { Section, FormWrapper, Loader } from '@/components/Elements'
+import Error from '@/components/Service/Error'
 import EditUserForm from './EditUserForm'
 
 const EditUser = ({ addToast, mutate, data: { loading, user } }) => {
@@ -41,14 +42,15 @@ const EditUser = ({ addToast, mutate, data: { loading, user } }) => {
 			handleMutationError(error, message => addToast(message, 'danger'))
 		}
 	}
+	
+	if (loading) { return <Loader /> }
+	if (!user) { return <Error statusCode={404} /> }
 
 	return (
 		<Section title="Админ / Редактирование пользователя">
-			{(loading || !user) ? <Loader /> : (
-				<FormWrapper>
-					<EditUserForm onSubmit={onSubmit} user={user} />
-				</FormWrapper>
-			)}
+			<FormWrapper>
+				<EditUserForm onSubmit={onSubmit} user={user} />
+			</FormWrapper>
 		</Section>
 	)
 }
@@ -57,14 +59,14 @@ EditUser.propTypes = {
 	
 }
 
-const getVariables = ({ router }) => ({
+const getOptions = ({ router }) => ({
 	variables: { username: router.query.username },
-	fetchPolicy: 'network'
+	fetchPolicy: 'cache-and-network'
 })
 
 export default compose(
 	withRouter,
 	connect(null, { addToast }),
-	graphql(UserQuery, { options: getVariables }),
+	graphql(UserQuery, { options: getOptions }),
 	graphql(EditUserMutation)
 )(EditUser)

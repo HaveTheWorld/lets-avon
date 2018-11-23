@@ -36,6 +36,9 @@ class MyApp extends App {
 			Router.events.on('routeChangeComplete', () => NProgress.done())
 			Router.events.on('routeChangeError', () => NProgress.done())
 		}
+		
+		const loader = document.querySelector('#loader')
+		loader && document.body.removeChild(loader)
 	}
 
 	render () {

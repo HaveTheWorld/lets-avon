@@ -7,4 +7,16 @@
 	padding: 5px
 	overflow: hidden
 
-// toast-transition is in global styles
+.transition:global(-enter)
+	transform: translateY(-250px)
+
+.transition:global(-enter).transition:global(-enter-active)
+	transform: translateY(0px)
+	transition: transform 750ms ease
+
+.transition:global(-exit)
+	transform: translateX(0px)
+
+.transition:global(-exit).transition:global(-exit-active)
+	transform: translateX(350px)
+	transition: transform 200ms ease
