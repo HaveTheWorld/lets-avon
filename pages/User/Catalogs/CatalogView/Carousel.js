@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import cls from 'classnames'
-import css from './CatalogView.sass'
+import css from './Carousel.sass'
 
 const Carousel = ({ title, images, index1, index2, double }) => {
 	return (

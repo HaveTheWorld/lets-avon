@@ -1,5 +1,6 @@
 const moduleGraphql = require('./webpack-overrides/module-graphql')
 const moduleImages = require('./webpack-overrides/module-images')
+const moduleFonts = require('./webpack-overrides/module-fonts')
 const { moduleCss, moduleSass } = require('./webpack-overrides/module-styles')
 const plugins = require('./webpack-overrides/plugins')
 const resolve = require('./webpack-overrides/resolve')
@@ -11,6 +12,7 @@ module.exports = {
 			...config.module.rules,
 			moduleGraphql(),
 			moduleImages(config, isServer),
+			moduleFonts(config, isServer),
 			moduleCss(dev, isServer),
 			moduleSass(dev, isServer, false),
 			moduleSass(dev, isServer, true)

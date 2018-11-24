@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import css from './CatalogView.sass'
+import css from './Preloads.sass'
 
 const Preloads = ({ preload, next, prev, double, url, images }) => {
 	if (!preload) { return null }

@@ -6,10 +6,10 @@ import { CatalogQuery } from '@/apollo/gql/catalogs.gql'
 import { getNestedValue } from '@/libs/helpers'
 import { Router } from '@/routes'
 import { Section, Loader } from '@/components/Elements'
-import Carousel from './Carousel'
-import NavButtons from './NavButtons'
-import Preloads from './Preloads'
 import Error from '@/components/Service/Error'
+import Carousel from './Carousel'
+import Preloads from './Preloads'
+import NavItem from './NavItem'
 import css from './CatalogView.sass'
 
 const getOptions = ({ router }) => {
@@ -67,7 +67,7 @@ class CatalogView extends React.Component {
 		let lastNum = +page.match(/(\d+)$/)[1]
 
 		if (mode === 'double' && wrapperWidth - relationWidth < 10) {
-			Router.pushRoute(`${catalogPath}/${lastNum}`)
+			window.innerWidth < 1700 && Router.pushRoute(`${catalogPath}/${lastNum}`)
 		}
 		if (mode === 'single' && wrapperWidth - relationWidth * 2 > 10) {
 			lastNum = lastNum % 2 === 1 ? lastNum : images[lastNum] ? lastNum + 1 : 1
@@ -132,6 +132,13 @@ class CatalogView extends React.Component {
 		return (
 			<Section title={`Каталог ${title}`} addClass={css.section}>
 				<div className={css.wrapper} ref={ref => this.wrapper = ref}>
+					<NavItem
+						target="prev"
+						url={catalogUrl}
+						next={next}
+						prev={prev}
+						double={mode === 'double'}
+					/>
 					<div className={css.relation} ref={ref => this.relation = ref}>
 						<Carousel
 							title={title}
@@ -141,6 +148,13 @@ class CatalogView extends React.Component {
 							double={mode === 'double'}
 						/>
 					</div>
+					<NavItem
+						target="next"
+						url={catalogUrl}
+						next={next}
+						prev={prev}
+						double={mode === 'double'}
+					/>
 				</div>
 				<Preloads
 					preload={isMounted}
@@ -149,12 +163,6 @@ class CatalogView extends React.Component {
 					prev={prev}
 					double={mode === 'double'}
 					images={images}
-				/>
-				<NavButtons
-					url={catalogUrl}
-					next={next}
-					prev={prev}
-					double={mode === 'double'}
 				/>
 			</Section>
 		)
