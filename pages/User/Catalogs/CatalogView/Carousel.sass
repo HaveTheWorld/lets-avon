@@ -2,6 +2,7 @@
 	max-height: 97.5vh
 	border: 1px solid rgba($blackColor, 0.25)
 	box-sizing: border-box
+	cursor: zoom-in
 
 @media screen and (min-width: 1700px)
 	.image
@@ -13,3 +14,21 @@
 		border-right: none
 	&:last-child
 		border-left: none
+
+.zoom
+	position: absolute
+	top: 0
+	left: 0
+	width: 100vw
+	z-index: 9998
+	display: none
+	background: rgba($blackColor, 0.85)
+	text-align: center
+	cursor: zoom-out
+	overflow-x: scroll
+	&.is-active
+		display: block
+		animation-duration: 350ms
+
+.zoom-image
+	min-width: 850px

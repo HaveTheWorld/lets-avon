@@ -27,7 +27,8 @@ class CatalogView extends React.Component {
 		super(props)
 		this.state = {
 			isMounted: false,
-			mode: null
+			mode: null,
+			isZoomed: false
 		}
 		const { page } = props.router.query
 		this.state.mode
@@ -49,7 +50,13 @@ class CatalogView extends React.Component {
 		this.switchMode()
 	}
 
+	toggleZoom = bool => {
+		this.setState({ isZoomed: bool })
+	}
+
 	switchMode = () => {
+		if (this.state.isZoomed) { return }
+
 		const bothFound = [this.wrapper, this.relation].every(ref => getNestedValue(ref, 'nodeType') === 1)
 		if (!bothFound) { return }
 
@@ -146,6 +153,7 @@ class CatalogView extends React.Component {
 							index1={index1}
 							index2={index2}
 							double={mode === 'double'}
+							toggleZoom={this.toggleZoom}
 						/>
 					</div>
 					<NavItem
