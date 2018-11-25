@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import cls from 'classnames'
-import Portal from '@/components/HOCs/Portal'
+import { Portal } from '@/components/Elements'
 import css from './Carousel.sass'
 
 class Carousel extends React.Component {

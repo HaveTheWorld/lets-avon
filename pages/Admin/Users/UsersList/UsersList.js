@@ -8,7 +8,7 @@ import UserItem from './UserItem'
 
 const UsersList = ({ data: { loading, users } }) => {
 	return loading ? <Loader /> : (
-		<Section title="Админ / Пользователи">
+		<Section title="Админ / Пользователи" leftAlign>
 			<table className="table">
 				<thead>
 					<tr>

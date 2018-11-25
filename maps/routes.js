@@ -16,7 +16,8 @@ module.exports = {
 		asPath: '/catalogs/:company/:name/:page?',
 		filePath: 'User/Catalogs/CatalogView/CatalogView',
 		title: 'Просмотр каталога',
-		isNavbarAbsolute: true
+		isNavbarAbsolute: true,
+		disableTransition: true
 	},
 	actions: {
 		asPath: '/actions',

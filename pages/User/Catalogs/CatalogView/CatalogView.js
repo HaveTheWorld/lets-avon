@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import cls from 'classnames'
 import { withRouter } from 'next/router'
 import { graphql } from 'react-apollo'
 import { CatalogQuery } from '@/apollo/gql/catalogs.gql'
@@ -10,6 +11,7 @@ import Error from '@/components/Service/Error'
 import Carousel from './Carousel'
 import Preloads from './Preloads'
 import NavItem from './NavItem'
+import Goto from './Goto'
 import css from './CatalogView.sass'
 
 const getOptions = ({ router }) => {
@@ -137,7 +139,7 @@ class CatalogView extends React.Component {
 		if (error) { return <Error statusCode={404} /> }
 
 		return (
-			<Section title={`Каталог ${title}`} addClass={css.section}>
+			<Section title={`Каталог ${title}`} rightBlock={Goto}>				
 				<div className={css.wrapper} ref={ref => this.wrapper = ref}>
 					<NavItem
 						target="prev"
@@ -146,7 +148,10 @@ class CatalogView extends React.Component {
 						prev={prev}
 						double={mode === 'double'}
 					/>
-					<div className={css.relation} ref={ref => this.relation = ref}>
+					<div
+						className={cls(css.relation, 'animated', 'fadeIn')}
+						ref={ref => this.relation = ref}
+					>
 						<Carousel
 							title={title}
 							images={images}

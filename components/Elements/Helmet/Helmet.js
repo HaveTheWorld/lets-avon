@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import withPageData from '@/components/HOCs/withPageData'
+import withPageData from '@/components/Hocs/withPageData'
 import mapSite from '@/maps/site'
 
 const Helmet = ({ title, error }) => {

@@ -20,9 +20,9 @@
 	top: 0
 	left: 0
 	width: 100vw
-	z-index: 9998
+	z-index: $zoomCarouselZIndex
 	display: none
-	background: rgba($blackColor, 0.85)
+	background: $overlayColor
 	text-align: center
 	cursor: zoom-out
 	overflow-x: scroll
@@ -32,3 +32,5 @@
 
 .zoom-image
 	min-width: 850px
+	margin: 20px
+	box-shadow: 0 0 30px rgba(#000, 0.6)

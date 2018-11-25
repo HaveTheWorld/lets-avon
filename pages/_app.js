@@ -9,7 +9,7 @@ import { Provider } from 'react-redux'
 import initStore from '@/redux/init-store'
 
 import Router from 'next/router'
-import Redirect from '@/components/HOCs/Redirect'
+import Redirect from '@/components/Hocs/Redirect'
 import Layout from '@/components/Layout'
 
 @withApolloClient

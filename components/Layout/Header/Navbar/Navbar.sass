@@ -5,6 +5,7 @@
 	width: 100%
 	background: transparent	
 	transition: background 0.25s ease
+	z-index: $navbarZIndex
 	&:global(.is-absolute)
 		position: absolute
 	&:not(.is-home):not(.is-shown)
@@ -67,8 +68,9 @@
 		width: 320px
 		height: 100vh
 		padding: 0 10px
-		background-color: rgba($blackColor, 0.85)
+		background-color: $overlayColor
 		transition: right 0.35s ease
+		box-shadow: -2px 0 5px rgba(#000, 0.5)
 		&:global(.is-active)
 			right: 0
 		a

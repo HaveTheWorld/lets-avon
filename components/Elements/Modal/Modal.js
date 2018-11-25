@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cls from 'classnames'
-import Portal from '@/components/HOCs/Portal'
+import { Portal } from '@/components/Elements'
 import css from './Modal.sass'
 
 const Modal = ({ title, onClose, children }) => {

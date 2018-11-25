@@ -21,7 +21,7 @@ class CatalogsList extends React.Component {
 		const { loading, company } = this.props.data
 
 		return loading ? <Loader /> : (
-			<Section title="Текущие каталоги" addClass={css.section}>
+			<Section title="Текущие каталоги">
 				<CompanyInfo company={company} />
 				{
 					company &&

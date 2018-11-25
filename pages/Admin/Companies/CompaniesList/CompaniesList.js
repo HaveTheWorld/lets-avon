@@ -8,7 +8,7 @@ import CompanyItem from './CompanyItem'
 
 const CompaniesList = ({ data: { loading, companies } }) => {
 	return loading ? <Loader /> : (
-		<Section title="Админ / Кампании">
+		<Section title="Админ / Кампании" leftAlign>
 			<table className="table">
 				<thead>
 					<tr>

@@ -1,11 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cls from 'classnames'
+import css from './Section.sass'
 
-const Section = ({ children, title, addClass }) => {
+const Section = ({ children, title, leftAlign, rightBlock: RightBlock }) => {
 	return (
-		<section className={cls('section', addClass)}>
-			{title && <h2 className="subtitle is-3">{title}</h2>}
+		<section className={cls('section', css.section, { [css.leftAlign]: leftAlign })}>
+			{
+				title &&
+				<div className={cls(css.level, { [css.withRight]: RightBlock })}>
+					<h2 className={cls('subtitle', 'is-3', css.title)}>{title}</h2>
+					{RightBlock ? <RightBlock /> : <span></span>}
+				</div>
+			}
 			{children}
 		</section>
 	)

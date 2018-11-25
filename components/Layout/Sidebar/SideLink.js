@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cls from 'classnames'
 import { Link } from '@/routes'
-import Icon from '@/components/Elements/Icon'
+import { Icon } from '@/components/Elements'
 import css from './SideLink.sass'
 
 const SideLink = ({ to, icon, text, isActive }) => {
