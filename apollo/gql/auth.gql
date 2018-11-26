@@ -18,4 +18,5 @@ fragment UserDetail on User {
 	id
 	username
 	role
+	isRootAdmin
 }

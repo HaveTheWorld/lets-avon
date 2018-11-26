@@ -1,16 +1,12 @@
 import React, { Fragment } from 'react'
 import cls from 'classnames'
+import errorsMap from '@/maps/errors'
 import { Helmet } from '@/components/Elements'
 import css from './Error.sass'
 
-const errors = {
-	404: 'Страница не найдена',
-	500: 'Произошла ошибка на сервере'
-}
-
 const Error = ({ statusCode }) =>  {
 	const status = statusCode || 500
-	const message = errors[statusCode] || 'Неизвестная ошибка'
+	const message = errorsMap[statusCode] || 'Неизвестная ошибка'
 
 	return (
 		<Fragment>
