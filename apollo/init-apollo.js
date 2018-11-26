@@ -27,7 +27,10 @@ function create (initialState) {
 		ssrMode: !process.browser, // Disables forceFetch on the server (so queries are only run once)
 		link: ApolloLink.from([
 			authLink,
-			createUploadLink({ uri: 'http://localhost:3000/graphql', credentials: 'same-origin' })
+			createUploadLink({
+				uri: `${process.env.STATIC_SSR_ORIGIN}${process.env.STATIC_API_ENDPOINT}`,
+				credentials: 'same-origin'
+			})
 		]),
 		cache: new InMemoryCache().restore(initialState || {})
 	})

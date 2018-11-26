@@ -21,8 +21,9 @@ div:global(#__next)
 	flex-direction: column
 
 .transition
-	animation-duration: 350ms
 	position: relative
 	display: flex
 	flex-grow: 1
 	flex-direction: column
+	&:global(.animated)
+		animation-duration: 350ms
