@@ -6,7 +6,17 @@ const plugins = require('./webpack-overrides/plugins')
 const resolve = require('./webpack-overrides/resolve')
 const optimization = require('./webpack-overrides/optimization')
 
-module.exports = {
+const nextEnv = require('next-env')
+const dotenvLoad = require('dotenv-load')
+
+dotenvLoad()
+const withNextEnv = nextEnv({
+	staticPrefix: 'STATIC_',
+	publicPrefix: 'PUBLIC_',
+	serverPrefix: 'SERVER_'
+})
+
+module.exports = withNextEnv({
 	webpack(config, { dev, isServer }) {
 		config.module.rules = [
 			...config.module.rules,
@@ -28,4 +38,4 @@ module.exports = {
 
 		return config
 	}
-}
+})
