@@ -139,7 +139,12 @@ class CatalogView extends React.Component {
 		if (error) { return <Error statusCode={404} /> }
 
 		return (
-			<Section title={`Каталог ${title}`} rightBlock={Goto}>				
+			<Section
+				title={`Каталог ${title}`}
+				rightBlock={() => (
+					<Goto count={count} mode={mode} url={catalogUrl} />
+				)}
+			>
 				<div className={css.wrapper} ref={ref => this.wrapper = ref}>
 					<NavItem
 						target="prev"
