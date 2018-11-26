@@ -1,4 +1,5 @@
-import 'bulma/bulma.sass'
+// import 'bulma/bulma.sass'
+import '@/assets/sass/bulma.sass'
 import '@/assets/sass/main.sass'
 import '@/assets/sass/animate.sass'
 import React, { Fragment } from 'react'

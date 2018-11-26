@@ -28,7 +28,8 @@
 	overflow-x: scroll
 	&.is-active
 		display: block
-		animation-duration: 350ms
+		&:global(.animated)
+			animation-duration: 350ms
 
 .zoom-image
 	min-width: 850px
