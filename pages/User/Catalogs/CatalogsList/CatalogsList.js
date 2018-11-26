@@ -10,7 +10,8 @@ import css from './CatalogsList.sass'
 @graphql(CurrentCompanyQuery)
 class CatalogsList extends React.Component {
 	state = {
-		isMounted: false
+		isMounted: false,
+		imagesLoaded: 0
 	}
 
 	componentDidMount() {

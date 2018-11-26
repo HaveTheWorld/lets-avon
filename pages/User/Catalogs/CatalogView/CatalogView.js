@@ -153,10 +153,7 @@ class CatalogView extends React.Component {
 						prev={prev}
 						double={mode === 'double'}
 					/>
-					<div
-						className={cls(css.relation, 'animated', 'fadeIn')}
-						ref={ref => this.relation = ref}
-					>
+					<div className={cls(css.relation)} ref={ref => this.relation = ref}>
 						<Carousel
 							title={title}
 							images={images}
