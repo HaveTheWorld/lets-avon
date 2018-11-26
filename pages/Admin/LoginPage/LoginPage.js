@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { addToast } from '@/redux/ducks/toasts'
 import { Router } from '@/routes'
 import { sleep, handleMutationError } from '@/libs/helpers'
-import { Section, FormWrapper } from '@/components/Elements'
+import { Section } from '@/components/Elements'
 import LoginForm from './LoginForm'
 
 const LoginPage = ({ addToast, mutate }) => {
@@ -32,10 +32,8 @@ const LoginPage = ({ addToast, mutate }) => {
 	}
 
 	return (
-		<Section title="Авторизация">
-			<FormWrapper tablet={6} desktop={5}>
-				<LoginForm onSubmit={onSubmit} />
-			</FormWrapper>
+		<Section title="Авторизация" leftAlign>
+			<LoginForm onSubmit={onSubmit} />
 		</Section>
 	)
 }

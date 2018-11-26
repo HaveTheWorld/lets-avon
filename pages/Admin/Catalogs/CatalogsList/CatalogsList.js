@@ -8,7 +8,7 @@ import CatalogItem from './CatalogItem'
 
 const CatalogsList = ({ data: { loading, catalogs } }) => {
 	return loading ? <Loader /> : (
-		<Section title="Админ / Каталоги">
+		<Section title="Админ / Каталоги" leftAlign>
 			<table className="table">
 				<thead>
 					<tr>

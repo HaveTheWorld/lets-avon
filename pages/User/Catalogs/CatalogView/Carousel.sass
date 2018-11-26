@@ -1,0 +1,36 @@
+.image
+	max-height: 97.5vh
+	border: 1px solid rgba($blackColor, 0.25)
+	box-sizing: border-box
+	cursor: zoom-in
+
+@media screen and (min-width: 1700px)
+	.image
+		min-height: auto
+		max-width: 50%
+
+.image-double
+	&:first-child
+		border-right: none
+	&:last-child
+		border-left: none
+
+.zoom
+	position: absolute
+	top: 0
+	left: 0
+	width: 100vw
+	z-index: $zoomCarouselZIndex
+	display: none
+	background: $overlayColor
+	text-align: center
+	cursor: zoom-out
+	overflow-x: scroll
+	&.is-active
+		display: block
+		animation-duration: 350ms
+
+.zoom-image
+	min-width: 850px
+	margin: 20px
+	box-shadow: 0 0 30px rgba(#000, 0.6)

@@ -1,0 +1,21 @@
+.level
+	display: flex
+	justify-content: space-between
+	align-items: center
+	flex-wrap: wrap
+
+.with-right
+	.title
+		margin-right: 50px
+
+@media screen and (max-width: 768px)
+	.section:not(.left-align)
+		text-align: center
+		.level
+			justify-content: center
+		.with-right
+			.title
+				margin-left: 50px
+
+	.title
+		font-size: 1.5rem !important

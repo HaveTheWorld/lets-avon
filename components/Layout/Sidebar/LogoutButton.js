@@ -6,7 +6,7 @@ import { addToast } from '@/redux/ducks/toasts'
 import { graphql } from 'react-apollo'
 import { CurrentUserQuery, LogoutUserMutation } from '@/apollo/gql/auth.gql'
 import { sleep } from '@/libs/helpers'
-import Icon from '@/components/Elements/Icon'
+import { Icon } from '@/components/Elements'
 
 @connect(null, { addToast })
 @graphql(LogoutUserMutation)

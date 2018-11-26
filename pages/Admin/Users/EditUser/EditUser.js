@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { addToast } from '@/redux/ducks/toasts'
 import { Router } from '@/routes'
 import { sleep, handleMutationError } from '@/libs/helpers'
-import { Section, FormWrapper, Loader } from '@/components/Elements'
+import { Section, Loader } from '@/components/Elements'
 import Error from '@/components/Service/Error'
 import EditUserForm from './EditUserForm'
 
@@ -47,10 +47,8 @@ const EditUser = ({ addToast, mutate, data: { loading, user } }) => {
 	if (!user) { return <Error statusCode={404} /> }
 
 	return (
-		<Section title="Админ / Редактирование пользователя">
-			<FormWrapper>
-				<EditUserForm onSubmit={onSubmit} user={user} />
-			</FormWrapper>
+		<Section title="Админ / Редактирование пользователя" leftAlign>
+			<EditUserForm onSubmit={onSubmit} user={user} />
 		</Section>
 	)
 }

@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { addToast } from '@/redux/ducks/toasts'
 import { Router } from '@/routes'
 import { sleep, handleMutationError } from '@/libs/helpers'
-import { Section, FormWrapper } from '@/components/Elements'
+import { Section } from '@/components/Elements'
 import AddUserForm from './AddUserForm'
 
 const AddUser = ({ mutate, addToast/*, data: { users }*/ }) => {
@@ -37,10 +37,8 @@ const AddUser = ({ mutate, addToast/*, data: { users }*/ }) => {
 	}
 
 	return (
-		<Section title="Админ / Новый пользователь">
-			<FormWrapper>
-				<AddUserForm onSubmit={onSubmit} />
-			</FormWrapper>
+		<Section title="Админ / Новый пользователь" leftAlign>
+			<AddUserForm onSubmit={onSubmit} />
 		</Section>
 	)
 }

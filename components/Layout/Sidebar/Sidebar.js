@@ -15,7 +15,7 @@ const Sidebar = ({ router, data: { loading, currentUser } }) => {
 
 	return (
 		<aside className={css.sidebar}>
-			<Section>
+			<Section leftAlign>
 				<div className={css.menu}>
 					{Object.entries(asideMap).map(([to, { text, icon, requireRoles }]) => {
 						if (!requireRoles.includes(currentUser.role)) { return null }

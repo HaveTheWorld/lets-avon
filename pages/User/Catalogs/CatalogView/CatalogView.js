@@ -1,16 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import cls from 'classnames'
 import { withRouter } from 'next/router'
 import { graphql } from 'react-apollo'
 import { CatalogQuery } from '@/apollo/gql/catalogs.gql'
 import { getNestedValue } from '@/libs/helpers'
-import { findDOMNode } from 'react-dom'
 import { Router } from '@/routes'
 import { Section, Loader } from '@/components/Elements'
-import ImagesSpace from './ImagesSpace'
-import NavButtons from './NavButtons'
-import Preloads from './Preloads'
 import Error from '@/components/Service/Error'
+import Carousel from './Carousel'
+import Preloads from './Preloads'
+import NavItem from './NavItem'
+import Goto from './Goto'
 import css from './CatalogView.sass'
 
 const getOptions = ({ router }) => {
@@ -28,17 +29,15 @@ class CatalogView extends React.Component {
 		super(props)
 		this.state = {
 			isMounted: false,
-			mode: null
+			mode: null,
+			isZoomed: false
 		}
 		const { page } = props.router.query
 		this.state.mode
 			= /^\d{1,3}$/.test(page) ? 'single'
 			: /^\d{1,3}-\d{1,3}$/.test(page) ? 'double'
 			: null
-	}
-
-	ratioBreakPoint = 65.5
-	relation
+	}	
 
 	componentDidMount() {
 		this.setState({ isMounted: true })
@@ -46,18 +45,26 @@ class CatalogView extends React.Component {
 	}
 
 	componentWillUnmount() {
-		window.removeEventListener('resize', this.switchMode)		
+		window.removeEventListener('resize', this.switchMode)
 	}
 
 	componentDidUpdate(props) {
 		this.switchMode()
 	}
 
+	toggleZoom = bool => {
+		this.setState({ isZoomed: bool })
+	}
+
 	switchMode = () => {
-		if (getNestedValue(this, 'relation.nodeType') !== 1) {
-			this.relation = findDOMNode(this.relationRef)			
-		}
-		if (!getNestedValue(this, 'relation.getBoundingClientRect')) { return }
+		if (this.state.isZoomed) { return }
+
+		const bothFound = [this.wrapper, this.relation].every(ref => getNestedValue(ref, 'nodeType') === 1)
+		if (!bothFound) { return }
+
+		const wrapperWidth = this.wrapper.getBoundingClientRect().width
+		const relationWidth = this.relation.getBoundingClientRect().width
+
 		const { mode } = this.state
 		const { name, company, page } = this.props.router.query
 		const { count, images } = getNestedValue(this.props.data, 'catalog')
@@ -68,10 +75,10 @@ class CatalogView extends React.Component {
 		const catalogPath = `/catalogs/${company}/${name}`
 		let lastNum = +page.match(/(\d+)$/)[1]
 
-		if (mode === 'double' && ratio > this.ratioBreakPoint) {
-			Router.pushRoute(`${catalogPath}/${lastNum}`)
+		if (mode === 'double' && wrapperWidth - relationWidth < 10) {
+			window.innerWidth < 1700 && Router.pushRoute(`${catalogPath}/${lastNum}`)
 		}
-		if (mode === 'single' && ratio <= this.ratioBreakPoint) {
+		if (mode === 'single' && wrapperWidth - relationWidth * 2 > 10) {
 			lastNum = lastNum % 2 === 1 ? lastNum : images[lastNum] ? lastNum + 1 : 1
 			const firstNum = images[lastNum - 2] ? lastNum - 1 : count
 			Router.pushRoute(`${catalogPath}/${firstNum}-${lastNum}`)
@@ -132,15 +139,38 @@ class CatalogView extends React.Component {
 		if (error) { return <Error statusCode={404} /> }
 
 		return (
-			<Section title={`Каталог ${title}`} addClass={css.section}>
-				<ImagesSpace
-					ref={ref => this.relationRef = ref}
-					title={title}
-					images={images}
-					index1={index1}
-					index2={index2}
-					double={mode === 'double'}
-				/>
+			<Section
+				title={`Каталог ${title}`}
+				rightBlock={() => (
+					<Goto count={count} mode={mode} url={catalogUrl} />
+				)}
+			>
+				<div className={css.wrapper} ref={ref => this.wrapper = ref}>
+					<NavItem
+						target="prev"
+						url={catalogUrl}
+						next={next}
+						prev={prev}
+						double={mode === 'double'}
+					/>
+					<div className={cls(css.relation)} ref={ref => this.relation = ref}>
+						<Carousel
+							title={title}
+							images={images}
+							index1={index1}
+							index2={index2}
+							double={mode === 'double'}
+							toggleZoom={this.toggleZoom}
+						/>
+					</div>
+					<NavItem
+						target="next"
+						url={catalogUrl}
+						next={next}
+						prev={prev}
+						double={mode === 'double'}
+					/>
+				</div>
 				<Preloads
 					preload={isMounted}
 					url={catalogUrl}
@@ -148,12 +178,6 @@ class CatalogView extends React.Component {
 					prev={prev}
 					double={mode === 'double'}
 					images={images}
-				/>
-				<NavButtons
-					url={catalogUrl}
-					next={next}
-					prev={prev}
-					double={mode === 'double'}
 				/>
 			</Section>
 		)

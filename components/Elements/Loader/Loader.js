@@ -1,6 +1,6 @@
 import React from 'react'
 import cls from 'classnames'
-import Portal from '@/components/HOCs/Portal'
+import { Portal } from '@/components/Elements'
 import css from './Loader.sass'
 
 const Loader = ({ text = 'Загрузка', initial }) => {

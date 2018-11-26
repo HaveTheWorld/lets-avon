@@ -6,10 +6,9 @@ import { Link } from '@/routes'
 import { graphql } from 'react-apollo'
 import { CurrentUserQuery } from '@/apollo/gql/auth.gql'
 import menuMap from '@/maps/menu'
-import css from './Navbar.sass'
 import Burger from './Burger'
-import Icon from '@/components/Elements/Icon'
 import NavLink from './NavLink'
+import css from './Navbar.sass'
 
 
 @graphql(CurrentUserQuery)

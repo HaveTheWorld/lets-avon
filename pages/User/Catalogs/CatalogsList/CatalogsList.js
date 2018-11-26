@@ -10,7 +10,8 @@ import css from './CatalogsList.sass'
 @graphql(CurrentCompanyQuery)
 class CatalogsList extends React.Component {
 	state = {
-		isMounted: false
+		isMounted: false,
+		imagesLoaded: 0
 	}
 
 	componentDidMount() {
@@ -21,7 +22,7 @@ class CatalogsList extends React.Component {
 		const { loading, company } = this.props.data
 
 		return loading ? <Loader /> : (
-			<Section title="Текущие каталоги" addClass={css.section}>
+			<Section title="Текущие каталоги">
 				<CompanyInfo company={company} />
 				{
 					company &&

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import cls from 'classnames'
-import Helmet from '@/components/Layout/Helmet'
+import { Helmet } from '@/components/Elements'
 import css from './Error.sass'
 
 const errors = {

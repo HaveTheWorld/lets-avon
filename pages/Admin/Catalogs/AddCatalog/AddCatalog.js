@@ -9,7 +9,7 @@ import { CatalogsQuery, AddCatalogMutation } from '@/apollo/gql/catalogs.gql'
 import nprogress from 'nprogress'
 import { Router } from '@/routes'
 import { sleep, handleMutationError } from '@/libs/helpers'
-import { Section, FormWrapper } from '@/components/Elements'
+import { Section } from '@/components/Elements'
 import AddCatalogForm from './AddCatalogForm'
 
 nprogress.configure({
@@ -79,10 +79,8 @@ const AdminCatalogs = ({ uploadCatalogImage, addCatalog, addToast, data: { compa
 	}
 
 	return (
-		<Section title="Админ / Новый каталог">
-			<FormWrapper>
-				<AddCatalogForm onSubmit={onSubmit} />
-			</FormWrapper>
+		<Section title="Админ / Новый каталог" leftAlign>
+			<AddCatalogForm onSubmit={onSubmit} />
 		</Section>
 	)
 }

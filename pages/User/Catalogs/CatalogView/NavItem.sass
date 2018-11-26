@@ -1,0 +1,30 @@
+.nav
+	flex-grow: 1
+	display: flex
+	align-items: center
+	&.left
+		justify-content: flex-end
+	&.right
+		justify-content: flex-start
+
+.nav-item
+	position: relative
+	z-index: $navbarZIndex - 1
+
+.nav-button
+	position: absolute
+	top: -5vh
+	font-size: 10vh
+	color: $whiteColor
+	cursor: pointer
+	transition: color 0.15s ease
+	&:hover
+		color: $whiteColor
+	&.prev
+		left: 0
+		padding-right: 15px
+	&.next
+		right: 0
+		padding-left: 15px
+	& :global(.svg-inline--fa)
+		filter: drop-shadow(0 0 4px rgba(#000, 0.65))

@@ -7,7 +7,7 @@ import { graphql, compose } from 'react-apollo'
 import { CompaniesQuery, AddCompanyMutation } from '@/apollo/gql/companies.gql'
 import { Router } from '@/routes'
 import { sleep, handleMutationError } from '@/libs/helpers'
-import { Section, FormWrapper } from '@/components/Elements'
+import { Section } from '@/components/Elements'
 import AddCompanyForm from './AddCompanyForm'
 
 const AddCompany = ({ mutate, addToast }) => {
@@ -37,10 +37,8 @@ const AddCompany = ({ mutate, addToast }) => {
 	}
 
 	return (
-		<Section title="Админ / Новая кампания">
-			<FormWrapper>
-				<AddCompanyForm onSubmit={onSubmit} />
-			</FormWrapper>
+		<Section title="Админ / Новая кампания" leftAlign>
+			<AddCompanyForm onSubmit={onSubmit} />
 		</Section>
 	)
 }
